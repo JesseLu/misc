@@ -1,0 +1,100 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{graphicx}
+
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\grad}{\nabla}
+\newcommand{\dvg}{\nabla\cdot}
+\newcommand{\curl}{\nabla\times}
+\newcommand{\eps}{\epsilon}
+\newcommand{\inv}{\frac{1}}
+\newcommand{\del}{\partial}
+\newcommand{\dt}{\frac{\del}{\del t}}
+\newcommand{\BI}{\begin{itemize}}
+\newcommand{\I}{\item}
+\newcommand{\EI}{\end{itemize}}
+
+\title{The Primitive Yee Cell}
+\author{Jesse Lu, \texttt{jesselu@stanford.edu}}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{The Yee cell}
+The Yee cell\cite{yee} is simply a way of shifting the different field components of the electric and magnetic field in order to make an electromagnetic finite-differenc time-domain (FDTD) simulation stable.
+
+\begin{figure}[hbt]
+\centering\includegraphics[width=0.5\textwidth]{pyc.png}
+\caption{The primitive Yee cell. Borrowed from \url{http://tx.technion.ac.il/~graanan/Project/Theory.htm}}\label{pyc}
+\end{figure}
+
+Figure~\ref{pyc} shows the shifts to the field components used in the primitive Yee cell. Specifically, if the grid spacing in all three dimensions is 1, then the location of the six field components are
+\BI
+\I $E_x[i,j,k] \to (i+0.5,j,k)$,
+\I $E_y[i,j,k] \to (i, j+0.5,k)$,
+\I $E_z[i,j,k] \to (i, j, k+0.5)$,
+\I $H_x[i,j,k] \to (i,j+0.5,k+0.5)$,
+\I $H_y[i,j,k] \to (i+0.5,j,k+0.5)$, and
+\I $H_z[i,j,k] \to (i+0.5,j+0.5,k)$,
+\EI
+where the notation is $A[\text{index}] \to (\text{location in grid})$.
+
+Lastly, note that this scheme of offsets naturally fits the two update equations used in electromagnetic FDTD\cite{TH}, 
+\be \dt \eps E = \curl H - J, \text{ and} \ee
+\be \dt \mu H = -\curl E - M,\ee
+where $J$ and $M$ are electric and magnetic current sources, respectively.
+
+
+\section{Local grids (subgrids) of Yee cells}
+For applications where deep sub-wavelength accuracy is required, it is beneficial to have a local grid (or subgrid) with increased resolution at the point of interest. While many different subgridding techniques exist for electromagnetic FDTD schemes, the technique presented in ref.~\cite{CLC} is summarized here.
+
+\subsection{Chevalier's subgridding scheme}
+The basic idea behind Chevalier's technique\cite{CLC} is to use the $H$-fields to ``knit'' the high-resolution subgrid to the low-resolution main grid. The main advantage gained is that arbitrary non-magnetic materials can traverse the subgrid and main grid boundary.
+
+Notably, this scheme allows for arbitrary \emph{odd}-integer refinement factors. That is, the ratios of the spatial and temporal resolution between main and subgrids must be either 1:3, 1:5, 1:7, etc...
+
+Here, we describe the locations of the $E$-field components of the subgrid, relative to the main grid. We refer the reader to the original paper\cite{CLC} for the details of the subgrid $H$-field components.
+
+\subsection{Location of the subgrid electric fields}
+We will use the following notation: $E_x$, $E_y$, and $E_z$ will denote the \emph{main} grid electric field components, and $e_x$, $e_y$, and $e_z$ will denote the \emph{sub}grid electric field components.
+
+Additionally, we assume that for the main grid $\Delta x, \Delta y, \Delta z = 1$. 
+This implies that for the subgrid $\Delta x, \Delta y, \Delta z = \inv{\kappa}$, where $\kappa$ is the \emph{refinement factor} and must be a positive, odd integer greater than 1.
+
+Now suppose that we want to place a subgrid over the cube with corners $(i_0, j_0, k_0)$ and $(i_1, j_1, k_1)$, then the subgrid $e$-field components will be located in the following way:
+\BI
+\I $e_x$ at 
+    $(  i_0 - 0.5 + \frac{(n_i + 0.5)}{\kappa}, 
+        j_0 - 0.5 + \frac{n_j}{\kappa}, 
+        k_0 - 0.5 + \frac{n_k}{\kappa})$, 
+\I $e_y$ at 
+    $(  i_0 - 0.5 + \frac{n_i}{\kappa}, 
+        j_0 - 0.5 + \frac{(n_j + 0.5)}{\kappa}, 
+        k_0 - 0.5 + \frac{n_k}{\kappa})$, 
+\I $e_z$ at 
+    $(  i_0 - 0.5 + \frac{n_i}{\kappa}, 
+        j_0 - 0.5 + \frac{n_j}{\kappa}, 
+        k_0 - 0.5 + \frac{(n_k + 0.5)}{\kappa})$,
+\EI
+where
+\BI
+\I $n_i = 1, 2, \ldots, \kappa (i_1 - i_0 + 1)$,
+\I $n_j = 1, 2, \ldots, \kappa (j_1 - j_0 + 1)$,
+\I $n_k = 1, 2, \ldots, \kappa (k_1 - k_0 + 1)$.
+\EI
+
+\subsection{Other fields}
+Additional fields are often required to produce an FDTD simulation. If the values of $\epsilon$ are needed on the subgrid (as they often are), these should be co-located with their respective $e$-field components.
+Note that this is also how the components of $\epsilon$ are placed on the main grid.
+
+Secondary fields needed to simulate dispersive materials should also be co-located with their respective $e$-field component.
+
+\begin{thebibliography}{99}
+\bibitem{yee} K. Yee, ``Numerical solution of initial boundary value problems involving maxwell's equations in isotropic media,'' IEEE Trans. Antennas Propag. Mag. \textbf{14}, 302-307 (1966).
+\bibitem{TH} Allen Taflove, Susan C. Hagness, \emph{Computational Electrodynamics, Third Edition} (Artech House, 2005). 
+\bibitem{CLC} Chevalier, Luebbers, and Cable, ``FDTD Local Grid with Material Traverse,'' IEEE Trans. Antennas and Propag. Mag., \textbf{45}, (1997).
+\end{thebibliography}
+\end{document}
