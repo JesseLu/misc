@@ -1,15 +1,26 @@
-\newcommand{\BEAS}{\begin{eqnarray*}}
-\newcommand{\EEAS}{\end{eqnarray*}}
+\usepackage{amsmath}
+% \usepackage[retainorgcmds]{IEEEtrantools}
+
+\newcommand{\BEAS}{\begin{eqnarray}}
+\newcommand{\EEAS}{\end{eqnarray}}
+% \newcommand{\BEAS}{\begin{IEEEeqnarray}{rl}}
+% \newcommand{\EEAS}{\end{IEEEeqnarray}}
+\newcommand{\BEA}{\begin{align}}
+\newcommand{\EEA}{\end{align}}
 \newcommand{\BEQ}{\begin{equation}}
 \newcommand{\EEQ}{\end{equation}}
 \newcommand{\BIT}{\begin{itemize}}
 \newcommand{\EIT}{\end{itemize}}
 
 \newcommand{\eg}{{\it e.g.}}
-\newcommand{\ie}{{\it i.e.}}
+\newcommand{\ie}{{\it i.e.} }
 
+\newcommand{\minimize}{\mbox{minimize}}
+\newcommand{\pf}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\subjectto}{\mbox{subject to}}
 \newcommand{\ones}{\mathbf 1}
 \newcommand{\reals}{{\mbox{\bf R}}}
+\newcommand{\comps}{{\mbox{\bf C}}}
 \newcommand{\integers}{{\mbox{\bf Z}}}
 \newcommand{\symm}{{\mbox{\bf S}}}  % symmetric matrices
 

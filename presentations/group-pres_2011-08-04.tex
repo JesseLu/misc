@@ -1,5 +1,6 @@
 \documentclass[dvips,landscape]{foils}
 \usepackage{graphicx,psfrag}
+\usepackage{amsmath}
 \input defs.tex
 \raggedright
 \special{! TeXDict begin /landplus90{true}store end }
@@ -17,7 +18,8 @@
 \maketitle
 
 \BIT \itemsep -1pt
-\item definition
+\item adjoint method
+\item objective-first approach
 \item field setup: boundary-value problem
 \item structure setup: level-set formulation
 \item example
@@ -26,204 +28,42 @@
 
 \vfill
 
-\oursection{Definition}
-Si\BIT
-\item
-random vector $\tilde g \in \reals^n$ is a
-\textbf{noisy unbiased subgradient} for
-$f:\reals^n \rightarrow \reals$ at $x$ if for all $z$
-\[
-f(z) \geq f(x)+ (\Expect \tilde g)^T(z-x)
-\]
-\ie, $g = \Expect \tilde g \in \partial f(x)$
-
-\item
-same as $\tilde g= g+v$, where $g \in \partial f(x)$, $\Expect v=0$
-
-\item $v$ can represent error in
-computing $g$, measurement noise, Monte Carlo sampling error, etc.
+\oursection{Adjoint method}
+Typical formulation of a structural optimization problem:
+\BEAS
+\mbox{decrease} & f(x) \\
+\subjectto & g(x,p) = 0
+\EEAS
+\BIT
+\item $f(x): \comps^n \to \reals$ is the \emph{design objective}
+\item $g(x,p): \comps^n \times \reals^n \to \comps^n$ is the \emph{governing physics}
+\item $x \in \comps^n$ is the field 
+\item $p \in \reals^n$ is the structure 
+\item $x$ is the dependant variable, $p$ is the independant variable
 \EIT
 \newpage
 
 \BIT
-\item
-if $x$ is also random, $\tilde g$ is a noisy unbiased
-subgradient of $f$ at $x$ if
-\[
-\forall z \qquad f(z) \geq f(x)+ \Expect (\tilde g|x)^T(z-x)
-\]
-holds almost surely
-
-\item
-same as $\Expect (\tilde g|x) \in \partial f(x)$ (a.s.)
+\item problem is non-convex, so optimize using first-order approximations
+\BEAS
+f(x_0+dx) \approx f(x_0) + \pf{f}{x} dx \\
+g(x_0+dx,p_0+dp) \approx g(x_0,p_0) + \pf{g}{x} dx + \pf{g}{p} dp
+\EEAS
+\item assuming that $g(x_0,p_0) = 0$, the equality constraint is satisfied via
+    \BEQ  dx = -\left(\pf{g}{x}\right)^{-1} \pf{g}{p} dp \EEQ
 \EIT
-
-\oursection{Stochastic subgradient method}
-
-\textbf{stochastic subgradient method} is
-the subgradient method, using noisy unbiased subgradients
-
-\[
-x^{(k+1)} = x^{(k)} - \alpha_k \tilde g^{(k)}
-\]
-\BIT\itemsep -3pt
-\item $x^{(k)}$ is $k$th iterate
-\item $\tilde g^{(k)}$ is any noisy unbiased
-subgradient of (convex) $f$ at  $x^{(k)}$, \ie,
-\[
-\Expect (\tilde g^{(k)}|x^{(k)})  = g^{(k)} \in \partial f(x^{(k)})
-\]
-\item $\alpha_k>0$ is the $k$th step size
-\item define $f_\mathrm{best}^{(k)} = \min \{
-f(x^{(1)}), \ldots, f(x^{(k)}) \}$
-\EIT
-
-\oursection{Assumptions}
+\newpage
 
 \BIT
-\item $f^\star = \inf_x f(x) > -\infty$, with $f(x^\star)=f^\star$
-\item $\Expect \|g^{(k)} \|_2^2 \leq G^2$ for all $k$
-\item $\Expect \|x^{(1)}-x^\star \|_2^2 \leq R^2$ (can take $=$ here)
-\item step sizes are square-summable but not summable
-\[
-\alpha_k \geq 0, \qquad
-\sum_{k=1}^\infty \alpha^2_k = \|\alpha\|_2^2< \infty,  \qquad
-\sum_{k=1}^\infty \alpha_k = \infty
-\]
+\item now we can decrease $f(x_0+dx)$,
+    \begin{align} 
+    f(x_0+dx) & \approx f(x_0) + \pf{f}{x} dx \\
+        & \approx f(x_0) - \pf{f}{x} \left(\pf{g}{x}\right)^{-1} \pf{g}{p} dp \\
+        & \approx f(x_0) + \pf{f}{p} dp
+    \end{align}
+    by choosing $dp$ in the direction of $dp \propto -\pf{f}{p}$
+\item computing $\pf{f}{p}$ can be reduced to a single field solve (\ie solving $g(x,p)$ for $x$ given $p$)
 \EIT
 
-\vfill
 
-these assumptions are stronger than needed, just to simplify proofs
-
-\oursection{Convergence results}
-
-\BIT
-\item convergence in expectation:
-\[
-\lim _{k\rightarrow \infty} \Expect f^{(k)}_\mathrm{best} = f^\star
-\]
-
-\item convergence in probability: for any $\epsilon> 0$,
-\[
-\lim _{k\rightarrow \infty} \Prob (f^{(k)}_\mathrm{best} \geq f^\star+
-\epsilon) = 0
-\]
-\item almost sure convergence:
-\[
-\lim _{k\rightarrow \infty} f^{(k)}_\mathrm{best} = f^\star
-\]
-a.s. (we won't show this)
-\EIT
-
-\oursection{Convergence proof}
-
-\textbf{key quantity:}
-\emph{expected Euclidean distance squared to the optimal set}
-
-\vskip 3ex
-
-$\Expect \left. \left( \|x^{(k+1)} - x^\star\|_2^2 \;\right|\; x^{(k)}
-\right) = \Expect \left. \left( \|x^{(k)}-\alpha_k \tilde
-g^{(k)}-x^\star\|_2^2 \;\right|\; x^{(k)} \right)$
-\begin{eqnarray*}
-\quad & = & \|x^{(k)}-x^\star\|_2^2
--2\alpha_k \Expect \left. \left( \tilde g^{(k)T}
-(x^{(k)}-x^\star) \,\right|\, x^{(k)} \right)
-        +\alpha_k^2\Expect \left. \left( \|\tilde g^{(k)} \|_2^2
-\,\right|\, x^{(k)} \right) \\
-&=& \|x^{(k)}-x^\star\|_2^2
-        -2\alpha_k \Expect (\tilde g^{(k)} | x^{(k)})^T
-(x^{(k)}-x^\star)
-        +\alpha_k^2\Expect \left. \left( \|\tilde g^{(k)} \|_2^2
-\;\right|\; x^{(k)} \right) \\
-&\leq& \|x^{(k)}-x^\star\|_2^2
-        -2\alpha_k (f(x^{(k)})-f^\star)+
-\alpha_k^2 \Expect \left. \left( \|\tilde g^{(k)}\|_2^2
-\;\right|\; x^{(k)} \right)
-\end{eqnarray*}
-using $\Expect (\tilde g^{(k)}|x^{(k)}) \in \partial f(x^{(k)})$
-
-\newpage
-now take expectation:
-\[
-\Expect \|x^{(k+1)}-x^\star\|_2^2
-\leq \Expect \|x^{(k)}-x^\star\|_2^2
-            -2\alpha_k (\Expect f(x^{(k)})-f^\star)
-            +\alpha_k^2 \Expect \|\tilde g^{(k)}\|_2^2
-\]
-
-apply recursively, and use $\Expect \|\tilde g^{(k)}\|_2^2 \leq G^2$
-to get
-\[
-\Expect \|x^{(k+1)}-x^\star\|_2^2 \leq
-\Expect\|x^{(1)}-x^\star\|_2^2
--2\sum_{i=1}^k \alpha_i  (\Expect f(x^{(i)})-f^\star)
-+G^2\sum_{i=1}^k \alpha_i^2
-\]
-
-%using $\Expect \|x^{(k+1)}-x^\star\|_2^2 \geq 0$,
-%$\Expect \|x^{(1)}-x^\star\|_2^2 \leq R^2$,
-%and $\sum_{i=1}^k \alpha_i^2 \leq \|\alpha \|_2^2$
-%hence we have
-%\[
-%2 \sum_{i=1}^k \alpha_i  (\Expect f(x^{(i)})-f^\star)
-%\leq R^2 +G^2\| \alpha \|_2^2
-%\]
-and so
-\[
-\min_{i=1,\ldots,k} (\Expect f(x^{(i)})-f^\star) \leq
-\frac{R^2+G^2\|\alpha\|_2^2}{2 \sum_{i=1}^k \alpha_i}
-\]
-
-\newpage
-\BIT
-\item we conclude
-$ \min_{i=1,\ldots,k} \Expect f(x^{(i)}) \rightarrow f^\star $
-
-\item
-Jensen's inequality and concavity of minimum yields
-\[
-\Expect f^{(k)}_\mathrm{best}
-= \Expect \min_{i=1,\ldots,k} f(x^{(i)})
-\leq \min_{i=1,\ldots,k} \Expect f(x^{(i)})
-\]
-so $\Expect f^{(k)}_\mathrm{best} \rightarrow f^\star$
-(convergence in expectation)
-
-\item
-Markov's inequality: for $\epsilon>0$
-\[
-\Prob(f^{(k)}_\mathrm{best} - f^\star \geq \epsilon) \leq
-\frac{\Expect (f^{(k)}_\mathrm{best} - f^\star)}{\epsilon}
-\]
-righthand side goes to zero, so we get convergence in probability
-\EIT
-
-\oursection{Example}
-piecewise linear minimization
-
-\[
-\begin{array}{ll} \mbox{minimize} &
-f(x) = \max_{i=1,\ldots,m} (a_i^T x + b_i)
-\end{array}
-\]
-
-we use stochastic subgradient algorithm with noisy subgradient
-\[
-\tilde g^{(k)} = g^{(k)} + v^{(k)}, \qquad
-g^{(k)}\in \partial f(x^{(k)})
-\]
-$v^{(k)}$ independent zero mean random variables
-
-\vfill
-
-\newpage
-problem instance: $n=20$ variables, $m=100$ terms,
-$f^\star \approx 1.1$, $\alpha_k=1/k$
-
-$v^{(k)}$ are IID $\mathcal N(0,0.5I)$ ($25\%$ noise
-since $ \|g \| \approx 4.5$)
-
-\vfill
 \end{document}
