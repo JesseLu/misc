@@ -1,0 +1,32 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage,graphicx,psfrag,url}
+\usepackage[small,bf]{caption}
+\usepackage{verbatim}
+\setlength{\captionmargin}{30pt}
+
+\input defs.tex
+\newcommand{\sign}{\mathop{\bf sign}}
+
+\title{Including figures and code}
+
+\begin{document}
+\maketitle
+
+\section{Including figures}
+To include a figure in your document, you can use \textbf{includegraphics}.
+The example below includes a figure from figures directory.   
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{figures/problem.eps}
+\end{center}
+\caption{Problem figure.}
+\label{f-problem}
+\end{figure}
+
+\section{Including code}
+To include code, you can use \textbf{verbatiminput}.  (This command requires
+the \textbf{verbatim} package. The following command includes code from 
+matlab directory. 
+\verbatiminput{matlab/problem.m}
+
+\end{document}
