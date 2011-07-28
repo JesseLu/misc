@@ -1,6 +1,7 @@
-\documentclass[dvips,landscape]{foils}
-\usepackage{graphicx,psfrag}
+\documentclass[landscape]{foils}
+\usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{hyperref}
 \input defs.tex
 \raggedright
 \special{! TeXDict begin /landplus90{true}store end }
@@ -20,8 +21,8 @@
 \BIT \itemsep -1pt
 \item adjoint method
 \item objective-first approach
-\item field setup: boundary-value problem
-\item structure setup: level-set formulation
+\item field constraints: boundary-value problem
+\item structure constraints: level-set formulation
 \item example
 \item ongoing and future work
 \EIT
@@ -75,7 +76,7 @@ Characteristics of the adjoint method:
 \EIT
 
 \oursection{Objective-first approach}
-Ob-1 means that we prioritize the design objective over satisfying physics
+ob-1 means that we prioritize the design objective over satisfying physics
 \begin{align}
 \mbox{decrease} & \quad \|g(x,p)\|^2 \\
 \subjectto & \quad f(x) = 0
@@ -102,7 +103,7 @@ f(x_0+dx) & \approx f(x_0) + \pf{f}{x} dx
 \newpage
 
 
-Ob-1 requires only matrix multiplication (and trivial matrix solve)
+ob-1 requires only matrix multiplication (and trivial matrix solve)
 \BIT
 \item For 3D structures, most field solvers are based on (often $>10,000$) matrix multiplies
 \item this means that is may be possible to solve larger design problems in the same amount of time needed for a field solve
@@ -110,11 +111,58 @@ Ob-1 requires only matrix multiplication (and trivial matrix solve)
 
 \vspace{3ex}
 
-Ob-1 should be less dependent on starting guess 
+ob-1 should be less dependent on starting guess 
 \BIT
 \item some previous problems (using a similar approach) did not depend at all on initial structure
 \item such a formulation may result in fewer local minima to stall on
 \EIT
 \vfill
+
+\oursection{Field constraints: boundary-value problem}
+\BIT
+\item formulation of the constraint is the key issue
+\item a sufficient constraint for most devices is to match field values along the border
+\BEQ f(x) = \| x^\text{border} - x^\text{border}_0 \|^2 = 0 \EEQ
+\item physics residual is the error in Maxwell's sourceless, time-harmonic equations
+\BEQ \|g(x,p)\|^2 = \|A(p)x\|^2 = 
+    \left\| \left[ 
+    \begin{array}{cc}
+        \nabla\times & i\mu\omega \\
+        -ip\omega & \nabla\times
+    \end{array}
+    \right] 
+    \left[ \begin{array}{c} x_E \\ x_H \end{array} \right] 
+    \right\|^2
+\EEQ
+\item here $p$ determines the values of $\epsilon$
+\EIT
+\newpage
+
+\BIT
+\item to experiment, we fix $p = p_0$, which convexifies the ob-1 formulation
+\begin{align}
+\mbox{minimize} & \quad \|A(p_0)x\|^2 \\
+\subjectto & \quad x^\text{border} = x^\text{border}_0
+\end{align}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{../figures/waveguide.png}
+\end{center}
+\item here, $p_0$ is a waveguide structure, and the design objective is a perfect waveguide mode at input and output
+\EIT
+\newpage
+
+\BIT
+\item for general structures and design objectives, this results in a ``soft physics'' field solve
+\begin{center}
+\includegraphics[width=0.8\textwidth]{../figures/crossbar.png}
+\end{center}
+\item matlab files available at \url{https://github.com/JesseLu/wave-tools}, look for \texttt{em\_bval\_2dte/demo.m}
+\EIT
+\newpage
+
+\BIT
+\item
+\EIT
+
 
 \end{document}
