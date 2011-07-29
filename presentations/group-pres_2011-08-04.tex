@@ -21,8 +21,8 @@
 \BIT \itemsep -1pt
 \item adjoint method
 \item objective-first approach
-\item field constraints: boundary-value problem
-\item structure constraints: level-set formulation
+\item field constraint: boundary-value problem
+\item structure constraint: level-set formulation
 \item example
 \item ongoing and future work
 \EIT
@@ -97,7 +97,7 @@ f(x_0+dx) & \approx f(x_0) + \pf{f}{x} dx
 \item decrease $r$ by choosing $dp \propto -\pf{r}{p}$
 \item decrease $r$ by choosing 
     $dx \propto - (I - P_{f_x}) \pf{r}{x}$
-\item $P_{f_x}$ is the projector onto the vector space defined by $\pf{f}{x}$, this satisfies the equality constraint
+\item $P_{f_x}$ is the projector onto the vector space defined by $\pf{f}{x}$, used to satisfy equality constraint
 \item computing $P_{f_x}$ requires solving for $\left(\pf{f}{x}^T \pf{f}{x}\right)^{-1}$, but this is often \emph{trivial}
 \EIT
 \newpage
@@ -118,11 +118,13 @@ ob-1 should be less dependent on starting guess
 \EIT
 \vfill
 
-\oursection{Field constraints: boundary-value problem}
+\oursection{Field constraint: boundary-value problem}
 \BIT
-\item formulation of the constraint is the key issue
-\item a sufficient constraint for most devices is to match field values along the border
-\BEQ f(x) = \| x^\text{border} - x^\text{border}_0 \|^2 = 0 \EEQ
+\item our problem is
+\begin{align}
+\mbox{decrease} & \quad \|g(x,p)\|^2 \\
+\subjectto & \quad f(x) = 0
+\end{align}
 \item physics residual is the error in Maxwell's sourceless, time-harmonic equations
 \BEQ \|g(x,p)\|^2 = \|A(p)x\|^2 = 
     \left\| \left[ 
@@ -139,29 +141,50 @@ ob-1 should be less dependent on starting guess
 \newpage
 
 \BIT
+\item key issue: formulation of the constraint
+\item a sufficient constraint for most devices is to match field values along the border
+\BEQ f(x) = \| x^\text{border} - x^\text{border}_0 \|^2 = 0 \EEQ
+\begin{center}
+\includegraphics[width=0.8\textwidth]{../figures/waveguide.jpg}
+\end{center}
+\item here, $p$ is a waveguide structure, and the design objective is a perfect waveguide mode at input and output
+\EIT
+\newpage
+
+\BIT
 \item to experiment, we fix $p = p_0$, which convexifies the ob-1 formulation
 \begin{align}
 \mbox{minimize} & \quad \|A(p_0)x\|^2 \\
 \subjectto & \quad x^\text{border} = x^\text{border}_0
 \end{align}
+\item for general structures and design objectives, this results in a ``soft physics'' field solve
 \begin{center}
-\includegraphics[width=0.8\textwidth]{../figures/waveguide.png}
+\includegraphics[width=0.8\textwidth]{../figures/crossbar.jpg}
 \end{center}
-\item here, $p_0$ is a waveguide structure, and the design objective is a perfect waveguide mode at input and output
 \EIT
 \newpage
 
 \BIT
-\item for general structures and design objectives, this results in a ``soft physics'' field solve
+\item prioritizing the design objective means we allow physics to be ``bent''
+\item here, reflected waves from the junction magically disappear as they approach the border
 \begin{center}
-\includegraphics[width=0.8\textwidth]{../figures/crossbar.png}
+\includegraphics[width=0.8\textwidth]{../figures/mode_converter.jpg}
 \end{center}
 \item matlab files available at \url{https://github.com/JesseLu/wave-tools}, look for \texttt{em\_bval\_2dte/demo.m}
 \EIT
-\newpage
 
+\oursection{Structure constraint: level-set method}
 \BIT
-\item
+\item a more detailed statement of our problem is
+\begin{align}
+\mbox{decrease} & \quad \|g(x,p)\|^2 \\
+\subjectto & \quad f(x) = 0 \\
+        & \quad p \in \{p_\text{can be made}\}
+\end{align}
+\item need to constrain possible $p$ to what can be fabricated
+\item for nanophotonics this means two distinct materials only
+\item using $p \in \{\epsilon_1, \epsilon_2\}$ defeats the purpose of using linear approximations
+\item need to \emph{incrementally} update the topology of the structure
 \EIT
 
 
