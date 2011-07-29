@@ -179,13 +179,32 @@ ob-1 should be less dependent on starting guess
 \begin{align}
 \mbox{decrease} & \quad \|g(x,p)\|^2 \\
 \subjectto & \quad f(x) = 0 \\
-        & \quad p \in \{p_\text{can be made}\}
+        & \quad p \in \{p_\text{manufacturable}\}
 \end{align}
 \item need to constrain possible $p$ to what can be fabricated
 \item for nanophotonics this means two distinct materials only
-\item using $p \in \{\epsilon_1, \epsilon_2\}$ defeats the purpose of using linear approximations
-\item need to \emph{incrementally} update the topology of the structure
+\item however, using $p \in \{\epsilon_1, \epsilon_2\}$ defeats the purpose of using linear approximations
 \EIT
+\newpage
+
+\BIT
+\item need ability to \emph{incrementally} update the topology of the structure
+\item describe $p$ using the \emph{interface} between the two materials
+\item implicitly describe boundary using the \emph{level-set} of a higher-dimensional function
+\begin{center}
+\includegraphics[width=0.45\textwidth]{../figures/level-set.jpg} \\
+source: \url{http://en.wikipedia.org/wiki/Level_set_method}
+\end{center}
+\EIT
+\newpage
+
+\BIT
+\item ...
+\begin{center}
+\includegraphics[width=0.8\textwidth]{../figures/structure-progression.jpg} \\
+\end{center}
+\EIT
+
 
 
 \end{document}
