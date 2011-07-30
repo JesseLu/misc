@@ -183,14 +183,14 @@ ob-1 should be less dependent on starting guess
 \end{align}
 \item need to constrain possible $p$ to what can be fabricated
 \item for nanophotonics this means two distinct materials only
-\item however, using $p \in \{\epsilon_1, \epsilon_2\}$ defeats the purpose of using linear approximations
+\item however, using $p_i \in \{\epsilon_1, \epsilon_2\}$ defeats the purpose of using linear approximations
 \EIT
 \newpage
 
 \BIT
 \item need ability to \emph{incrementally} update the topology of the structure
 \item describe $p$ using the \emph{interface} between the two materials
-\item implicitly describe boundary using the \emph{level-set} of a higher-dimensional function
+\item implicitly describe boundary using the \emph{level-set} of higher-dimensional function $\phi$
 \begin{center}
 \includegraphics[width=0.45\textwidth]{../figures/level-set.jpg} \\
 source: \url{http://en.wikipedia.org/wiki/Level_set_method}
@@ -199,11 +199,32 @@ source: \url{http://en.wikipedia.org/wiki/Level_set_method}
 \newpage
 
 \BIT
-\item ...
-\begin{center}
-\includegraphics[width=0.8\textwidth]{../figures/structure-progression.jpg} \\
-\end{center}
+\item updating $p(\phi)$ proceeds in the following way:
+\BEQ
+\phi^n \xrightarrow{\text{interp.}} \gamma 
+    \xrightarrow{\text{ratio}} p
+    \xrightarrow{-\pf{r}{p}} dp
+    \xrightarrow{\left(\pf{p}{\phi}\right)^{-1}dp} d\phi
+    \xrightarrow{\phi + d\phi} \phi^{n+1}
+\EEQ
+\item $\phi = 0$ defines the boundary between materials
+\item boundary points $\gamma$ are linearly interpolated between adjacent $\phi$ of opposite sign
+\item $p_i$ approximated by ratio of each material within cell
+\item solve least-squares problem $\pf{p}{\phi} d\phi = dp$ to obtain $d\phi$
 \EIT
+\newpage
+
+\BIT
+\item to test, hold $x$ constant, and update $p$ 
+\begin{center}
+\includegraphics[width=0.6\textwidth]{../figures/structure-progression.jpg} \\
+\end{center}
+\item code at \url{https://github.com/JesseLu/level-set} (\texttt{demo.m})
+\item new code at \url{https://github.com/JesseLu/lset-opt}
+\EIT
+
+\oursection{Example}
+put it all together and let'er rip!
 
 
 
