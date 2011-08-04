@@ -145,7 +145,7 @@ ob-1 should be less dependent on starting guess
 \item a sufficient constraint for most devices is to match field values along the border
 \BEQ f(x) = \| x^\text{border} - x^\text{border}_0 \|^2 = 0 \EEQ
 \begin{center}
-\includegraphics[width=0.8\textwidth]{../figures/waveguide.jpg}
+\includegraphics[width=0.8\textwidth]{figures/waveguide.jpg}
 \end{center}
 \item here, $p$ is a waveguide structure, and the design objective is a perfect waveguide mode at input and output
 \EIT
@@ -159,7 +159,7 @@ ob-1 should be less dependent on starting guess
 \end{align}
 \item for general structures and design objectives, this results in a ``soft physics'' field solve
 \begin{center}
-\includegraphics[width=0.8\textwidth]{../figures/crossbar.jpg}
+\includegraphics[width=0.8\textwidth]{figures/crossbar.jpg}
 \end{center}
 \EIT
 \newpage
@@ -168,7 +168,7 @@ ob-1 should be less dependent on starting guess
 \item prioritizing the design objective means we allow physics to be ``bent''
 \item here, reflected waves from the junction magically disappear as they approach the border
 \begin{center}
-\includegraphics[width=0.8\textwidth]{../figures/mode_converter.jpg}
+\includegraphics[width=0.8\textwidth]{figures/mode_converter.jpg}
 \end{center}
 \item matlab files available at \url{https://github.com/JesseLu/wave-tools}, look for \texttt{em\_bval\_2dte/demo.m}
 \EIT
@@ -192,7 +192,7 @@ ob-1 should be less dependent on starting guess
 \item describe $p$ using the \emph{interface} between the two materials
 \item implicitly describe boundary using the \emph{level-set} of higher-dimensional function $\phi$
 \begin{center}
-\includegraphics[width=0.45\textwidth]{../figures/level-set.jpg} \\
+\includegraphics[width=0.45\textwidth]{figures/level-set.jpg} \\
 source: public domain
 \end{center}
 \EIT
@@ -217,15 +217,53 @@ source: public domain
 \BIT
 \item to test, hold $x$ constant, and update $p$ (iterations 0, 5, 10, 15, 20 shown)
 \begin{center}
-\includegraphics[width=0.5\textwidth]{../figures/structure-progression.jpg} \\
+\includegraphics[width=0.5\textwidth]{figures/structure-progression.jpg} 
 \end{center}
 \item code at \url{https://github.com/JesseLu/level-set} (\texttt{demo\_indep\_levelset.m})
 \item new code at \url{https://github.com/JesseLu/lset-opt}
 \EIT
 
 \oursection{Example}
-put it all together and let'er rip!
+\BIT
+\item alternately update $x$, then $p$
+\begin{align}
+\mbox{decrease} & \quad \|g(x,p)\|^2 \\
+\subjectto & \quad f(x) = 0 \\
+        & \quad p \in \{p_\text{level-set}\}
+\end{align}
+\item test on a simple, 2D example on a $30\times30$ grid
+\item 10,000 iterations take 3 minutes in Matlab
+\item code at \url{https://github.com/JesseLu/objective-first}, look for \texttt{demo\_alternate\_levelset.m}
+\EIT
+\newpage
 
 
+\begin{center}
+\includegraphics[width=0.7\textwidth]{figures/example.jpg} 
+\end{center}
+\BIT
+\item initial checker-board structure allows for islands to be formed
+\EIT
+\newpage
+
+\BIT
+\item verify by inserting into larger grid with absorbing boundaries, and excite waveguide mode
+\begin{center}
+\includegraphics[width=0.7\textwidth]{figures/verify.jpg} 
+\end{center}
+\item slightly more power transmitted than reflected, a lot of room for improvement
+\EIT
+
+\oursection{Ongoing and future work}
+\BIT
+\item currently working out some kinks in level-set code which cause the structure update to ``jam''
+\EIT
+
+Next milestones:
+\BIT
+\item successful waveguide converters in 2D
+\item multi-wavelength waveguide devices in 2D
+\item implement in 3D, on multi-GPU system
+\EIT
 
 \end{document}
