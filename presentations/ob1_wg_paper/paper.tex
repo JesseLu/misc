@@ -87,10 +87,10 @@ The resulting algorithm
     \item does not require a good initial design,
     \item is computationally fast (no simulations required),
     \item generates couplers between seemingly arbitrary waveguide modes, and
-    \item generates these couplers in a very small footprint. 
+    \item can generate these couplers in a very small footprint. 
 \end{itemize}
 
-\section{Design Method}
+\section{Methods}
 % What is objective-first optimization?
 \subsection{Objective-first optimization}
 The typical approach to designing physical structures can be formulated 
@@ -115,28 +115,174 @@ In contrast, the objective-first formulation is
     \text{subject to} & \quad f(x) = 0, \label{eq:ob1:con}
     \end{align}
     \end{subequations}
-where $\|g(x,p)\|^2$ is called the \emph{physics residual}.
- 
-Such a formulation naturally lends itself to a local derivative strategy where 
-    $x$ is a dependent variable and 
-    $p$ is an independent variable. 
-The optimization then proceeds by 
-    \begin{enumerate}
-    \item computing $x$, given $p$, via $g(x,p) = 0$
-        (i.e. finding $x$ via simulation),
-    \item updating $p$ to decrease $f(x)$ (details in appendix).
-    \end{enumerate}
+    where $\|g(x,p)\|^2$ is the \emph{physics residual}.
+We term this formulation ``objective-first''
+    because the design objective is prioritized even above satisfying physics;
+    specifically, we force our design to always exhibit the desired performance
+    ($f(x) = 0$).
 
-Not, satisfying the design objective actually has a higher priority than 
-    satisfying the underlying physical equation,
-    hence the name ``objective-first''.
+The differences between Eqs.~\ref{eq:adj} and \ref{eq:ob1} are
+\begin{enumerate}
+    \item in Eq.~\ref{eq:adj}, we attempt to decrease the design objective 
+            (Eq.~\ref{eq:adj:obj}), 
+        while in Eq.~\ref{eq:ob1}, the design objective is kept at zero 
+            (Eq.~\ref{eq:ob1:con}); 
+    \item in Eq.~\ref{eq:adj}, we always satisfy the underlying physics 
+            (Eq.~\ref{eq:adj:con}),
+        while in Eq.~\ref{eq:ob1}, physics is not satisfied,
+            since the physics residual is generally non-zero
+            (Eq.~\ref{eq:ob1:obj}).
+\end{enumerate}
 
-Notice that the design objective is now a constraint (Eq.~\ref{eq:ob1:con}),
-and that the quantity to be decreased is now the 
-% What are the numerical advantages?
+Thus, the fundamental innovation in the objective-first approach
+    is simply this:
+    we forcibly impose the desired performance on the device at the expense of
+    breaking the physics which govern its operation.
+
+% What are the implications of the objective-first approach?
+\subsection{Numerical implications of the objective-first approach}
+
+While the differences between the design strategies presented in 
+    Eqs.~\ref{eq:adj} and \ref{eq:ob1} are straightforward,
+    the numerical implications are more subtle.
+
+The first practical implication of the objective-first approach 
+    is that the number of independent variables is increased to include
+    both $x$ and $p$.
+In Eq.~\ref{eq:adj}, the constraint that physics must be satisfied, $g(x,p)=0$, 
+    essentially forces $x$ to be dependent on $p$,
+    since the choice of $p$ implicitly determines the value of $x$
+    (there is generally a one-to-one mapping from $p$ to $x$).
+In contrast, Eq.~\ref{eq:ob1} allows both $x$ and $p$ to vary independently,
+    because the constraint, $f(x)=0$, is only a function of $x$.
+
+Secondly, the amount of computation needed to enforce the constraint is
+    drastically reduced in the objective-first approach.
+This is because Eq.~\ref{eq:adj} requires a full solution of $g(x,p)=0$
+    (i.e. a full simulation of the structure, $p$) to compute $x$.
+In contrast, the constraint $f(x)=0$ in Eq.~\ref{eq:ob1} 
+    can often be enforced so quickly (as shown below) that 
+    future implementations may even produce designs in the same amount of time
+    as required to simulate them!
+
+Lastly, the objective-first approach eliminates the need for even a reasonable
+    initial design.
+Generally, methods based on Eq.~\ref{eq:adj} require an initial design which
+    already provides some limited functionality
+    (e.g. a coupler which already transfers 
+    a non-zero amount of power to the desired output mode).
+In constrast, methods based on Eq.~\ref{eq:ob1} perform just as well
+    when started from a completely non-functional design 
+    (e.g. a coupler which transfers no power into the desired output mode).
+
+Together, these implications result in a method
+    that is computationally fast (since it does not require simulation), and
+    that can be applied to non-intuitive problems 
+    where a functional starting design is not readily available.
+
 % How is it applied to waveguide coupler design?
+\subsection{Objective-first approach to waveguide coupler design}
+We apply an objective-first approach to the problem of designing 
+    two-dimensional nanophotonic waveguide couplers.
+
+We choose to work in the two-dimensional transverse electric mode,
+    which only couples $E_x$, $E_y$, and $H_z$ ($E_z, H_x, H_y = 0$),
+    since it is most relevant for on-chip devices\cite{}.
+We choose to use $H_z$ as the field variable, 
+    and $\epsilon^{-1}$ (inverse of the permittivity) 
+    as the structure variable.
+This results in the following representation of the physics residual, 
+    based on the time-harmonic electromagnetic wave equation without sources;
+    \begin{equation}
+    \|g(H_z, \epsilon^{-1})\|^2 = 
+    \| \nabla \times \epsilon^{-1} \nabla \times H_z - \mu \omega^2 H_z \|^2,
+    \end{equation}
+    where $\omega$ is the angular frequency,
+    and $\mu$ is the permeability of free-space.
+
+For the design objective, we choose a boundary element formulation
+    based on $H_z^\text{perfect}$,
+    where $H_z^\text{perfect}$ is constructed 
+    of the exact input and output waveguide modes at the input and output ports,
+    repectively, and of zero-amplitude fields at the unused ports.
+The actual form of the design objective is simply, 
+    \begin{equation}
+    f(H_z) = \begin{bmatrix}
+        H_z - H_z^\text{perfect} \\
+        \frac{\partial H_z}{\partial n} - 
+            \frac{\partial H_z^\text{perfect}}{\partial n}
+        \end{bmatrix}_\text{boundary}
+        = 0.
+    \end{equation}
+That is to say,
+    the values of $H_z$ and $\partial H_z / \partial n$
+    (spatial derivative along normal direction)
+    along the device boundary are forced to be 
+    those of a device with perfect performance 
+    (100\% coupling efficiency).
+     
+Such a design objective is both extremely simple and widely adaptable 
+    to the design of nearly every kind of nanophotonic device.
+Most importantly, it is trivial to enforce,
+    requiring only that we overwrite boundary field values.
+Although there is ambiguity in the relative phases of 
+    the input and output boundary fields,
+    our experience suggests that successful designs are possible for 
+    arbitrary choice of relative phase.
+
+Finally, in any objective-first approach,
+    the physics residual is never guaranteed to decrease to zero.
+Thus, it is entirely possible to never achieve 
+    a physically realizable field, $H_z$.
+In such cases, which are the norm rather than the exception,
+    we find that a relatively small residual usually leads to
+    fairly good, although imperfect, device performance.
+    
+\subsection{Numerical methods used to solve the objective-first design problem}
+The design problem is now
+    \begin{subequations}\label{eq:act}
+    \begin{align} 
+    \text{decrease} & \quad  
+        \| \nabla \times \epsilon^{-1} \nabla \times H_z - \mu \omega^2 H_z \|^2
+        \label{eq:act:obj} \\ 
+    \text{subject to} & \quad 
+        \left. H_z - H_z^\text{perfect} \right| _\text{boundary} = 0 
+        \label{eq:act:con1} \\
+        & \quad 
+        \left. \frac{\partial H_z}{\partial n} - 
+        \frac{\partial H_z^\text{perfect}}{\partial n} \right|_\text{boundary}
+            = 0. \label{eq:act:con2}
+    \end{align}
+    \end{subequations}
+
+This problem contains many local minima (it is non-convex\cite{});
+    however, when either the field ($H_z$) or the structure ($\epsilon^{-1}$)
+    variable is considered separately Eq.~\ref{eq:act} has only one minimum
+    (it is convex), and can be easily solved using standard methods.
+We employ such an alternating directions strategy,
+    where both $H_z$ and $\epsilon^{-1}$ are solved independently.
+This process is extremely inefficient,
+    but is employed because the underlying numerical methods
+    do not require any tuning.
+We expect considerable improvements in computational efficiency
+    when more sophisticated algorithms are applied,
+    especially those which can update $H_z$ and $\epsilon^{-1}$ independently.
+    
+Lastly, we limit the allowable values of $\epsilon$ to be between
+    the permittivity of vacuum and of silicon,
+    \begin{equation}
+    \epsilon_0 \le \epsilon \le \epsilon_\text{silicon}.
+    \end{equation}
+A completely binary structure would be preferred,
+    $\epsilon = \{\epsilon_0, \epsilon_\text{silicon}\}$,
+    and will be pursued in a future work.
+That said, the final designs presented here 
+    all have significant portions which are already binary.
 
 
+\section{Results}
+The method described above is applied to 
+    the design of three different waveguide couplers.
 % 
 % \section{Method}
 % The algorithm operates by calculating the boundary electromagnetic fields
