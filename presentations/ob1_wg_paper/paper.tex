@@ -285,6 +285,19 @@ The method described above is applied to
     the design of three different waveguide couplers
     as shown in Figs.~\ref{fig:fiber}, \ref{fig:mode} and \ref{fig:aircore}.
 
+% For all designs mention
+% fast - 20 minutes
+All results were obtained in 20 minutes on a single-core personal computer
+% subwavelength? all use only 1-4 square vacuum wavelengths
+% high performance
+
+% Special mention (arbitrariness)
+% breaking symmetry for figs 2, and 3
+% fig 3 is not even index guided
+
+% Starting point given just by e = 9
+% Mention thresholding efficiencies.
+
 
 
 
@@ -292,10 +305,11 @@ The method described above is applied to
 % Design time
 % Size of the device
 % Frequency
-\begin{figure}[htbp]
+\begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{fig/fiber} 
-    \caption{Waveguide coupler for a wide, low-index waveguide. 
+    \includegraphics[width=\textwidth]{quickfig/fiber} 
+    \caption{Waveguide coupler for a wide, low-index 
+        ($\epsilon=2.25$) waveguide. 
         The dielectric structure of the coupler and surrounding input and
         output waveguides is shown on the left, while the simulation
         validating our results is shown on the right.
@@ -307,9 +321,9 @@ The method described above is applied to
         Computation time was 20 minutes on a personal computer.}
     \label{fig:fiber}
 \end{figure}
-\begin{figure}[htbp]
+\begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{fig/mode-conv} 
+    \includegraphics[width=\textwidth]{quickfig/mode-conv} 
     \caption{Coupler that converts the fundamental waveguide mode to the
         second-order waveguide mode.
         This problem is quite difficult since the two modes are of 
@@ -318,13 +332,13 @@ The method described above is applied to
         However, our method produces a device 
         (which has the same dimensions and vacuum wavelength as Fig. 1) 
         which achieves a coupling efficiency of $95.5\%$. 
-        Computation time was extended to 50 minutes to improve efficiency.
+        Computation time was 20 minutes on a personal computer. (movie?)
         }
     \label{fig:mode}
     \end{figure}
-\begin{figure}[htbp]
+\begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{fig/air-core}
+    \includegraphics[width=\textwidth]{quickfig/air-core}
     \caption{Coupler to an air-core mode.
         Here, not only are the modes of opposite symmetry,
         but the output waveguide operates on a fundamentally different
@@ -334,7 +348,7 @@ The method described above is applied to
         versatility of our method.
         The vacuum wavelength is 25 grid points, 
         while the device footprint is still $36 \times 66$ grid points.
-        Computation time was 20 minutes.
+        Computation time was 20 minutes on a personal computer.
         }
         \label{fig:aircore}
 \end{figure}
