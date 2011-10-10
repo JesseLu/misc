@@ -5,7 +5,7 @@
 
 
 \begin{document}
-\title{Automated Design of Nanophotonic Waveguide Couplers}
+\title{Objective-First Design of Nanophotonic Waveguide Couplers}
 \author{Jesse Lu and Jelena Vu\v{c}kovi\'{c}}
 \address{Stanford University, Stanford, California, USA.}
 \email{jesselu@stanford.edu}
@@ -14,7 +14,7 @@
 \begin{abstract}
 We introduce an ``objective-first'' approach to the design of
     nanophotonic waveguide couplers.
-We show that our method is
+Our method is
     computationally fast (20 minutes), 
     requires no trial-and-error,
     does not require a good starting design,
@@ -22,12 +22,54 @@ We show that our method is
     and generates devices with high coupling efficiencies (typically 95\%)
     and small footprints (1-4 square vacuum wavelengths).
 \end{abstract}
-% \ocis{230.7370, 130.3990.}
+\ocis{230.7370, 130.3990.}
 
-% \begin{thebibliography}{99}
-% \bibitem{lipson} Almeida et al, Optics Letters \textbf{28}, 1302-1304 (2003).
-% \end{thebibliography}
-% Importance of problem.
+\begin{thebibliography}{99}
+\bibitem{fibergrating} Y. Tang, Z. Wang, L. Wosinski, U. Westergren, and S. He,
+    ``Highly efficient nonuniform grating coupler for silicon-on-insulator 
+    nanophotonic circuits,''
+    Opt. Lett. \textbf{35}, 1290-1292 (2010)
+\bibitem{ridge}  K. K. Lee, D. R. Lim, L.C. Kimerling, J. Shin, and F. Cerrina, 
+    ``Fabrication of ultralow-loss Si/SiO2 waveguides by roughness reduction,''
+    Opt. Lett. \textbf{26}, 1888-1890 (2001)
+\bibitem{pcslow} Y. A. Vlasov, M. O'Boyle, H. F. Hamann, and S. J. McNab,
+    ``Active control of slow light on a chip with photonic crystal waveguides,''
+    Nature \textbf{438}, 65-69 (2005)
+\bibitem{slotfocus} M. Lipson, 
+    ``Guiding, Modulating, and Emitting Light on 
+    Silicon-Challenges and Opportunities,'' 
+    J. Lightwave Technol. \textbf{23}, 4222-4238 (2005) 
+\bibitem{active} J. Van Campenhout, P. Rojo Romeo, P. Regreny, C. Seassal, 
+    D. Van Thourhout, S. Verstuyft, L. Di Cioccio, J.-M. Fedeli, 
+    C. Lagahe, and R. Baets, 
+    ``Electrically pumped InP-based microdisk lasers integrated with a 
+    nanophotonic silicon-on-insulator waveguide circuit,'' 
+    Opt. Express \textbf{15}, 6744-6749 (2007) 
+\bibitem{metallic} L. Tang, S. E. Kocabas, S. Latif, A. K. Okyay, 
+    D. S. Ly-Gagnon, K. C. Saraswat and D. A. B. Miller, 
+    ``Nanometre-Scale Germanium Photodetector Enhanced by a 
+    Near-Infrared Dipole Antenna,'' 
+    Nature Photonics \textbf{2}, 226 – 229 (2008) 
+\bibitem{fwadia} V. R. Almeida, R. R. Panepucci, and M. Lipson, 
+    ``Nanotaper for compact mode conversion,'' 
+    Opt. Lett. \textbf{28}, 1302-1304 (2003) 
+\bibitem{wwadia} S. G. Johnson, P. Bienstman,  M. A. Skorobogatiy, 
+    M. Ibanescu1, E. Lidorikis, and J. D. Joannopoulos,
+    ``Adiabatic theorem and continuous coupled-mode theory for 
+    efficient taper transitions in photonic crystals,''
+    Phys. Rev. E \textbf{66}, 066608 (2002)
+\bibitem{deriv} F. Wang, J. S. Jensen, O. Sigmund, 
+    ``Robust topology optimization of photonic crystal waveguides with 
+    tailored dispersion properties.'' 
+    J. Opt. Soc. Am. B \textbf{28}, 387-397 (2011)
+\bibitem{boydbook} S. Boyd, and L. Vandenberghe, 
+    \emph{Convex Optimization} 
+    (Cambridge University Press, 2004)
+\bibitem{prevwork} J. Lu, S. Boyd, and J. Vuckovic, 
+    ``Inverse design of a three-dimensional nanophotonic resonator,''
+    Opt. Express \textbf{19}, 10563-10570 (2011) 
+\bibitem{code} \url{www.github.com/JesseLu/objective-first}
+\end{thebibliography}
 
 \section{Motivation}
 
@@ -39,17 +81,18 @@ Optical mode conversion,
 Efficient conversion between waveguides modes
     is critical in the many cases, including:
     \begin{enumerate}
-        \item Coupling to and from optical fiber\cite{}, 
+        \item Coupling to and from optical fiber\cite{fibergrating}, 
         to communicate with the outside world.
     \item Coupling between various nanophotonic waveguides, 
         since different waveguides are best suited for different applications.
-        For example, ridge waveguides seem ideal for low-loss transport\cite{},
+        For example, ridge waveguides seem ideal for 
+            low-loss transport\cite{ridge},
             but other waveguides, 
             such as photonic crystal waveguides or slot waveguides,
-            may be better suited for slow-light\cite{} 
-            or energy-focusing devices\cite{}.
-    \item Coupling between different materials such as
-       passive, active\cite{}, and non-linear\cite{} materials. 
+            may be better suited for slow-light\cite{pcslow} 
+            or energy-focusing devices\cite{slotfocus}.
+    \item Coupling between different materials systems such as
+       passive, active\cite{active}, and metallic\cite{metallic} devices. 
     \end{enumerate}
 Although efficient waveguide coupling is essential in any nanophotonic system,
     practical methods to design couplers have not yet been developed.
@@ -59,25 +102,23 @@ Although efficient waveguide coupling is essential in any nanophotonic system,
 % Brute force
 Of the design strategies currently available,
     brute-force parameter search is the most often employed 
-    to-date because of its sheer simplicity\cite{}.
-Although it may be suitable for tuning existing designs\cite{},
+    because of its sheer simplicity.
+Although it may be suitable for tuning existing designs,
     the parameter space for most practical devices is simply too large
     for such a strategy to be tractable.
 
 % Adiabatic mode conversion (large devices, symmetry breaking)
 Adiabatic mode conversion strategies have been succesful
-    for certain fiber-waveguide\cite{} and waveguide-waveguide\cite{} couplers,
-    even if the resulting devices require large footprints.
+    for certain fiber-waveguide\cite{fwadia} and 
+    waveguide-waveguide\cite{wwadia} couplers,
+    even if the resulting devices often require large footprints.
 However, adiabatic approaches cannot be used in many important cases 
-    where the mode structure is more complex, such as
-    coupling from ridge to some photonic crystal waveguides\cite{},
-    or where the geometry of the problem is non-trivial, such as
-    coupling in the out-of-plane direction, or
+    such as coupling in the out-of-plane direction, or
     coupling between modes of opposite symmetry.
 
 % Local optimization
 On the other hand, optimization methods based on local topological derivatives 
-    seem very promising\cite{}
+    seem very promising\cite{deriv}
     in that they are both much faster than brute-force methods and
     more adaptable than adiabatic strategies.
 However, these methods still carry a significant computational burden 
@@ -94,10 +135,10 @@ In contrast, our method
     \item does not require a good initial design,
     \item is computationally fast (no simulations required),
     \item generates couplers between seemingly arbitrary waveguide modes, and
-    \item can generate these couplers in a very small footprint. 
+    \item can generate these couplers within a very small footprint. 
 \end{itemize}
 We outline the general design strategy,
-    as well as how it is applied to nanophotonic design, in the section below.
+    as well as how it is applied to coupler design, in the section below.
 
 \section{Methods}
 % What is objective-first optimization?
@@ -132,15 +173,11 @@ We term this formulation ``objective-first''
 
 The differences between Eqs.~\ref{eq:adj} and \ref{eq:ob1} are:
 \begin{enumerate}
-    \item in Eq.~\ref{eq:adj}, we attempt to decrease the design objective 
-            (Eq.~\ref{eq:adj:obj}), 
-        while in Eq.~\ref{eq:ob1}, the design objective is kept at zero 
-            (Eq.~\ref{eq:ob1:con}); 
-    \item in Eq.~\ref{eq:adj}, we always satisfy the underlying physics 
-            (Eq.~\ref{eq:adj:con}),
-        while in Eq.~\ref{eq:ob1}, physics is not satisfied,
-            since the physics residual is generally non-zero
-            (Eq.~\ref{eq:ob1:obj}).
+    \item in Eq.~\ref{eq:adj:obj}, we attempt to decrease the design objective,
+        while in Eq.~\ref{eq:ob1:con}, the design objective is kept at zero;
+    \item in Eq.~\ref{eq:adj:con}, we always satisfy the underlying physics,
+        while in Eq.~\ref{eq:ob1:obj}, physics is not satisfied,
+            since the physics residual is generally non-zero.
 \end{enumerate}
 
 Thus, the fundamental innovation in the objective-first approach
@@ -158,7 +195,8 @@ While the differences between the design strategies presented in
 The first practical implication of the objective-first approach 
     is that the number of independent variables is increased to include
     both $x$ and $p$.
-In Eq.~\ref{eq:adj}, the constraint that physics must be satisfied, $g(x,p)=0$, 
+This occurs because in Eq.~\ref{eq:adj}, 
+    the constraint that physics must be satisfied, $g(x,p)=0$, 
     essentially forces $x$ to be a dependentent variable,
     since the choice of $p$ implicitly determines the value of $x$
     (there is generally a one-to-one mapping from $p$ to $x$).
@@ -170,9 +208,7 @@ Secondly, the amount of computation needed to enforce the constraint is
 This is because Eq.~\ref{eq:adj} requires a full solution of $g(x,p)=0$
     (i.e. a full simulation of the structure, $p$) to compute $x$.
 In contrast, the constraint $f(x)=0$ in Eq.~\ref{eq:ob1} 
-    can often be enforced so quickly (as shown below) that 
-    future implementations may even produce designs in the same amount of time
-    as required to simulate them!
+    can often be enforced with a trivial amount of computation (as shown below).
 
 Lastly, the objective-first approach eliminates the need for even a reasonable
     initial design.
@@ -180,23 +216,18 @@ Generally, methods based on Eq.~\ref{eq:adj} require an initial design which
     already provides some limited functionality
     (e.g. a coupler which already transfers 
     a non-zero amount of power to the desired output mode).
-In constrast, methods based on Eq.~\ref{eq:ob1} perform just as well
+In constrast, out method, based on Eq.~\ref{eq:ob1}, performs just as well
     when started from a completely non-functional design 
     (e.g. a coupler which transfers no power into the desired output mode).
 
-In conclusion, an objective-first approach results in a method 
-    that is computationally fast (since it does not require simulation), and
-    that can be applied to non-intuitive problems 
-    where a functional starting design is not readily available.
-
 % How is it applied to waveguide coupler design?
 \subsection{Objective-first approach to waveguide coupler design}
-We now apply an objective-first approach to the problem of designing 
+We now apply the objective-first approach to the problem of designing 
     two-dimensional nanophotonic waveguide couplers.
 
 We choose to work in the two-dimensional transverse electric mode,
     which only couples $E_x$, $E_y$, and $H_z$ ($E_z, H_x, H_y = 0$),
-    since it is most relevant for on-chip devices\cite{}.
+    since it is most relevant for on-chip devices.
 We choose to use $H_z$ as the field variable, 
     and $\epsilon^{-1}$ (inverse of the permittivity) 
     as the structure variable.
@@ -239,8 +270,8 @@ Although there is ambiguity in the relative phases of
     our experience suggests that successful designs are possible for 
     arbitrary choice of relative phase.
 
-Finally, in any objective-first approach,
-    the physics residual is never guaranteed to decrease to zero.
+Finally, as in any method vase on an objective-first approach,
+    the physics residual is not guaranteed to decrease to zero.
 Thus, it is entirely possible to never achieve 
     a physically realizable field, $H_z$.
 In such cases, which are the norm rather than the exception,
@@ -255,25 +286,25 @@ The design problem is now
         \| \nabla \times \epsilon^{-1} \nabla \times H_z - \mu \omega^2 H_z \|^2
         \label{eq:act:obj} \\ 
     \text{subject to} & \quad 
-        \left. H_z - H_z^\text{perfect} \right| _\text{boundary} = 0 
-        \label{eq:act:con1} \\
-        & \quad 
-        \left. \frac{\partial H_z}{\partial n} - 
-        \frac{\partial H_z^\text{perfect}}{\partial n} \right|_\text{boundary}
-            = 0. \label{eq:act:con2}
+        \begin{bmatrix}
+        H_z - H_z^\text{perfect} \\
+        \frac{\partial H_z}{\partial n} - 
+            \frac{\partial H_z^\text{perfect}}{\partial n}
+        \end{bmatrix}_\text{boundary}
+        = 0.
     \end{align}
     \end{subequations}
 
-This problem contains many local minima (it is non-convex\cite{});
+This problem contains many local minima (it is non-convex\cite{boydbook});
     however, when either the field ($H_z$) or the structure ($\epsilon^{-1}$)
     variable is considered separately Eq.~\ref{eq:act} has only one minimum
     (it is convex), and can be easily solved using standard methods
-    such as employed in our previous work\cite{}.
+    such as employed in our previous work\cite{prevwork}.
 We employ such an alternating directions strategy,
     where both $H_z$ and $\epsilon^{-1}$ are solved independently.
 This process is extremely inefficient,
     but is employed because the underlying numerical methods
-    do not require any tuning.
+    do not need to be tuned by the user.
 We expect considerable improvements in computational efficiency
     when more sophisticated algorithms are applied,
     especially those which can update $H_z$ and $\epsilon^{-1}$ independently.
@@ -340,14 +371,16 @@ Note also that the output waveguide in Fig.~\ref{fig:aircore}
     \centering
     \includegraphics[width=\textwidth]{quickfig/mode-conv} 
     \caption{Coupler that converts the fundamental waveguide mode to the
-        second-order waveguide mode.
+        second-order waveguide mode
+        (a movie of the design progress is included as a
+        supplementary material).
         This problem is quite difficult since the two modes are of 
         opposite symmetry.
         For example, adiabatic approaches cannot be applied to this case.
         However, our method produces a device 
         (which has the same dimensions and vacuum wavelength as Fig. 1) 
-        which achieves a coupling efficiency of $95.5\%$. 
-        Computation time was 20 minutes on a personal computer. (movie?)
+        with a coupling efficiency of $95.5\%$. 
+        Computation time was 20 minutes on a personal computer.
         }
     \label{fig:mode}
     \end{figure}
@@ -357,7 +390,7 @@ Note also that the output waveguide in Fig.~\ref{fig:aircore}
     \caption{Coupler to an air-core mode.
         Here, not only are the modes of opposite symmetry,
         but the output waveguide operates on a fundamentally different
-        principle (guided by Bragg reflection) than the input waveguide 
+        principle (distributed reflection) than the input waveguide 
         (index guided).
         The device still achieves an efficiency of $83.3\%$, demonstrating the
         versatility of our method.
@@ -368,21 +401,10 @@ Note also that the output waveguide in Fig.~\ref{fig:aircore}
         \label{fig:aircore}
 \end{figure}
 
-% \section{Conclusion}
-% We introduce an objective-first approach to structure design,
-%     and apply it to the design of nanophotonic waveguide couplers.
-% We show that our method is
-%     computationally fast,
-%     generates high-efficiency devices with compact footprints,
-%     does not require a good starting design, and
-%     can be applied to arbitrary waveguide modes.
-% 
-% 
-
-
 This work has been supported in part by the 
     AFOSR MURI for Complex and Robust On-chip Nanophotonics 
     (Dr. Gernot Pomrenke), grant number FA9550-09-1-0704.
+The Matlab code used is available online\cite{code}.
 
 \end{document}
 
