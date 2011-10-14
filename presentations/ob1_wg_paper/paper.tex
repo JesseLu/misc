@@ -15,9 +15,9 @@
 We introduce an ``objective-first'' approach to the design of
     nanophotonic waveguide couplers.
 Our method is
-    computationally fast (20 minutes), 
+    computationally fast (20 minutes on a single-core personal computer), 
     requires no trial-and-error,
-    does not require a good starting design,
+    does not require guessing a good starting design,
     can be applied to arbitrary waveguide modes,
     and generates devices with high coupling efficiencies (typically 95\%)
     and small footprints (1-4 square vacuum wavelengths).
@@ -90,7 +90,8 @@ Efficient conversion between waveguides modes
             but other waveguides, 
             such as photonic crystal waveguides or slot waveguides,
             may be better suited for slow-light\cite{pcslow} 
-            or energy-focusing devices\cite{slotfocus}.
+            or nonlinear optical devices based on 
+            localized field intensities\cite{slotfocus}.
     \item Coupling between different materials systems such as
        passive, active\cite{active}, and metallic\cite{metallic} devices. 
     \end{enumerate}
@@ -174,16 +175,18 @@ We term this formulation ``objective-first''
 The differences between Eqs.~\ref{eq:adj} and \ref{eq:ob1} are:
 \begin{enumerate}
     \item in Eq.~\ref{eq:adj:obj}, we attempt to decrease the design objective,
-        while in Eq.~\ref{eq:ob1:con}, the design objective is kept at zero;
+        while in Eq.~\ref{eq:ob1:con}, the design objective is kept at zero
+        (i.e. we force the optimization to satisfy the design objective);
     \item in Eq.~\ref{eq:adj:con}, we always satisfy the underlying physics,
-        while in Eq.~\ref{eq:ob1:obj}, physics is not satisfied,
-            since the physics residual is generally non-zero.
+        while in Eq.~\ref{eq:ob1:obj}, physics is not necessarily satisfied,
+            since the physics residual is generally non-zero
+            (although the optimization is directed at minimizing this residual).
 \end{enumerate}
 
 Thus, the fundamental innovation in the objective-first approach
     is simply this:
     we forcibly impose the desired performance on the device at the expense of
-    breaking the physics which govern its operation.
+    not perfectly satisfying the physical equation which governs its operation.
 
 % What are the implications of the objective-first approach?
 \subsection{Numerical implications of the objective-first approach}
@@ -197,14 +200,14 @@ The first practical implication of the objective-first approach
     both $x$ and $p$.
 This occurs because in Eq.~\ref{eq:adj}, 
     the constraint that physics must be satisfied, $g(x,p)=0$, 
-    essentially forces $x$ to be a dependentent variable,
+    essentially forces $x$ to be a dependent variable,
     since the choice of $p$ implicitly determines the value of $x$
     (there is generally a one-to-one mapping from $p$ to $x$).
 In contrast, Eq.~\ref{eq:ob1} allows both $x$ and $p$ to vary independently,
     because the constraint, $f(x)=0$, is only a function of $x$.
 
 Secondly, the amount of computation needed to enforce the constraint is
-    drastically reduced in the objective-first approach.
+    drastically reduced in our objective-first approach.
 This is because Eq.~\ref{eq:adj} requires a full solution of $g(x,p)=0$
     (i.e. a full simulation of the structure, $p$) to compute $x$.
 In contrast, the constraint $f(x)=0$ in Eq.~\ref{eq:ob1} 
@@ -228,24 +231,42 @@ We now apply the objective-first approach to the problem of designing
 We choose to work in the two-dimensional transverse electric mode,
     which only couples $E_x$, $E_y$, and $H_z$ ($E_z, H_x, H_y = 0$),
     since it is most relevant for on-chip devices.
-We choose to use $H_z$ as the field variable, 
+We choose to use $H_z$ as the field variable ($x$ in Eq.~\ref{eq:ob1}), 
     and $\epsilon^{-1}$ (inverse of the permittivity) 
-    as the structure variable.
+    as the structure variable $p$.
 This results in the following representation of the physics residual, 
     based on the time-harmonic electromagnetic wave equation without sources;
     \begin{equation}
     \|g(H_z, \epsilon^{-1})\|^2 = 
-    \| \nabla \times \epsilon^{-1} \nabla \times H_z - \mu \omega^2 H_z \|^2,
+    \| \nabla \times \epsilon^{-1} \nabla \times H_z - \mu_0 \omega^2 H_z \|^2,
     \end{equation}
     where $\omega$ is the angular frequency,
-    and $\mu$ is the permeability of free-space.
+    and $\mu_0$ is the permeability of free-space.
 
-For the design objective, we choose a boundary element formulation
+For the design objective, we choose a boundary-value formulation
     based on $H_z^\text{perfect}$,
     where $H_z^\text{perfect}$ is constructed 
-    of the exact input and output waveguide modes at the input and output ports,
-    repectively, and of zero-amplitude fields at the unused ports.
-The actual form of the design objective is simply, 
+    of the exact input and output waveguide modes at the input and output ports
+    of the optimization region (where the coupler will be placed),
+    repectively, and of zero-amplitude fields at the unused ports,
+    as illustrated in Fig.~\ref{fig:intro}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{quickfig/intro} 
+    \caption{Boundary-value formulation of the design objective.
+        The values of $H_z^\text{perfect}$, 
+            defined along the dashed box surrounding the design area
+            (coupling structure), 
+            are shown in orange (color online).
+        The values of $H_z^\text{perfect}$ along the top and bottom edges
+            of the dashed box are set to zero.
+        In this schematic, the fundamental and second-order waveguide modes
+            have been chosen as the input and output modes respectively.}
+    \label{fig:intro}
+\end{figure}
+
+The mathematical form of the design objective is simply, 
     \begin{equation}
     f(H_z) = \begin{bmatrix}
         H_z - H_z^\text{perfect} \\
@@ -270,7 +291,7 @@ Although there is ambiguity in the relative phases of
     our experience suggests that successful designs are possible for 
     arbitrary choice of relative phase.
 
-Finally, as in any method vase on an objective-first approach,
+Finally, as in any method based on an objective-first approach,
     the physics residual is not guaranteed to decrease to zero.
 Thus, it is entirely possible to never achieve 
     a physically realizable field, $H_z$.
@@ -283,8 +304,8 @@ The design problem is now
     \begin{subequations}\label{eq:act}
     \begin{align} 
     \text{decrease} & \quad  
-        \| \nabla \times \epsilon^{-1} \nabla \times H_z - \mu \omega^2 H_z \|^2
-        \label{eq:act:obj} \\ 
+        \| \nabla \times \epsilon^{-1} \nabla \times H_z - 
+            \mu_0 \omega^2 H_z \|^2 \label{eq:act:obj} \\ 
     \text{subject to} & \quad 
         \begin{bmatrix}
         H_z - H_z^\text{perfect} \\
@@ -297,7 +318,7 @@ The design problem is now
 
 This problem contains many local minima (it is non-convex\cite{boydbook});
     however, when either the field ($H_z$) or the structure ($\epsilon^{-1}$)
-    variable is considered separately Eq.~\ref{eq:act} has only one minimum
+    variable is considered separately, Eq.~\ref{eq:act} has only one minimum
     (it is convex), and can be easily solved using standard methods
     such as employed in our previous work\cite{prevwork}.
 We employ such an alternating directions strategy,
@@ -322,9 +343,22 @@ That said, the final designs presented here
 
 
 \section{Results}
-The method described above is applied to 
-    the design of three different waveguide couplers
-    as shown in Figs.~\ref{fig:fiber}, \ref{fig:mode} and \ref{fig:aircore}.
+We apply our method to three practically interesting problems 
+    that are hard to solve using other available methods: 
+    \begin{enumerate}
+    \item a coupler between waveguides of different refractive index and width,
+    \item a coupler between waveguide modes of different order and symmetry, and
+    \item a coupler between waveguides that confine light 
+        using different principles 
+        (index guided vs. distributed Bragg reflection guided), 
+        i.e., between a slab waveguide and a photonic crystal fiber. 
+    \end{enumerate}
+
+The corresponding designs as well as the boundary values which make up the
+    respective design objectives ($H_z^\text{perfect}$) 
+    are shown in Figs.~\ref{fig:fiber}, \ref{fig:mode} and \ref{fig:aircore}.
+As initial designs, we uniformly choose $\epsilon = 9$ throughout 
+    the whole computational region.
 These results demonstrate that our method
     \begin{itemize}
     \item is computationally fast, 
@@ -344,30 +378,27 @@ These results demonstrate that our method
 
     \end{itemize}
 
-Lastly, note that the couplers in Figs.~\ref{fig:mode} and \ref{fig:aircore}
-    must convert between modes of opposing symmetry,
-    in which case adiabatic approaches cannot be applied.
-Note also that the output waveguide in Fig.~\ref{fig:aircore}
-    even operates on a completely different principle 
-    (distributed reflection instead of index-guiding).
-
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{quickfig/fiber} 
-    \caption{Waveguide coupler for a wide, low-index 
-        ($\epsilon=2.25$) waveguide. 
-        The dielectric structure of the coupler and surrounding input and
-        output waveguides is shown on the left, while the simulation
-        validating our results is shown on the right.
+    \caption{Coupler from a narrow, high-index ($\epsilon=12.25$) waveguide to
+        a wide, low-index ($\epsilon=2.25$) waveguide. 
+        On the left, the dielectric structure of the coupler 
+        and surrounding input and output waveguides are shown.
+        The $H_z^\text{perfect}$ boundary values used as 
+        the design objective are plotted on the left as well
+        (top and bottom boundary values were set to zero).
+        On the right, we show the simulation results used
+        to compute the performance of the device.
         The coupler converts $96.3\%$ of the input power to the
         designated output mode.
-        The device is extremely compact, 
+        The device is also extremely compact, 
         convering only $36 \times 66$ grid points,
         where the vacuum wavelength is 42 grid points.
         Computation time was 20 minutes on a personal computer.}
     \label{fig:fiber}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{quickfig/mode-conv} 
     \caption{Coupler that converts the fundamental waveguide mode to the
@@ -384,10 +415,11 @@ Note also that the output waveguide in Fig.~\ref{fig:aircore}
         }
     \label{fig:mode}
     \end{figure}
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{quickfig/air-core}
-    \caption{Coupler to an air-core mode.
+    \caption{Coupler between a dielectric slab waveguide to 
+        an air-core waveguide.
         Here, not only are the modes of opposite symmetry,
         but the output waveguide operates on a fundamentally different
         principle (distributed reflection) than the input waveguide 
@@ -400,6 +432,26 @@ Note also that the output waveguide in Fig.~\ref{fig:aircore}
         }
         \label{fig:aircore}
 \end{figure}
+
+\section{Conclusion}
+We develop a fundamentally new approach to designing physical structures,
+    which we term ``objective-first'', 
+    in that we choose to satisfy the design objective 
+    even above satisfying the physical equation which governs its operation.
+We show that such an approach drastically reduces the
+    amount of computation required per iteration, and 
+    performs well even with a non-functional initial design.
+
+We then apply an objective-first approach to the design of 
+    three practical nanophotonic waveguide couplers which are difficult, 
+    at best, to solve with existing methods. 
+We show that our method produces
+    high-efficiency designs ($\sim 95\%$ efficiency) 
+    in small footprints ($\sim 1$ square vacuum wavelength),
+    is computationally fast (20 minutes on a single-core personal computer), and
+    does not require trial-and-error, or even 
+    a good starting design.\\
+
 
 This work has been supported in part by the 
     AFOSR MURI for Complex and Robust On-chip Nanophotonics 
