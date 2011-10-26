@@ -15,7 +15,7 @@
 We introduce an ``objective-first'' approach to the design of
     nanophotonic waveguide couplers.
 Our method is
-    computationally fast (20 minutes on a single-core personal computer), 
+    computationally fast (15 minutes on a single-core personal computer), 
     requires no trial-and-error,
     does not require guessing a good starting design,
     can be applied to arbitrary waveguide modes,
@@ -343,15 +343,18 @@ That said, the final designs presented here
 
 
 \section{Results}
-We apply our method to three practically interesting problems 
+We apply our method to five practically interesting problems 
     that are hard to solve using other available methods: 
     \begin{enumerate}
     \item a coupler between waveguides of different refractive index and width,
-    \item a coupler between waveguide modes of different order and symmetry, and
+    \item a coupler between waveguide modes of different order and symmetry,
     \item a coupler between waveguides that confine light 
         using different principles 
         (index guided vs. distributed Bragg reflection guided), 
         i.e., between a slab waveguide and a photonic crystal fiber. 
+    \item a coupler from a dielectric to a plasmonic metal-insulator-metal 
+        waveguide, and
+    \item a coupler from a dielectric waveguide to a (plasmonic) metal wire.
     \end{enumerate}
 
 The corresponding designs as well as the boundary values which make up the
@@ -362,7 +365,7 @@ As initial designs, we uniformly choose $\epsilon = 9$ throughout
 These results demonstrate that our method
     \begin{itemize}
     \item is computationally fast, 
-        requiring only 20 minutes on a single-core personal computer;
+        requiring only 15 minutes on a single-core personal computer;
     \item generates compact devices with footprints of only
         1-4 square vacuum wavelengths;
     \item generates highly efficient devices with  
@@ -380,57 +383,79 @@ These results demonstrate that our method
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{fiber} 
+    \includegraphics[width=\textwidth]{1} 
     \caption{Coupler from a narrow, high-index ($\epsilon=12.25$) waveguide to
-        a wide, low-index ($\epsilon=2.25$) waveguide. 
-        On the left, the dielectric structure of the coupler 
-        and surrounding input and output waveguides are shown.
+            a wide, low-index ($\epsilon=2.25$) waveguide. 
         The $H_z^\text{perfect}$ boundary values used as 
-        the design objective are plotted on the left as well
-        (top and bottom boundary values were set to zero).
-        On the right, we show the simulation results used
-        to compute the performance of the device.
-        The coupler converts $96.3\%$ of the input power to the
-        designated output mode.
-        The device is also extremely compact, 
-        convering only $36 \times 66$ grid points,
-        where the vacuum wavelength is 42 grid points.
-        Computation time was 20 minutes on a personal computer.}
+            the design objective are plotted in the upper-left quadrant, 
+            the generated structure is shown in the upper-right quadrant, and
+            the simulated $H_z$ fields of the device are shown 
+            in the bottom two plots.
+        The computed efficiency of the coupler is high, $98.2\%$, and
+            the device is also extremely compact, 
+            convering only $36 \times 66$ grid points,
+            where the vacuum wavelength is 42 grid points.
+        Computation time was 15 minutes on a personal computer.}
     \label{fig:fiber}
 \end{figure}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{mode-conv} 
+    \includegraphics[width=\textwidth]{2} 
     \caption{Coupler that converts the fundamental waveguide mode to the
-        second-order waveguide mode
-        (a movie of the design progress is included as a
-        supplementary material).
+            second-order waveguide mode
+            (a movie of the design progress is included as a
+            supplementary material).
         This problem is quite difficult since the two modes are of 
-        opposite symmetry.
+            opposite symmetry.
         For example, adiabatic approaches cannot be applied to this case.
         However, our method produces a device 
-        (which has the same dimensions and vacuum wavelength as Fig. 1) 
-        with a coupling efficiency of $95.5\%$. 
-        Computation time was 20 minutes on a personal computer.
+            (which has the same dimensions and vacuum wavelength as 
+            Fig.~\ref{fig:fiber})  
+            with a coupling efficiency of $97.0\%$. 
+        Computation time was 15 minutes on a personal computer.
         }
     \label{fig:mode}
-    \end{figure}
+\end{figure}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{air-core}
+    \includegraphics[width=\textwidth]{3}
     \caption{Coupler between a dielectric slab waveguide to 
-        an air-core waveguide.
+            an air-core waveguide.
         Here, not only are the modes of opposite symmetry,
-        but the output waveguide operates on a fundamentally different
-        principle (distributed reflection) than the input waveguide 
-        (index guided).
-        The device still achieves an efficiency of $83.3\%$, demonstrating the
-        versatility of our method.
+            but the output waveguide operates on a fundamentally different
+            principle (distributed reflection) than the input waveguide 
+            (index guided).
+        The device still achieves an efficiency of $85.1\%$, demonstrating the
+            versatility of our method.
         The vacuum wavelength is 25 grid points, 
-        while the device footprint is still $36 \times 66$ grid points.
-        Computation time was 20 minutes on a personal computer.
+            while the device footprint is still $36 \times 66$ grid points.
+        Computation time was 15 minutes on a personal computer.
         }
         \label{fig:aircore}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{4}
+    \caption{Coupler between a dielectric slab waveguide to 
+            a plasmonic metal-insulator-metal waveguide.
+        The efficiency of the device is $92.9\%$ and 
+            has the same wavelength and footprint as the device in
+            Fig.~\ref{fig:aircore}.
+        Computation time was 15 minutes on a personal computer.
+        }
+        \label{fig:mim}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{5}
+    \caption{Coupler between a dielectric slab waveguide to 
+            a plasmonic wire waveguide.
+        The efficiency of the device is $93.2\%$ and 
+            has the same wavelength and footprint as the device in
+            Fig.~\ref{fig:aircore}.
+        Computation time was 15 minutes on a personal computer.
+        }
+        \label{fig:wire}
 \end{figure}
 
 \section{Conclusion}
@@ -443,12 +468,12 @@ We show that such an approach drastically reduces the
     performs well even with a non-functional initial design.
 
 We then apply an objective-first approach to the design of 
-    three practical nanophotonic waveguide couplers which are difficult, 
+    five practical nanophotonic waveguide couplers which are difficult, 
     at best, to solve with existing methods. 
 We show that our method produces
     high-efficiency designs ($\sim 95\%$ efficiency) 
     in small footprints ($\sim 1$ square vacuum wavelength),
-    is computationally fast (20 minutes on a single-core personal computer), and
+    is computationally fast (15 minutes on a single-core personal computer), and
     does not require trial-and-error, or even 
     a good starting design.\\
 
