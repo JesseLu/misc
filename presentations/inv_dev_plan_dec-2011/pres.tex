@@ -1,0 +1,224 @@
+\documentclass[landscape]{foils}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\input defs.tex
+\raggedright
+\special{! TeXDict begin /landplus90{true}store end }
+\renewcommand{\oursection}[1]{
+\foilhead[-1.0cm]{#1}
+}
+
+\title{Inverse Design Battle Plan}
+\author{}
+\MyLogo{Jesse Lu, Jelena Vuckovic group, Stanford University}
+\date{}
+
+\begin{document}
+\setlength{\parskip}{0cm}
+\maketitle
+
+\BIT \itemsep -1pt
+\item problem statement
+\item key insights/assumptions
+\item adjoint method
+\item alternating directions method of multipliers (ADMM)
+\item computational cost of various ADMM design objectives
+\item plan
+\item appendix: optimality conditions
+\EIT
+
+\vfill
+
+\oursection{Problem Statement}
+\BIT
+\item Goal: Software package to design all linear nanophotonic devices.
+    \BIT
+    \item \emph{device performance} must be exceptional,
+    \item \emph{structure} must be manufacturable, and
+    \item \emph{computation} must be efficient.
+    \EIT
+\item Important because
+\item Hard because a lot of variables
+\EIT
+\newpage
+
+Problem formulation:
+    \begin{subequations}\begin{align}
+    \mbox{optimize} \quad & f_\text{perf}(H) + 
+                            g_\text{manuf}(\epsilon) \\
+    \subjectto & \nabla \times \epsilon^{-1} \nabla \times H -
+                        \mu \omega^2 H = 0
+    \end{align}\end{subequations}
+
+In the language of linear algebra,
+    \begin{subequations}\begin{align}
+    \minimize & f(x) + g(p) \\
+    \subjectto & r(x, p) = 0
+    \end{align}\end{subequations}
+\BIT
+\item $x$ is the field variable , $p$ is the {structure} variable
+\item $f(x) + g(p)$ is the {design objective}
+\item $r(x,p)$ is the {physics residual}
+\EIT
+\newpage
+    
+\oursection{Generic nonlinear optimization packages}
+\BIT
+\item It is possible to efficiently compute the following:
+    \BIT
+    \item Zeroth-order: $f$, $g$, $r$, and $\|r\|^2$ 
+    \item First-order: $\nabla f$, $\nabla g$, $\nabla r$, and $\nabla \|r\|^2$ 
+    \item Second-order: $\nabla^2 f$, $\nabla^2 g$, and $\nabla^2 \|r\|^2$ 
+    \EIT
+
+\item However, most efficient solvers require computing 
+        either $(\nabla r)^{-1}z$ or $(\nabla^2 \|r\|^2)^{-1})z$,
+        which is often very difficult!
+
+\item Many viable approximations exist, 
+    but convergence is often slow and unreliable.
+\EIT
+
+% \begin{center} \emph{My choice: Stick with what works.} \end{center}
+\newpage
+
+\oursection{Key insights/assumptions}
+\begin{enumerate}
+\item $r(x,p)$ is separably affine (bi-affine) in $x$ and $p$,
+    \begin{equation}
+    r(x,p) = A(p)x - b(p) = B(x) p - d(x),
+    \end{equation}
+        this allows us to form two simpler sub-problems.
+
+\item Simulators which compute $A(p)^{-1} z$ are available, 
+        even for very large systems (millions of variables).
+
+\item Solving $B(x) p - d(x) = 0$ is possible, 
+        because manufacturing processes severely limit
+        the degrees of freedom of $p$ 
+        (decreases $p$ to thousands of variables).
+\end{enumerate}
+
+\oursection{Adjoint method}
+\BIT
+\item Starting at $r(x_0, p_0) = 0$, solves 
+    \begin{subequations}\begin{align}
+    \minimize & f(x) + g(p) \\
+    \subjectto & r(x, p) = 0
+    \end{align}\end{subequations}
+    by steepest descent along $\frac{df}{dp} + \frac{dg}{dp}$
+    while enforcing $r(x,p) = 0$.
+
+\item Computationally efficient because $\frac{df}{dp}$ is computed
+        in a single simulation.
+
+\item A total of only two simulations required per iteration.
+
+\item Steepest-descent methods usually exhibit very slow convergence,
+        but this method has proven very useful in practice,
+        especially because $r(x,p) = 0$ at every iteration.
+\EIT
+
+\oursection{Alternating directions}
+\BIT
+\item Alternatively, we can break our problem into two separate subproblems,
+        taking advantage of 
+        \begin{equation} 
+            r(x,p) = A(p)x - b(p) = B(x) p - d(x).
+        \end{equation}
+
+\item $x$ and $p$ are iteratively updated,
+    \begin{subequations}\begin{align}
+        x &:= \argmin_x f(x) + \frac{\rho}{2} \| Ax - b \|^2 \\
+        p &:= \argmin_p g(p) + \frac{\rho}{2} \| Bp - d \|^2.
+    \end{align}\end{subequations}
+
+\item Allows us to start from $r(x_0, p_0) \neq 0$ and then
+        gradually increase $\rho$ until $r(x,p) = 0$.
+\EIT
+
+\oursection{Alternating directions method of multipliers (ADMM)}
+\BIT
+\item Include additional (dual) variable $y$,
+    \begin{subequations}\begin{align}
+        x &:= \argmin_x f(x) + \frac{\rho}{2} \| Ax - b \|^2  + y^T (Ax - b)\\
+        p &:= \argmin_p g(p) + \frac{\rho}{2} \| Bp - d \|^2 + y^T (Bp - d) \\
+        y &:= y + \rho r(x,p)
+    \end{align}\end{subequations}
+
+\item Works for fixed $\rho$ and generally exhibits faster convergence 
+        than alternating directions.
+
+\item We assume that updating $x$ takes up the most computational resources.
+\EIT
+\newpage
+
+\BIT
+\item For what choices of $f(x)$ can we efficiently solve
+        \begin{multline}
+        \argmin_x L(x,p,y) = 
+            \argmin_x f(x) + \frac{\rho}{2} \| Ax - b \|^2  + y^T (Ax - b)
+        \end{multline}
+
+\item Solve quadratic approximation (Newton's method),
+    \begin{equation}
+    \Delta x = (\nabla^2_{xx} L)^{-1} \nabla_x L,
+    \end{equation}
+    where
+    \begin{subequations}\begin{align}
+    \nabla_x L(x,p,y) &= \nabla f(x) + A^T (\rho (Ax - b) + y) \\
+    \nabla^2_{xx} L(x,p,y) &= \nabla^2 f(x) + \rho A^T A
+    \end{align}\end{subequations}
+
+\item Assumption: for general $\nabla^2 f(x)$, $\nabla^2_{xx} L(x,p,y)$ 
+    \emph{cannot} be inverted.
+\EIT
+\newpage
+
+\BIT
+\item Case 1: $f(x) = c^T x$, Field overlap integral
+\item In this case 
+    \begin{subequations}\begin{align}
+    (\nabla^2_{xx} L(x,p,y))^{-1} &= 
+        \rho^{-1} (A^T A)^{-1} = \rho^{-1} A^{-1} A^{-T} \\
+    \nabla_x L(x,p,y) &= c + A^T (\rho (Ax - b) + y),
+    \end{align}\end{subequations}
+    so we can solve 
+    \begin{subequations}\begin{align}
+    \Delta x &= (\nabla^2_{xx} L)^{-1} \nabla_x L \\
+        &= \rho^{-1} A^{-1}( A^{-T} c + \rho(Ax - b) + y)
+    \end{align}\end{subequations}
+    using only two simulations.
+\item Since $L(x,p,y)$ is exactly quadratic, 
+        we can update $x$ using only two simulations.
+\EIT
+\newpage
+
+\BIT
+\item Case 2: $f(x) = \|C^T x\|^2$, Energy in mode
+\item Case 3: $f(x)$ forces $C^T x = d$.
+\item Also, multi-mode.
+% \item Use matrix inversion lemma,
+%     \begin{subequations}\begin{align}
+%     (\nabla^2_{xx} L(x,p,y))^{-1} &= 
+%         (CC^T + \rho(A^T A))^{-1} \\
+%         &= (\rho A^T A)^-1 + ( \\
+%     \nabla_x L(x,p,y) &= c + A^T (\rho (Ax - b) + y),
+%     \end{align}\end{subequations}
+%     so we can solve 
+%     \begin{subequations}\begin{align}
+%     \Delta x &= (\nabla^2_{xx} L)^{-1} \nabla_x L \\
+%         &= \rho^{-1} A^{-1}( A^{-T} c + \rho(Ax - b) + y)
+%     \end{align}\end{subequations}
+%     using only two simulations.
+% \item Since $L(x,p,y)$ is exactly quadratic, 
+%         we can update $x$ using only two simulations.
+\EIT
+
+% \oursection{Plan}
+% \BIT
+% \item Software to solve $A^{-1}z$.
+% \item Adjoint
+% \EIT
+\end{document}
