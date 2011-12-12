@@ -3,6 +3,8 @@
 \usepackage{amsmath}
 \usepackage{hyperref}
 \input defs.tex
+\newcommand{\inv}[1]{\frac{1}{#1}}
+\newcommand{\tC}{\tilde{C}}
 
 \title{Nanophotonic Inverse Design}
 \author{Jesse Lu}
@@ -185,8 +187,8 @@ However, ADMM allows the coefficient $\rho$ to remain fixed,
 \subsection{Computational cost of ADMM}
 We infer that the majority of computational resources 
     will be used in updating $x$ since
-    the $y$ update is trivial, and
-    the $p$ update involves far fewer variables 
+    the $y$-update is trivial, and
+    the $p$-update involves far fewer variables 
     (see section \ref{key insights}).
 
 In this vein, we examine the computational work, for various choices of $f(x)$,
@@ -197,8 +199,13 @@ In this vein, we examine the computational work, for various choices of $f(x)$,
     \end{equation}
     via Newton's method; that is, updating $x$ along $\Delta x$ given by
     \begin{equation}
-    \Delta x = (\nabla_{xx}^2 \mathcal{L})^{-1} \nabla_x \mathcal{L}.
+    \Delta x = (\nabla_{xx}^2 \mathcal{L})^{-1} \nabla_x \mathcal{L},
     \end{equation}
+    where
+    \begin{subequations}\begin{align}
+    \nabla_x \mathcal{L} &= \nabla f(x) + \rho A^T (A x - b + \inv{\rho}y) \\
+    \nabla_{xx}^2 \mathcal{L} &= \nabla^2 f(x) + \rho A^T A.
+    \end{align}\end{subequations}
 
 Furthermore, we limit our analysis to choices of $f(x)$ for which 
     $\mathcal{L}(x,p,y)$ is quadratic,
@@ -212,23 +219,135 @@ Newton's method, of course, is very capable of minimizing nonlinear functions,
 We investigate the choice $f(x) = c^T x$, 
     where $c \in \reals^{n \times 1}$
     and $x \in \reals^{n \times 1}$.
+Here,
+    \begin{subequations}\begin{align}
+    \nabla f(x) &= c \\
+    \nabla^2 f(x) &= 0
+    \end{align}\end{subequations}
+    which results in
+    \begin{subequations}\begin{align}
+    \nabla_x \mathcal{L} &= c + \rho A^T (A x - b + \inv{\rho} y) 
+        = \rho A^T (Ax - b + \inv{\rho}(y + \tilde{c})) \\
+    \nabla_{xx}^2 \mathcal{L} &= \rho A^T A,
+    \end{align}\end{subequations}
+    where $\tilde{c} = A^{-T} c$.
+A single Newton step is
+    \begin{equation}\begin{split}
+    \Delta x &= (\nabla_{xx}^2 \mathcal{L})^{-1} \nabla_x \mathcal{L} \\
+        &= (\rho^{-1} A^{-1} A^{-T}) 
+            A^T (A x - b + \inv{\rho}(y + \tilde c)) \\
+        &= A^{-1}(A x - b + \inv{\rho}(y + \tilde c)).
+    \end{split}\end{equation}
+
+From this analysis we see that 
+    the computation cost of a linear performance objective, $f(x)$, 
+    for the $x$-update is two simulations.
+That is, in a very similar fashion to the adjoint method,
+    an $A^{-T}$ solve is required to compute $\tilde{c}$,
+    and an additional $A^{-1}$ solve is needed to compute $\Delta x$.
 
 \subsubsection{Low-rank quadratic $f(x)$}
 We investigate the case where $f(x) = \|C_1^T x - d_1\|$,
-    where $C_1 \in \reals^{n \times p}$
-    and $d_1 \in \reals^{p \times 1}$.
+    where $C_1 \in \reals^{n \times p_1}$
+    and $d_1 \in \reals^{p_1 \times 1}$, for $p_1 \ll n$.
+Here,
+    \begin{subequations}\begin{align}
+    \nabla f(x) &= C_1 (C_1^T x - d_1) \\
+    \nabla^2 f(x) &= C_1 C_1^T
+    \end{align}\end{subequations}
+    which results in
+    \begin{subequations}\begin{align}
+    \nabla_x \mathcal{L} &= \rho A^T ((I + \inv{\rho}\tC_1\tC_1^T)Ax
+        - b + \inv{\rho}(y - \tC_1 d)) \\
+    \nabla_{xx}^2 \mathcal{L} &= \tC_1\tC_1^T + \rho A^T A,
+    \end{align}\end{subequations}
+    where $\tC_1 = A^{-T}C_1$.
+
+We then apply the matrix inversion lemma (see appendix \ref{inv lemma})
+    \begin{equation}\begin{split}
+    (\nabla_{xx}^2 \mathcal{L})^{-1} &= (\tC_1\tC_1^T + \rho A^T A)^{-1} \\
+        &= \inv{\rho} A^{-1} 
+            (I - \tC_1(\rho I + \tC_1^T\tC_1)^{-1}\tC_1^T) A^{-T} \\
+        &= \inv{\rho} A^{-1} M A^{-T}
+    \end{split}\end{equation}
+    where $M = I - \tC_1(\rho I + \tC_1^T\tC_1)^{-1}\tC_1^T$.
+Note that computing $M$ is computationally inexpensive
+    since the matrix which must be inverted, $\rho I + \tC_1^T\tC_1$,
+    is $p_1 \times p_1$ ($p_1 \ll n$).
+
+The Newton step is given by
+    \begin{equation}
+    \Delta x = A^{-1}M ((I + \inv{\rho}\tC_1\tC_1^T)Ax
+        - b + \inv{\rho}(y - \tC_1 d)),
+    \end{equation}
+    and requires $p_1$ solutions of $A^{-T}$ to compute $\tC_1$, 
+    and then 1 solution of $A^{-1}$ to compute $\Delta x$.
+
+\subsubsection{Concave, low-rank quadratic $f(x)$}
 
 \subsubsection{$f(x)$ composed of linear equality constraints}
 We investigate the situation where $f(x)$ involves
     satisfying the equality constraint $C_2^T x = d_2$,
-    where $C_2 \in \reals^{n \times p}$
-    and $d_2 \in \reals^{p \times 1}$.
+    where $C_2 \in \reals^{n \times p_2}$
+    and $d_2 \in \reals^{p_2 \times 1}$.
+Once again, we assume that $p_2 \ll n$.
 
+Newton's method for a linearly-constrained quadratic function is
+    \begin{equation}
+    \begin{bmatrix} \nabla_{xx}^2 \mathcal{L} & C_2 \\ C_2^T & 0 \end{bmatrix} 
+    \begin{bmatrix} \Delta x \\ v \end{bmatrix} = 
+    \begin{bmatrix} -\nabla_x\mathcal{L} \\ C_2 x - d_2 \end{bmatrix}.
+    \end{equation}
+We assume that 
+    \begin{subequations}\begin{align}
+    (\nabla_{xx}^2 \mathcal{L})^{-1} &= A^{-1} M A^{-T} \\
+    \nabla_x \mathcal{L} &= A^T z
+    \end{align}\end{subequations}
+    and solve for $\Delta x$ 
+    using block elimination (see appendix \ref{block elim}),
+    \begin{subequations}\begin{align}
+    v &= -(\tC_2^T M^{-1} \tC_2)^{-1}(\tC_2^T Ax - d_2 + \tC_2^T Mz) \\
+    \Delta x &= -A^{-1} M (z + \tC_2 v),
+    \end{align}\end{subequations}
+    where $\tC_2 = A^{-T} C_2$.
+
+Once again, $p_2 + 1$ simulations are required, 
+    because computing $\tC_2$ requires $p_2$ solves of $A^{-T}$ and
+    computing $\Delta x$ requires 1 solve of $A^{-1}$.
+
+    
+
+
+
+\subsubsection{Linearly constrained $f(x)$ with arbitrary phase}
 \subsubsection{Combined problem}
 \subsection{Multi-mode ADMM}
 \begin{appendix}
 \section{Constructing the relevant matrices and vectors}
 \section{Solving the matrices}
+\section{Linear algebra definitions}
+\subsection{Gradient and Hessian calculations}
+\subsection{Matrix inversion lemma}\label{inv lemma}
+\begin{equation}
+(A + UCV)^{-1} = A^{-1} - A^{-1}U (C^{-1} + V A^{-1} U)^{-1} V A^{-1}
+\end{equation}
+\subsection{Block elimination of a matrix}\label{block elim}
+\begin{equation}
+\begin{bmatrix} A_{11} & A_{12} \\ A_{21} & A_{22} \end{bmatrix} 
+\begin{bmatrix} x_1 \\ x_2 \end{bmatrix} = 
+\begin{bmatrix} b_1 \\ b_2 \end{bmatrix}
+\end{equation}
+\begin{subequations}\begin{align}
+A_{11} x_1 + A_{12} x_2 &= b_1 \\
+x_1 &= A_{11}^{-1} (b_1 - A_{12} x_2)
+\end{align}\end{subequations}
+\begin{subequations}\begin{align}
+A_{21} x_1 + A_{22} x_2 &= b_2 \\
+A_{21} A_{11}^{-1} (b_1 - A_{12} x_2) + A_{22} x_2 &= b_2 \\
+(A_{22} - A_{21} A_{11}^{-1} A_{12}) x_2 &= b_2 - A_{21} A_{11}^{-1} b_1
+\end{align}\end{subequations}
+Typically, one computes $A_{11}^{-1} A_{12}$ and $A_{11}^{-1} b_1$, 
+    and then solves for the rest of the system.
 \end{appendix}
 \begin{thebibliography}{99}
 \bibitem{ADMM} Boyd group ADMM paper
