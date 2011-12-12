@@ -1,16 +1,116 @@
 \documentclass{article}
-\title{Theory for inverse design}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{hyperref}
+
+\title{Nanophotonic Inverse Design}
 \author{Jesse Lu}
 \begin{document}
 \maketitle
 \tableofcontents
+
 \section{Introduction}
+Our goal is to produce
+    a software package capable of designing virtually any nanophotonic device.
+The software must produce designs
+    \begin{itemize}
+    \item with exceptional device performance,
+    \item which are easily manufacturable, and
+    \item with computational efficiency.
+    \end{itemize}
+
+Such a software package would be extremely useful 
+    in designing the components needed to guide light on a computer chip
+    such as couplers, filters, absorbers, and multiplexors.
+
+However, the scale of the problem as well as 
+    the difficulty of inverting the underlying wave equation
+    have been major obstacles in producing successful design algorithms.
+
+
 \subsection{Problem statement}
-\subsection{Key insights/assumptions}
+We formulate the design problem in the following way,
+    \begin{subequations}\begin{align}
+    \text{minimize} \quad   & f(x) + g(p) \\
+    \text{subject to} \quad & r(x, p) = 0
+    \end{align}\label{prob_stat}\end{subequations}
+    where
+    \begin{itemize}
+    \item $x$ is the field variable,
+    \item $p$ is the structure variable,
+    \item $f(x)$ is the performance objective,
+    \item $g(p)$ is the manufacturability objective,
+    \item $f(x) + g(p)$ is generally referred to as the design objective, and
+    \item $r(x,p)$ is the physics residual for which we use 
+            the time-harmonic electromagnetic wave equation,
+            \begin{equation}
+            r(x,p) = 
+                (\nabla \times \epsilon^{-1} \nabla \times - \mu \omega^2) H
+                - \text{sources}.
+            \end{equation}
+    \end{itemize}
+
+
+\subsection{Key insights}
+Generic nonlinear optimization routines are usually unable
+    to solve \eqref{prob_stat},
+    because there are an extremely large (millions) of variables, 
+    and because $r(x,p)$ often results in ill-conditioned matrices.
+For this reason, we need to take advantage of key features of the problem.
+\begin{itemize}
+\item $r(x,p)$ is separably affine (bi-affine) in $x$ and $p$,
+    \begin{equation}
+    r(x,p) = A(p)x - b(p) = B(x) p - d(x),
+    \end{equation}
+        this allows us to form two simpler sub-problems.
+\item Simulators which compute $A(p)^{-1} z$ are available,
+        where $z$ is an arbitrary vector, 
+        even for very large systems (millions of variables).
+\item Solving $B(x) p - d(x) = 0$ is possible with generic software, 
+        because manufacturing processes severely limit
+        the degrees of freedom of $p$ 
+        (decreasing $p$ to thousands of variables).
+\end{itemize}
+    
+
+
 \section{Adjoint method}
+The adjoint method is a steepest-descent method
+    on the space $r(x,p) = 0$,
+    and relies upon the following linear approximations
+    of the design objective and the physics residual,
+    \begin{subequations}\begin{align}
+    (f(x + \Delta x) + g(p + \Delta p)) - (f(x) + g(p)) &\approx
+        \nabla f^T \Delta x + \nabla g^T \Delta p \label{d lin} \\ 
+    r(x + \Delta x, p + \Delta p) - r(x, p) &\approx
+        \nabla_x r^T \Delta x + \nabla_p r^T \Delta p. \label{r lin}
+    \end{align}\end{subequations}
+
+Assuming a starting point already satisfying $r(x,p) = 0$,
+    we note that \eqref{r lin} must equal zero,
+    in order to keep the physics residual at zero.
+This allows us to form the following relationship between
+    $\Delta x$ and $\Delta p$,
+    \begin{subequations}\begin{align}
+        A(p) \Delta x + B(x) \Delta p &= A \Delta x + B \Delta p = 0 \\
+        \Delta x &= - A^{-1} B \Delta p,
+    \end{align}\end{subequations}
+    which allows us to write \eqref{d lin} only in terms of $\Delta p$,
+    \begin{equation}
+    \nabla f^T \Delta x + \nabla g^T \Delta p =
+        - (\nabla f^T A^{-1} B - \nabla g) \Delta p.
+    \end{equation}
+Thus, we see that the steepest-descent direction is
+    \begin{equation}
+    \Delta p = B^T A^{-T} \nabla f - \nabla g.
+    \end{equation}
 \subsection{Computational cost}
 \subsection{Multi-mode formulation}
 \section{Alternating directions method of multipliers (ADMM)}
 \subsection{Computational cost of ADMM}
 \subsection{Multi-mode ADMM}
+\begin{appendix}
+\section{Constructing the relevant matrices and vectors}
+\section{Solving the matrices}
+\end{appendix}
 \end{document}
