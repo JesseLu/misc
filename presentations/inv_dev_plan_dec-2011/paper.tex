@@ -2,6 +2,7 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{hyperref}
+\input defs.tex
 
 \title{Nanophotonic Inverse Design}
 \author{Jesse Lu}
@@ -33,7 +34,7 @@ We formulate the design problem in the following way,
     \begin{subequations}\begin{align}
     \text{minimize} \quad   & f(x) + g(p) \\
     \text{subject to} \quad & r(x, p) = 0
-    \end{align}\label{prob_stat}\end{subequations}
+    \end{align}\label{prob stat}\end{subequations}
     where
     \begin{itemize}
     \item $x$ is the field variable,
@@ -50,17 +51,24 @@ We formulate the design problem in the following way,
             \end{equation}
     \end{itemize}
 
+\subsubsection{Multimode formulation}
+We often desire a single device to perform multiple functions,
+    in this case we can modify \eqref{prob stat} in the following way,
+    \begin{subequations}\begin{align}
+    \text{minimize} \quad   & \sum_i f_i(x_i) + g(p) \\
+    \text{subject to} \quad & r_i(x_i, p) = 0.
+    \end{align}\label{multi stat}\end{subequations}
 
-\subsection{Key insights}
+\subsection{Key insights}\label{key insights}
 Generic nonlinear optimization routines are usually unable
-    to solve \eqref{prob_stat},
+    to solve \eqref{prob stat},
     because there are an extremely large (millions) of variables, 
     and because $r(x,p)$ often results in ill-conditioned matrices.
 For this reason, we need to take advantage of key features of the problem.
 \begin{itemize}
 \item $r(x,p)$ is separably affine (bi-affine) in $x$ and $p$,
     \begin{equation}
-    r(x,p) = A(p)x - b(p) = B(x) p - d(x),
+    r(x,p) = A(p)x - b(p) = B(x) p - d(x), \label{bi-affine}
     \end{equation}
         this allows us to form two simpler sub-problems.
 \item Simulators which compute $A(p)^{-1} z$ are available,
@@ -83,7 +91,7 @@ The adjoint method is a steepest-descent method
     (f(x + \Delta x) + g(p + \Delta p)) - (f(x) + g(p)) &\approx
         \nabla f^T \Delta x + \nabla g^T \Delta p \label{d lin} \\ 
     r(x + \Delta x, p + \Delta p) - r(x, p) &\approx
-        \nabla_x r^T \Delta x + \nabla_p r^T \Delta p. \label{r lin}
+        A(p) \Delta x + B(x) \Delta p. \label{r lin}
     \end{align}\end{subequations}
 
 Assuming a starting point already satisfying $r(x,p) = 0$,
@@ -92,8 +100,8 @@ Assuming a starting point already satisfying $r(x,p) = 0$,
 This allows us to form the following relationship between
     $\Delta x$ and $\Delta p$,
     \begin{subequations}\begin{align}
-        A(p) \Delta x + B(x) \Delta p &= A \Delta x + B \Delta p = 0 \\
-        \Delta x &= - A^{-1} B \Delta p,
+    A(p) \Delta x + B(x) \Delta p &= A \Delta x + B \Delta p = 0 \\
+    \Delta x &= - A^{-1} B \Delta p,
     \end{align}\end{subequations}
     which allows us to write \eqref{d lin} only in terms of $\Delta p$,
     \begin{equation}
@@ -104,13 +112,125 @@ Thus, we see that the steepest-descent direction is
     \begin{equation}
     \Delta p = B^T A^{-T} \nabla f - \nabla g.
     \end{equation}
+
 \subsection{Computational cost}
+The adjoint method proceeds by iteratively
+    \begin{enumerate}
+    \item updating $p$ along $\Delta p$, and then \label{adj p step}
+    \item updating $x$ by solving $r(x,p)$ for fixed $p$. \label{adj x step}
+    \end{enumerate}
+
+Computationally, step \ref{adj p step} requires an $A^{-T}$ solve,
+    and step \ref{adj x step} requires an $A^{-1}$ solve.
+The strength of the adjoint method resides in the fact that 
+    each of these operations corresponds to a \emph{single simulation},
+    and so the entire iteration costs only two simulations.
+
 \subsection{Multi-mode formulation}
+If one wishes to design a multi-functional device,
+    the adjoint method can also be applied to \eqref{multi stat}.
+In this case,
+    \begin{equation}
+    \Delta p = \sum_i B_i^T A_i^{-T} \nabla f_i - \nabla g,
+    \end{equation}
+    and each iterations costs $2N$ simulations,
+    where $N$ is the number of modes considered.
+Note that the $2N$ simulations can be spread over
+    $N$ different computational nodes,
+    so that the total running time of the optimization is   
+    virtually identical to the single-mode case.
+    
+\section{Alternating directions method}
+An alternative optimization method is to iteratively solve
+    \begin{subequations}\begin{align}
+    \mathop{\rm minimize}_x \quad   & f(x) + \frac{\rho}{2} \| r(x,p) \|^2 \\
+    \mathop{\rm minimize}_p \quad   & g(p) + \frac{\rho}{2} \| r(x,p) \|^2,
+    \end{align}\end{subequations}
+    where the coefficient $\rho$ can be 
+    gradually increased in order to drive $r(x,p) \to 0$.
+
+The alternating directions method allows a non-physical starting point,
+    and takes advantage of bi-affine $r(x,p)$ in the sense that 
+    the subproblems can be re-written as
+    \begin{subequations}\begin{align}
+    \mathop{\rm minimize}_x \quad   & f(x) + 
+        \frac{\rho}{2} \| A(p)x - b(p) \|^2 \\
+    \mathop{\rm minimize}_p \quad   & g(p) + 
+        \frac{\rho}{2} \| B(x)p - d(x) \|^2,
+    \end{align}\end{subequations}
+    since each of these subproblems may be readily 
+    solved by generic optimization tools,
+    especially if both $f(x)$ and $g(p)$ are convex.
+
 \section{Alternating directions method of multipliers (ADMM)}
+The inclusion of a dual variable ($y$) allows 
+    us to form an \emph{augmented Lagrangian},
+    \begin{equation}
+    \mathcal{L}(x, p, y) = f(x) + g(p) + 
+        \frac{\rho}{2} \| r(x,p) \|^2 + y^T r(x,p).
+    \end{equation}
+This leads to the 
+    alternating directions method of multipliers (ADMM) \cite{ADMM},
+    which proceeds in the following way,
+    \begin{subequations}\begin{align}
+    x &:= \argmin_x \mathcal{L}(x,p,y) \\
+    p &:= \argmin_p \mathcal{L}(x,p,y) \\
+    y &:= y + \rho r(x,p).
+    \end{align}\end{subequations}
+Similarily to alternating directions, 
+    ADMM allows for an infeasible starting point, $r(x,p) \neq 0$.
+However, ADMM allows the coefficient $\rho$ to remain fixed,
+    and generally demonstrates faster convergence.
+
 \subsection{Computational cost of ADMM}
+We infer that the majority of computational resources 
+    will be used in updating $x$ since
+    the $y$ update is trivial, and
+    the $p$ update involves far fewer variables 
+    (see section \ref{key insights}).
+
+In this vein, we examine the computational work, for various choices of $f(x)$,
+    required in efficiently solving
+    \begin{equation}
+    \argmin_x \mathcal{L}(x,p,y) = 
+        \argmin_x f(x) + \frac{\rho}{2}\|Ax - b\|^2 + y^T(Ax - b)
+    \end{equation}
+    via Newton's method; that is, updating $x$ along $\Delta x$ given by
+    \begin{equation}
+    \Delta x = (\nabla_{xx}^2 \mathcal{L})^{-1} \nabla_x \mathcal{L}.
+    \end{equation}
+
+Furthermore, we limit our analysis to choices of $f(x)$ for which 
+    $\mathcal{L}(x,p,y)$ is quadratic,
+    since the optimum is simply $x + \Delta x$ and
+    requires only one calculation of $\Delta x$.
+Newton's method, of course, is very capable of minimizing nonlinear functions,
+    and adapting our analysis to nonlinear choices of $f(x)$ 
+    simply requires multiple steps ($\Delta x$) to be computed.
+
+\subsubsection{Linear $f(x)$}
+We investigate the choice $f(x) = c^T x$, 
+    where $c \in \reals^{n \times 1}$
+    and $x \in \reals^{n \times 1}$.
+
+\subsubsection{Low-rank quadratic $f(x)$}
+We investigate the case where $f(x) = \|C_1^T x - d_1\|$,
+    where $C_1 \in \reals^{n \times p}$
+    and $d_1 \in \reals^{p \times 1}$.
+
+\subsubsection{$f(x)$ composed of linear equality constraints}
+We investigate the situation where $f(x)$ involves
+    satisfying the equality constraint $C_2^T x = d_2$,
+    where $C_2 \in \reals^{n \times p}$
+    and $d_2 \in \reals^{p \times 1}$.
+
+\subsubsection{Combined problem}
 \subsection{Multi-mode ADMM}
 \begin{appendix}
 \section{Constructing the relevant matrices and vectors}
 \section{Solving the matrices}
 \end{appendix}
+\begin{thebibliography}{99}
+\bibitem{ADMM} Boyd group ADMM paper
+\end{thebibliography}
 \end{document}
