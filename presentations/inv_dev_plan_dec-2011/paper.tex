@@ -235,7 +235,7 @@ A single Newton step is
     \begin{equation}\begin{split}
     \Delta x &= (\nabla_{xx}^2 \mathcal{L})^{-1} \nabla_x \mathcal{L} \\
         &= (\rho^{-1} A^{-1} A^{-T}) 
-            A^T (A x - b + \inv{\rho}(y + \tilde c)) \\
+            \rho A^T (A x - b + \inv{\rho}(y + \tilde c)) \\
         &= A^{-1}(A x - b + \inv{\rho}(y + \tilde c)).
     \end{split}\end{equation}
 
@@ -295,7 +295,7 @@ Newton's method for a linearly-constrained quadratic function is
     \begin{equation}
     \begin{bmatrix} \nabla_{xx}^2 \mathcal{L} & C_2 \\ C_2^T & 0 \end{bmatrix} 
     \begin{bmatrix} \Delta x \\ v \end{bmatrix} = 
-    \begin{bmatrix} -\nabla_x\mathcal{L} \\ C_2 x - d_2 \end{bmatrix}.
+    \begin{bmatrix} -\nabla_x\mathcal{L} \\ C_2^T x - d_2 \end{bmatrix}.
     \end{equation}
 We assume that 
     \begin{subequations}\begin{align}
@@ -357,8 +357,7 @@ As a special case, we now consider the choice of
 We consider the case where $f(x)$ is low-rank, that is,
     $C_1 \in \reals^{n \times p_1}$ where $p_1 \ll n$.
 
-To deal with the concavity of $f(x)$ we would like to use
-    a truncated Newton method,
+To deal with the concavity of $f(x)$ we can use a truncated Newton method,
     \begin{equation}
     \hat{\mathcal{L}}(x,p,y) = \mathcal{L}(x,p,y) + \frac{\eta}{2} \|x - x_0\|^2
     \end{equation}
@@ -402,33 +401,94 @@ Fortunately, $\tC = A^{-T} C$ needs only to be computed once,
 \subsubsection{Linearly constrained $f(x)$ with arbitrary phase}
 We now investigate another special case of $f(x)$, 
     namely, when $f(x)$ implements the equality constraint 
-    $C_2^T x = e^{i \phi}d_2$,
+    $C_2^T x = e^{i \theta}d_2$,
     where $C_2 \in \reals^{n \times p_2}$ and $p_2 \ll n$.
 This situation corresponds to
-    the addition of an arbitrary phase $e^{i\phi}$
+    the addition of an arbitrary phase $e^{i\theta}$
     to a linear equality constraint.
     
 We simply note that this case can be handled by computing
     \begin{equation}
     \Delta x = -A^{-1} M (z - 
-        \tC_2 (\tC_2^T M \tC_2)^{-1}(\tC_2^T Ax - e^{i\phi}d_2 + \tC_2^T Mz)).
+        \tC_2 (\tC_2^T M \tC_2)^{-1}(\tC_2^T Ax - e^{i\theta}d_2 + \tC_2^T Mz)).
     \end{equation}
-    for different choices of $\phi$.
-The total computational cost is then simply $n_\phi + p_2$ solves,
-    where $n_\phi$ is the number of values of $\phi$ which are tried.
+    for different choices of $\theta$.
+The total computational cost is then simply $n_\theta + p_2$ solves,
+    where $n_\theta$ is the number of values of $\theta$ which are tried.
 
 \subsection{Multi-mode ADMM}
 Since ADMM explicitly separates updating the field and structure variables,
     handling multiple fields is very naturally included in the formulation.
 Namely, multiple fields ($x_i$) are updated simultaneously, in parallel,
-    and then care ``connected'' by updating a single $p$ 
+    and then are ``connected'' by updating a single $p$ 
     which takes all the $x_i$ into account.
 
 \begin{appendix}
 \section{Constructing the relevant matrices and vectors}
+The physics residual is based on the electromagnetic wave equation, 
+    \begin{equation}
+    \nabla \times \epsilon^{-1} \nabla \times H - \mu \omega^2 H - 
+        \nabla \times \epsilon^{-1} J - i \omega M = 0,
+    \end{equation}
+    which can be written as
+    \begin{equation}
+    r(x,p) = A(p) x - b(x) = B(x) p - d(x).
+    \end{equation}
+
+\subsection{Defining the curl operators}
+Specifically, the curl operations are defined as
+    \begin{equation}
+    \nabla^\pm \times u = \begin{bmatrix}
+        D_y^\pm u_z - D_z^\pm u_y \\
+        D_z^\pm u_x - D_x^\pm u_z \\
+        D_x^\pm u_y - D_y^\pm u_x
+        \end{bmatrix}
+    \end{equation}
+    where
+    \begin{subequations}\begin{align}
+    D_x^- v &= \frac{v(i,j,k) - v(i-1,j,k)}{\phi_x(i-\frac{1}{2})} \\
+    D_x^+ v &= \frac{v(i+1,j,k) - v(i,j,k)}{\phi_x(i+\frac{1}{2})},
+    \end{align}\end{subequations}
+    and likewise for the numerical derivatives in the $y$ and $z$ directions.
+Note that we assume that $\Delta x, \Delta y, \Delta z = 1$, and so omit them
+    from the denominators of $D$.
+
+Lastly, the $\phi$ functions are used to construct 
+    absorbing boundary conditions.
+Specifically, we use stretched-coordinate perfectly matched layers\cite{scpml}
+    for which $\phi$ is defined as
+    \begin{equation}
+    \phi_x(x) = \begin{cases}
+        1 + \frac{i\sigma}{\omega} x^m & x < t_\text{PML}, \\ 
+        1 + \frac{i\sigma}{\omega} (x_\text{max} -x)^m
+            & x > x_\text{max} - t_\text{PML}, \\ 
+        1 & \text{otherwise,}
+        \end{cases}
+    \end{equation}
+    where $\sigma$ is the strength of the absorbing layer, 
+    and $m$ controls the profile of the layer.
+Typical values for $\sigma$ and $m$ are $1$ and $2.5$ respectively.
+
+\subsection{Forming the field subproblem}
+$A(p)$ and $b(p)$ are constructed as follows,
+    \begin{subequations}\begin{align}
+    A(p) &= A_1 \diag(\epsilon(p)^{-1}) A_2 - \mu \omega^2 I \\
+    b(p) &= A_1 \diag(\epsilon(p)^{-1}) b_j + i \omega b_m \\
+    A_1 &= \nabla^- \times \\
+    A_2 &= \nabla^+ \times \\
+    b_j &= J \\
+    b_m &= M,
+    \end{align}\end{subequations}
+    where $\nabla^+$ and $\nabla^-$ refer to forward- and backward-differencing
+    respectively.
+
+\subsection{Forming the structure subproblem}
+We now show how to form $r(x,p) = B(x)p - d(x)$.
+
 \section{Solving the matrices}
 \section{Linear algebra definitions}
 \subsection{Gradient and Hessian calculations}
+Mention something about complex values.
 \subsection{Matrix inversion lemma}\label{inv lemma}
 \begin{equation}
 (A + UCV)^{-1} = A^{-1} - A^{-1}U (C^{-1} + V A^{-1} U)^{-1} V A^{-1}
@@ -453,5 +513,6 @@ Typically, one computes $A_{11}^{-1} A_{12}$ and $A_{11}^{-1} b_1$,
 \end{appendix}
 \begin{thebibliography}{99}
 \bibitem{ADMM} Boyd group ADMM paper
+\bibitem{scpml} \url{http://math.mit.edu/~stevenj/18.369/pml.pdf}
 \end{thebibliography}
 \end{document}
