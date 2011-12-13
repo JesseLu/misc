@@ -247,7 +247,7 @@ That is, in a very similar fashion to the adjoint method,
     and an additional $A^{-1}$ solve is needed to compute $\Delta x$.
 
 \subsubsection{Low-rank quadratic $f(x)$}
-We investigate the case where $f(x) = \|C_1^T x - d_1\|$,
+We investigate the case where $f(x) = \frac{1}{2}\|C_1^T x - d_1\|^2$,
     where $C_1 \in \reals^{n \times p_1}$
     and $d_1 \in \reals^{p_1 \times 1}$, for $p_1 \ll n$.
 Here,
@@ -278,12 +278,11 @@ Note that computing $M$ is computationally inexpensive
 The Newton step is given by
     \begin{equation}
     \Delta x = A^{-1}M ((I + \inv{\rho}\tC_1\tC_1^T)Ax
-        - b + \inv{\rho}(y - \tC_1 d)),
+        - b + \inv{\rho}(y - \tC_1 d_1)),
     \end{equation}
     and requires $p_1$ solutions of $A^{-T}$ to compute $\tC_1$, 
     and then 1 solution of $A^{-1}$ to compute $\Delta x$.
 
-\subsubsection{Concave, low-rank quadratic $f(x)$}
 
 \subsubsection{$f(x)$ composed of linear equality constraints}
 We investigate the situation where $f(x)$ involves
@@ -306,22 +305,125 @@ We assume that
     and solve for $\Delta x$ 
     using block elimination (see appendix \ref{block elim}),
     \begin{subequations}\begin{align}
-    v &= -(\tC_2^T M^{-1} \tC_2)^{-1}(\tC_2^T Ax - d_2 + \tC_2^T Mz) \\
+    v &= -(\tC_2^T M \tC_2)^{-1}(\tC_2^T Ax - d_2 + \tC_2^T Mz) \\
     \Delta x &= -A^{-1} M (z + \tC_2 v),
     \end{align}\end{subequations}
     where $\tC_2 = A^{-T} C_2$.
+    If we condense the block elimination procedure to a single step,
+    we obtain
+    \begin{equation}
+    \Delta x = -A^{-1} M (z - 
+        \tC_2 (\tC_2^T M \tC_2)^{-1}(\tC_2^T Ax - d_2 + \tC_2^T Mz)).
+    \end{equation}
+
 
 Once again, $p_2 + 1$ simulations are required, 
     because computing $\tC_2$ requires $p_2$ solves of $A^{-T}$ and
     computing $\Delta x$ requires 1 solve of $A^{-1}$.
 
-    
+\subsubsection{Combined performance objective}
+As can be seen from the previous examples,
+    efficiently computing $\Delta x$ involves transforming $Ax \to z$,
+    and then converting back, $A^{-1}z \to x$.
+It should be no surprise then, 
+    that we can also include all three performance objectives 
+    in a single $f(x)$.
 
+This results in computing
+    \begin{equation}
+    \Delta x = -A^{-1} M (z - 
+        \tC_2 (\tC_2^T M \tC_2)^{-1}(\tC_2^T Ax - d_2 + \tC_2^T Mz)),
+    \end{equation}
+    where 
+    \begin{subequations}\begin{align}
+    M &= I - \tC_1(\rho I + \tC_1^T\tC_1)^{-1}\tC_1^T \\
+    \begin{split}
+    z &= A^{-T} \nabla_x \mathcal{L} \\
+      &= \rho((I + \inv{\rho}\tC_1\tC_1^T)Ax
+        - b + \inv{\rho}(y +\tilde{c} - \tC_1 d_1))
+    \end{split} \\
+    \tilde{c} &= A^{-1} c \\
+    \tC_1 &= A^{-1} C_1 \\
+    \tC_2 &= A^{-1} C_2. 
+    \end{align}\end{subequations}
 
+As expected, the first transformation costs $1 + p_1 + p_2$ solves of $A^{-T}$,
+    and the second transformation costs 1 solve of $A^{-1}$.
+
+\subsubsection{Concave, low-rank quadratic $f(x)$}
+As a special case, we now consider the choice of 
+    $f(x) = - \frac{1}{2}\|C_1^T x \|^2$,
+    which is a quadratic, but concave, performance objective.
+We consider the case where $f(x)$ is low-rank, that is,
+    $C_1 \in \reals^{n \times p_1}$ where $p_1 \ll n$.
+
+To deal with the concavity of $f(x)$ we would like to use
+    a truncated Newton method,
+    \begin{equation}
+    \hat{\mathcal{L}}(x,p,y) = \mathcal{L}(x,p,y) + \frac{\eta}{2} \|x - x_0\|^2
+    \end{equation}
+    or even
+    \begin{equation}
+    \Delta x = -(\nabla_{xx}^2 \mathcal{L} + \eta I)^{-1}
+        \nabla_x \mathcal{L},
+    \end{equation}
+    where the coefficient $\eta$ is increased in order to 
+    ensure that the augmented Hessian is positive definite 
+    (so that $(\nabla_x\mathcal{L})^T\Delta x > 0$).
+However, this generally makes inverting the Hessian intractable.
+
+A computationally efficient alternative would be to augment $\mathcal{L}(x,p,y)$
+    in the following way,
+    \begin{equation}
+    \hat{\mathcal{L}}(x,p,y) = \mathcal{L}(x,p,y) + 
+        \frac{\eta}{2} \|A(x - x_0)\|^2
+    \end{equation}
+    so that
+    \begin{equation}
+    (\nabla_{xx}^2 \hat{\mathcal{L}})^{-1} = 
+        A^{-1} (\rho I + \eta I - \tC_1 \tC_1^T)^{-1} A^{-T}
+    \end{equation}
+    where $\tC_1 = A^{-T} C_1$ and $\nabla_{xx}^2 \mathcal{L} = \rho A^T A$.
+
+For the case $p_1 = 1$, positive definiteness can be ensured by choosing
+    $\eta = \| \tC_1 \|^2$.
+Generally, for $p_1 > 1$, $\eta$ can be set to the extremal eigenvalue of
+    $\tC_1 \tC_1^T$ in order to ensure positive definiteness.
+Efficient computation of such an eigenvalue can be performed
+    via a $QR$ factorization of $\tC_1$.
+
+The computational cost of using a truncated Newton method is that 
+    multiple steps are needed, and so $\Delta x$ must be computed many times.
+Fortunately, $\tC = A^{-T} C$ needs only to be computed once,
+    bringing the total number of solves to $n_{tn} + p_1$, 
+    where $n_{tn}$ is the number of steps needed 
+    for the truncated Newton method.
 
 \subsubsection{Linearly constrained $f(x)$ with arbitrary phase}
-\subsubsection{Combined problem}
+We now investigate another special case of $f(x)$, 
+    namely, when $f(x)$ implements the equality constraint 
+    $C_2^T x = e^{i \phi}d_2$,
+    where $C_2 \in \reals^{n \times p_2}$ and $p_2 \ll n$.
+This situation corresponds to
+    the addition of an arbitrary phase $e^{i\phi}$
+    to a linear equality constraint.
+    
+We simply note that this case can be handled by computing
+    \begin{equation}
+    \Delta x = -A^{-1} M (z - 
+        \tC_2 (\tC_2^T M \tC_2)^{-1}(\tC_2^T Ax - e^{i\phi}d_2 + \tC_2^T Mz)).
+    \end{equation}
+    for different choices of $\phi$.
+The total computational cost is then simply $n_\phi + p_2$ solves,
+    where $n_\phi$ is the number of values of $\phi$ which are tried.
+
 \subsection{Multi-mode ADMM}
+Since ADMM explicitly separates updating the field and structure variables,
+    handling multiple fields is very naturally included in the formulation.
+Namely, multiple fields ($x_i$) are updated simultaneously, in parallel,
+    and then care ``connected'' by updating a single $p$ 
+    which takes all the $x_i$ into account.
+
 \begin{appendix}
 \section{Constructing the relevant matrices and vectors}
 \section{Solving the matrices}
