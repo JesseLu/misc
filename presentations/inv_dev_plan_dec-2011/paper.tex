@@ -428,7 +428,7 @@ Namely, multiple fields ($x_i$) are updated simultaneously, in parallel,
 The physics residual is based on the electromagnetic wave equation, 
     \begin{equation}
     \nabla \times \epsilon^{-1} \nabla \times H - \mu \omega^2 H - 
-        \nabla \times \epsilon^{-1} J - i \omega M = 0,
+        \nabla \times \epsilon^{-1} J - i \omega M = 0, \label{em wave}
     \end{equation}
     which can be written as
     \begin{equation}
@@ -436,27 +436,39 @@ The physics residual is based on the electromagnetic wave equation,
     \end{equation}
 
 \subsection{Defining the curl operators}
-Specifically, the curl operations are defined as
-    \begin{equation}
-    \nabla^\pm \times u = \begin{bmatrix}
-        D_y^\pm u_z - D_z^\pm u_y \\
-        D_z^\pm u_x - D_x^\pm u_z \\
-        D_x^\pm u_y - D_y^\pm u_x
-        \end{bmatrix}
-    \end{equation}
-    where
+The various curl operators in \eqref{em wave} do not all
+    correspond to the same matrix.
+We use both forward-differencing $(\nabla^+)$
+    and backward-differencing $(\nabla^-)$ curl operators.
+These are defined as
     \begin{subequations}\begin{align}
-    D_x^- v &= \frac{v(i,j,k) - v(i-1,j,k)}{\phi_x(i-\frac{1}{2})} \\
-    D_x^+ v &= \frac{v(i+1,j,k) - v(i,j,k)}{\phi_x(i+\frac{1}{2})},
+    \nabla^\pm \times u &= \begin{bmatrix}
+        0 & -S_z^\pm D_z^\pm & S_y^\pm D_y^\pm \\
+        S_z^\pm D_z^\pm & 0 & -S_x^\pm D_x^\pm \\
+        -S_y^\pm D_y^\pm & S_x^\pm D_x^\pm & 0 \end{bmatrix}
+        \begin{bmatrix} u_x \\ u_y \\ u_z \end{bmatrix}
+    \\
+    &= \begin{bmatrix}
+        S_y^\pm D_y^\pm u_z - S_z^\pm D_z^\pm u_y \\
+        S_z^\pm D_z^\pm u_x - S_x^\pm D_x^\pm u_z \\
+        S_x^\pm D_x^\pm u_y - S_y^\pm D_y^\pm u_x
+        \end{bmatrix}
     \end{align}\end{subequations}
-    and likewise for the numerical derivatives in the $y$ and $z$ directions.
-Note that we assume that $\Delta x, \Delta y, \Delta z = 1$, and so omit them
-    from the denominators of $D$.
+    where the $D\pm$ matrices perform either forward- or backward-differencing,
+    and the $S^\pm$ matrices implement the stretched-coordinate 
+    absorbing boundary conditions\cite{scpml}.
 
-Lastly, the $\phi$ functions are used to construct 
-    absorbing boundary conditions.
-Specifically, we use stretched-coordinate perfectly matched layers\cite{scpml}
-    for which $\phi$ is defined as
+These matrices are defined as follows,
+    \begin{subequations}\begin{align}
+    D_x^+ u_w &= \frac{u_w(i+1,j,k) - u_w(i,j,k)}{\Delta x} \\
+    D_x^- u_w &= \frac{u_w(i,j,k) - u_w(i-1,j,k)}{\Delta x} \\
+    S_x^+ v &= \frac{v(i,j,k)}{\phi_x(i+\frac{1}{2})} \\
+    S_x^- v &= \frac{v(i,j,k)}{\phi_x(i)}, 
+    \end{align}\end{subequations}
+    and likewise for the $y$ and $z$ directions.
+Here, the $w$ subscript signifies either $x$, $y$, or $z$,
+    while $v$ is just a placeholder vector.
+Also, the $\phi$ functions are defined according to \cite{scpml} as
     \begin{equation}
     \phi_x(x) = \begin{cases}
         1 + \frac{i\sigma}{\omega} x^m & x < t_\text{PML}, \\ 
@@ -465,51 +477,112 @@ Specifically, we use stretched-coordinate perfectly matched layers\cite{scpml}
         1 & \text{otherwise,}
         \end{cases}
     \end{equation}
-    where $\sigma$ is the strength of the absorbing layer, 
-    and $m$ controls the profile of the layer.
-Typical values for $\sigma$ and $m$ are $1$ and $2.5$ respectively.
+    where $\sigma$ is the strength of the perfectly-matched layer (PML), 
+    $m$ controls the profile of the PML,
+    and $t_\text{PML}$ is the thickness of the PML.
+Typical values for $\sigma$, $m$, and $t_\text{PML}$ are 
+    $1.0$, $2.5$, and $10$ respectively.
+
+Lastly, the $D$ matrices impose periodic (wrap-around) boundary conditions
+    for cells adjacent to the boundary.
+Also, note that the assymetry in the definition of the $S^\pm$ matrices
+    is due to the structure of the Yee cell\cite{yee cell}.
 
 \subsection{Forming the field subproblem}
 $A(p)$ and $b(p)$ are constructed as follows,
     \begin{subequations}\begin{align}
     A(p) &= A_1 \diag(\epsilon(p)^{-1}) A_2 - \mu \omega^2 I \\
-    b(p) &= A_1 \diag(\epsilon(p)^{-1}) b_j + i \omega b_m \\
-    A_1 &= \nabla^- \times \\
-    A_2 &= \nabla^+ \times \\
-    b_j &= J \\
-    b_m &= M,
+    b(p) &= A_1 \diag(\epsilon(p)^{-1}) b_j + i \omega b_m, \\
     \end{align}\end{subequations}
-    where $\nabla^+$ and $\nabla^-$ refer to forward- and backward-differencing
-    respectively.
+    where
+    \begin{subequations}\begin{align}
+    A_1 &= \nabla^+ \times \\
+    A_2 &= \nabla^- \times \\
+    b_j &= J \\
+    b_m &= M.
+    \end{align}\end{subequations}
 
 \subsection{Forming the structure subproblem}
 We now show how to form $r(x,p) = B(x)p - d(x)$.
+    \begin{subequations}\begin{align}
+    r(x,p) &= A(p)x - b(p) \\
+        &= (A_1 \diag(\epsilon(p)^{-1}) A_2 - \mu \omega^2 I) x - 
+            (A_1 \diag(\epsilon(p)^{-1}) b_j + i \omega b_m) \\ 
+        &= A_1 \diag(\epsilon(p)^{-1}) (A_2 x - b_j) - 
+            (\mu \omega^2 x + i \omega b_m) \\ 
+        &= A_1 \diag(A_2 x - b_j) \epsilon(p)^{-1} - 
+            (\mu \omega^2 x + i \omega b_m),
+    \end{align}\end{subequations}
+    and choosing $\epsilon(p)^{-1} = A_3 p + p_0$, we obtain
+    \begin{subequations}\begin{align}
+    r(x,p) &= A_1 \diag(A_2 x - b_j) (A_3 p + p_0) - 
+            (\mu \omega^2 x + i \omega b_m) \\
+        &= B(x) p - d(x),
+    \end{align}\end{subequations}
+    where
+    \begin{subequations}\begin{align}
+    B(x) &= A_1 \diag(A_2 x - b_j) A_3\\
+    d(x) &= \mu \omega^2 x + i \omega b_m - A_1 \diag(A_2 x - b_j) p_0.
+    \end{align}\end{subequations}
 
 \section{Solving the matrices}
 \section{Linear algebra definitions}
 \subsection{Gradient and Hessian calculations}
-Mention something about complex values.
+The following convention is assumed throughout these notes.
+Given $f(x) \in \reals^n \to \reals$,
+    \begin{equation}
+    \nabla f(x) = \begin{bmatrix}
+        \frac{df}{dx_1} \\
+        \frac{df}{dx_2} \\
+        \vdots
+        \end{bmatrix}
+    \end{equation}
+    and
+    \begin{equation}
+    \nabla^2 f(x) = \begin{bmatrix}
+        \frac{d^2f}{dx_1^2} & \frac{d^2f}{dx_1 dx_2} & \cdots \\
+        \frac{d^2f}{dx_2 dx_1} & \frac{d^2f}{dx_2^2} & \cdots \\
+        \vdots & \vdots & \ddots
+        \end{bmatrix}.
+    \end{equation}
+
+\subsection{Handling complex values}
+
 \subsection{Matrix inversion lemma}\label{inv lemma}
+The matrix inversion simply states that
 \begin{equation}
-(A + UCV)^{-1} = A^{-1} - A^{-1}U (C^{-1} + V A^{-1} U)^{-1} V A^{-1}
+(A + UCV)^{-1} = A^{-1} - A^{-1}U (C^{-1} + V A^{-1} U)^{-1} V A^{-1}.
 \end{equation}
-\subsection{Block elimination of a matrix}\label{block elim}
-\begin{equation}
-\begin{bmatrix} A_{11} & A_{12} \\ A_{21} & A_{22} \end{bmatrix} 
-\begin{bmatrix} x_1 \\ x_2 \end{bmatrix} = 
-\begin{bmatrix} b_1 \\ b_2 \end{bmatrix}
-\end{equation}
-\begin{subequations}\begin{align}
-A_{11} x_1 + A_{12} x_2 &= b_1 \\
-x_1 &= A_{11}^{-1} (b_1 - A_{12} x_2)
-\end{align}\end{subequations}
-\begin{subequations}\begin{align}
-A_{21} x_1 + A_{22} x_2 &= b_2 \\
-A_{21} A_{11}^{-1} (b_1 - A_{12} x_2) + A_{22} x_2 &= b_2 \\
-(A_{22} - A_{21} A_{11}^{-1} A_{12}) x_2 &= b_2 - A_{21} A_{11}^{-1} b_1
-\end{align}\end{subequations}
-Typically, one computes $A_{11}^{-1} A_{12}$ and $A_{11}^{-1} b_1$, 
+
+\subsection{Block-elimination of a matrix}\label{block elim}
+Solving $Ax=b$ via block-elimination involves first splitting the problem up as
+    \begin{equation}
+    \begin{bmatrix} A_{11} & A_{12} \\ A_{21} & A_{22} \end{bmatrix} 
+    \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} = 
+    \begin{bmatrix} b_1 \\ b_2 \end{bmatrix},
+    \end{equation}
+    solving for $x_1$ in terms of $x_2$, 
+    \begin{subequations}\begin{align}
+    A_{11} x_1 + A_{12} x_2 &= b_1 \\
+    x_1 &= A_{11}^{-1} (b_1 - A_{12} x_2), \label{x1 solve}
+    \end{align}\end{subequations}
+    substituting in order to solve for $x_2$,
+    \begin{subequations}\begin{align}
+    A_{21} x_1 + A_{22} x_2 &= b_2 \\
+    A_{21} A_{11}^{-1} (b_1 - A_{12} x_2) + A_{22} x_2 &= b_2 \\
+    (A_{22} - A_{21} A_{11}^{-1} A_{12}) x_2 &= b_2 - A_{21} A_{11}^{-1} b_1
+    \end{align}\end{subequations}
+    and then plugging the solution in to \eqref{x1 solve} to back out $x_1$.
+Typically, one pre-computes $A_{11}^{-1} A_{12}$ and $A_{11}^{-1} b_1$, 
     and then solves for the rest of the system.
+
+Additionally, if we are only concerned about the value of $x_1$,
+    we can simply use the formula
+    \begin{equation}
+    x_1 = A_{11}^{-1} (b_1 - A_{12} 
+        (A_{22} - A_{21} A_{11}^{-1} A_{12})^{-1}
+        (b_2 - A_{21} A_{11}^{-1} b_1)).
+    \end{equation}
 \end{appendix}
 \begin{thebibliography}{99}
 \bibitem{ADMM} Boyd group ADMM paper
