@@ -5,22 +5,24 @@
 
 
 \begin{document}
-\title{Objective-First Design of Nanophotonic Waveguide Couplers}
+\title{High-Efficiency, Small-Footprint Couplers Between 
+    Arbitrary Nanophotonic Waveguide Modes in Two Dimensions}
 \author{Jesse Lu and Jelena Vu\v{c}kovi\'{c}}
 \address{Stanford University, Stanford, California, USA.}
 \email{jesselu@stanford.edu}
 
 \maketitle
 \begin{abstract}
-We introduce an ``objective-first'' approach to the design of
-    nanophotonic waveguide couplers.
-Our method is
+We develop a design algorithm which can design 
+    high efficiency ($\sim$95\%), 
+    small-footprint (1-4 square vacuum wavelengths)
+    couplers between arbitrary nanophotonic waveguide modes.
+Such a capability is extremely useful since it fundamentally allows for the
+    design of all linear optical devices.
+Our ``objective-first'' method is
     computationally fast (15 minutes on a single-core personal computer), 
-    requires no trial-and-error,
-    does not require guessing a good starting design,
-    can be applied to arbitrary waveguide modes,
-    and generates devices with high coupling efficiencies (typically 95\%)
-    and small footprints (1-4 square vacuum wavelengths).
+    requires no trial-and-error, and
+    does not require guessing a good starting design.
 \end{abstract}
 \ocis{230.7370, 130.3990.}
 
@@ -78,8 +80,10 @@ Our method is
 Optical mode conversion, 
     the efficient transfer of photons from one guided mode to another,
     is a fundamental requirement in nanophotonics.
-Efficient conversion between waveguides modes
-    is critical in the many cases, including:
+In fact, the problem of converting between nanophotonic modes is essentially
+    the function of \emph{all} linear nanophotonic devices.
+For instance, efficient conversion between waveguides modes
+    is useful for:
     \begin{enumerate}
         \item Coupling to and from optical fiber\cite{fibergrating}, 
         to communicate with the outside world.
@@ -343,47 +347,25 @@ That said, the final designs presented here
 
 
 \section{Results}
-We apply our method to five practically interesting problems 
-    that are hard to solve using other available methods: 
+We now present evidence that the method outlined above 
+    is indeed able to design coupling structures between essentially
+    any two nanophotonic waveguide modes.
+To do so, we apply our method to the following five problems:
     \begin{enumerate}
-    \item a coupler between waveguides of different refractive index and width,
-    \item a coupler between waveguide modes of different order and symmetry,
-    \item a coupler between waveguides that confine light 
+    \item coupling between waveguides of different refractive index and width,
+    \item coupling between waveguide modes of different order and symmetry,
+    \item coupling between waveguides that confine light 
         using different principles 
         (index guided vs. distributed Bragg reflection guided), 
         i.e., between a slab waveguide and a photonic crystal fiber. 
-    \item a coupler from a dielectric to a plasmonic metal-insulator-metal 
+    \item coupling from a dielectric to a plasmonic metal-insulator-metal 
         waveguide, and
-    \item a coupler from a dielectric waveguide to a (plasmonic) metal wire.
+    \item coupling from a dielectric waveguide to a (plasmonic) metal wire,
     \end{enumerate}
-
-The corresponding designs as well as the boundary values which make up the
-    respective design objectives ($H_z^\text{perfect}$) 
-    are shown in Figs.~\ref{fig:fiber}, \ref{fig:mode} and \ref{fig:aircore}.
-As initial designs, we uniformly choose $\epsilon = 9$ throughout 
-    the whole computational region.
-These results demonstrate that our method
-    \begin{itemize}
-    \item is computationally fast, 
-        requiring only 15 minutes on a single-core personal computer;
-    \item generates compact devices with footprints of only
-        1-4 square vacuum wavelengths;
-    \item generates highly efficient devices with  
-        typical coupling efficiencies of $95\%$;
-    \item can be applied to arbitrary input and output modes,
-        as seen from the diverse selection of desired output waveguide modes;
-    \item does not require a good initial design.
-        The initial design was simply $\epsilon = 9$ everywhere
-            (a somewhat arbitrary guess, other values work as well),
-            which in the case of Figs.~\ref{fig:mode} and \ref{fig:aircore}
-            produces an initially non-functional device 
-            (coupling efficiency of $0\%$).
-
-    \end{itemize}
-
+    the results of which are shown in Figs.~\ref{fig:fiber}-\ref{fig:wire}.
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{1} 
+    \includegraphics[width=0.8\textwidth]{1} 
     \caption{Coupler from a narrow, high-index ($\epsilon=12.25$) waveguide to
             a wide, low-index ($\epsilon=2.25$) waveguide. 
         The $H_z^\text{perfect}$ boundary values used as 
@@ -400,7 +382,7 @@ These results demonstrate that our method
 \end{figure}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{2} 
+    \includegraphics[width=0.8\textwidth]{2} 
     \caption{Coupler that converts the fundamental waveguide mode to the
             second-order waveguide mode
             (a movie of the design progress is included as a
@@ -418,7 +400,7 @@ These results demonstrate that our method
 \end{figure}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{3}
+    \includegraphics[width=0.8\textwidth]{3}
     \caption{Coupler between a dielectric slab waveguide to 
             an air-core waveguide.
         Here, not only are the modes of opposite symmetry,
@@ -435,7 +417,7 @@ These results demonstrate that our method
 \end{figure}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{4}
+    \includegraphics[width=0.8\textwidth]{4}
     \caption{Coupler between a dielectric slab waveguide to 
             a plasmonic metal-insulator-metal waveguide.
         The efficiency of the device is $92.9\%$ and 
@@ -447,7 +429,7 @@ These results demonstrate that our method
 \end{figure}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{5}
+    \includegraphics[width=0.8\textwidth]{5}
     \caption{Coupler between a dielectric slab waveguide to 
             a plasmonic wire waveguide.
         The efficiency of the device is $93.2\%$ and 
@@ -457,6 +439,29 @@ These results demonstrate that our method
         }
         \label{fig:wire}
 \end{figure}
+
+These results clearly demonstrate that our method
+    \begin{itemize}
+    \item can be applied to arbitrary input and output modes,
+        as seen from the diverse selection of desired output waveguide modes;
+    \item generates highly efficient devices with  
+        typical coupling efficiencies of $95\%$;
+    \item generates compact devices with footprints of only
+        1-4 square vacuum wavelengths;
+    \item does not require a good initial design.
+        The initial design was simply $\epsilon = 9$ everywhere
+            (a somewhat arbitrary guess, other values work as well),
+            which in almost every case
+            produces an initially non-functional device 
+            (coupling efficiency of $0\%$);
+    \item is computationally fast, 
+        requiring only 15 minutes on a single-core personal computer.
+    \end{itemize}
+
+Critically, these results form a key advancement in our understanding of 
+    nanophotonic design; namely, 
+    that it is indeed possible to efficiently design
+    virtually any linear optical device using an objective-first approach.
 
 \section{Conclusion}
 We develop a fundamentally new approach to designing physical structures,
@@ -472,11 +477,12 @@ We then apply an objective-first approach to the design of
     at best, to solve with existing methods. 
 We show that our method produces
     high-efficiency designs ($\sim 95\%$ efficiency) 
-    in small footprints ($\sim 1$ square vacuum wavelength),
+    in small footprints ($\sim 1$ square vacuum wavelength)
+    between arbitrary waveguide modes.
+Furthermore, out method
     is computationally fast (15 minutes on a single-core personal computer), and
     does not require trial-and-error, or even 
     a good starting design.\\
-
 
 This work has been supported in part by the 
     AFOSR MURI for Complex and Robust On-chip Nanophotonics 
