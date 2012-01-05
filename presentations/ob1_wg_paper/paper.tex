@@ -53,21 +53,21 @@ We demonstrate designs for various coupling problems which suggest
     ``Nanometre-Scale Germanium Photodetector Enhanced by a 
     Near-Infrared Dipole Antenna,'' 
     Nature Photonics \textbf{2}, 226 – 229 (2008) 
-\bibitem{fwadia} V. R. Almeida, R. R. Panepucci, and M. Lipson, 
-    ``Nanotaper for compact mode conversion,'' 
-    Opt. Lett. \textbf{28}, 1302-1304 (2003) 
-\bibitem{wwadia} S. G. Johnson, P. Bienstman,  M. A. Skorobogatiy, 
-    M. Ibanescu1, E. Lidorikis, and J. D. Joannopoulos,
-    ``Adiabatic theorem and continuous coupled-mode theory for 
-    efficient taper transitions in photonic crystals,''
-    Phys. Rev. E \textbf{66}, 066608 (2002)
-\bibitem{deriv} F. Wang, J. S. Jensen, O. Sigmund, 
-    ``Robust topology optimization of photonic crystal waveguides with 
-    tailored dispersion properties.'' 
-    J. Opt. Soc. Am. B \textbf{28}, 387-397 (2011)
-\bibitem{boydbook} S. Boyd, and L. Vandenberghe, 
-    \emph{Convex Optimization} 
-    (Cambridge University Press, 2004)
+% \bibitem{fwadia} V. R. Almeida, R. R. Panepucci, and M. Lipson, 
+%     ``Nanotaper for compact mode conversion,'' 
+%     Opt. Lett. \textbf{28}, 1302-1304 (2003) 
+% \bibitem{wwadia} S. G. Johnson, P. Bienstman,  M. A. Skorobogatiy, 
+%     M. Ibanescu1, E. Lidorikis, and J. D. Joannopoulos,
+%     ``Adiabatic theorem and continuous coupled-mode theory for 
+%     efficient taper transitions in photonic crystals,''
+%     Phys. Rev. E \textbf{66}, 066608 (2002)
+% \bibitem{deriv} F. Wang, J. S. Jensen, O. Sigmund, 
+%     ``Robust topology optimization of photonic crystal waveguides with 
+%     tailored dispersion properties.'' 
+%     J. Opt. Soc. Am. B \textbf{28}, 387-397 (2011)
+% \bibitem{boydbook} S. Boyd, and L. Vandenberghe, 
+%     \emph{Convex Optimization} 
+%     (Cambridge University Press, 2004)
 \bibitem{prevwork} J. Lu, S. Boyd, and J. Vuckovic, 
     ``Inverse design of a three-dimensional nanophotonic resonator,''
     Opt. Express \textbf{19}, 10563-10570 (2011) 
@@ -99,20 +99,16 @@ For instance, efficient conversion between waveguides modes
     \end{itemize}
 In fact, the problem of converting between nanophotonic modes is essentially
     the function of all linear nanophotonic devices, since
-    any linear device is completely characterized by its input and output modes.
+    any linear device is completely characterized by its input and output modes
+    and the coupling coefficients between them.
 
-In this paper, we propose a design algorithm which, 
-    we believe, solves this problem.
-Namely, we outline a method capable of designing nanophotonic devices
-    to efficiently transfer photons between 
-    arbitrary input and output modes,
-    and we demonstrate this method by designing various nanophotonic couplers
-    between different waveguides.
-
+In this paper, we present a method to solve the problem 
+    of designing linear nanophotonic devices.
+We then demonstrate this method by designing coupling structures 
+    between various nanophotonic waveguides.
 Furthermore, we show that our method 
-     does not employ brute-force parameter searches;
-     does not require a good initial design;
-     is computationally fast (no simulations required);
+     does not require a good initial design,
+     is computationally fast,
      and can generate high efficiency couplers within a very small footprint. 
 % 
 % 
@@ -136,10 +132,9 @@ Furthermore, we show that our method
 
 % How does your algorithm solve this problem?
 % \subsection{Advantages of objective-first design}
-\section{Objective-first formulation}
+\section{Objective-first approach}
 % What is objective-first optimization?
-The typical approach to designing physical structures can be formulated 
-    in the following way:
+Physical structures are typically designed by solving the following problem:
     \begin{subequations}\label{eq:adj}
     \begin{align} 
     \text{decrease} & \quad f(x) \label{eq:adj:obj} \\ 
@@ -149,11 +144,11 @@ The typical approach to designing physical structures can be formulated
     where $x$ is the field variable and $p$ is the structure variable.
 Here, $f(x)$, the \emph{design objective}, 
     calculates the performance of the device 
-    (e.g. amount of power not coupled to output mode); 
+    (e.g. amount of power lost); 
     while $g(x,p)$ is the underlying physical equation for the system
     (e.g. the electromagnetic wave equation).
 
-In contrast, the objective-first formulation is
+In contrast, the objective-first approach solves 
     \begin{subequations}\label{eq:ob1}
     \begin{align} 
     \text{decrease} & \quad \|g(x,p)\|^2 \label{eq:ob1:obj} \\ 
@@ -178,11 +173,11 @@ Second, to increase the likelihood of arriving at a high efficiency design
     low-performance devices.
 
 % How is it applied to waveguide coupler design?
-\section{Objective-first design of arbitrary waveguide couplers}
-We demonstrate the objective-first approach
+\section{Objective-first design of waveguide couplers}
+We now demonstrate the objective-first approach
     by designing waveguide couplers in two-dimensions.
 Specifically, we work in the two-dimensional transverse electric mode,
-    and choose $H_z$ as the field variable $x$,
+    choosing $H_z$ as the field variable $x$,
     and $\epsilon^{-1}$ (the inverse of the permittivity) 
     as the structure variable $p$.
 This results in the following form of the physics residual,
@@ -194,13 +189,25 @@ This results in the following form of the physics residual,
     where $\omega$ is the angular frequency,
     and $\mu_0$ is the permeability of free-space.
 
-For the design objective, we choose a boundary-value formulation
-    based on $H_z^\text{perfect}$,
-    where $H_z^\text{perfect}$ is constructed 
-    of the exact input and output waveguide modes at the input and output ports
-    of the optimization region (where the coupler will be placed),
-    repectively, and of zero-amplitude fields at the unused ports, 
-    as illustrated in Fig.~\ref{fig:intro}.
+In order to produce a method applicable 
+    to the design of any linear nanophotonic device,
+    we note that its performance
+    will be completely characterized by the fields along its boundary,
+    and therefore, 
+    we choose a boundary-value formulation for the design objective.
+Namely, we first compute the boundary fields needed to obtain
+    perfect performance, $H_z^\text{perfect}$,
+    and then form the design objective as
+    \begin{equation}
+    f(x) = f(H_z) = \begin{bmatrix}
+        H_z - H_z^\text{perfect} \\
+        \frac{\partial H_z}{\partial n} - 
+            \frac{\partial H_z^\text{perfect}}{\partial n}
+        \end{bmatrix}_\text{boundary}
+        = 0,
+    \end{equation}
+    where $\partial H_z / \partial n$ 
+    denotes the spatial derivative in the direction normal to the boundary.
 
 \begin{figure}[htbp]
     \centering
@@ -216,85 +223,35 @@ For the design objective, we choose a boundary-value formulation
             have been chosen as the input and output modes respectively.}
     \label{fig:intro}
 \end{figure}
-
-The mathematical form of the design objective is simply, 
-    \begin{equation}
-    f(H_z) = \begin{bmatrix}
-        H_z - H_z^\text{perfect} \\
-        \frac{\partial H_z}{\partial n} - 
-            \frac{\partial H_z^\text{perfect}}{\partial n}
-        \end{bmatrix}_\text{boundary}
-        = 0.
-    \end{equation}
-That is to say,
-    the values of $H_z$ and $\partial H_z / \partial n$
-    (spatial derivative along normal direction)
-    along the device boundary are forced to be 
-    those of a device with perfect performance 
-    (100\% coupling efficiency).
-     
+    
 Such a design objective is both extremely simple and widely adaptable 
-    to the design of nearly every kind of nanophotonic device.
-Most importantly, it is trivial to enforce,
-    requiring only that we overwrite boundary field values.
-Our experience suggests that successful designs are possible for 
-    arbitrary choice of relative phase between the input and output fields.
+    to the design of any linear nanophotonic device.
+Additionally, it is trivial to enforce,
+    often requiring only that we overwrite boundary field values.
+On the other hand, such a formulation often prohibits the physics residual 
+    from disappearing completely; 
+    however, we find that very good device performance is still obtained
+    as long as the physics residual is sufficiently small.
 
-Finally, as in any method based on an objective-first approach,
-    the physics residual is not guaranteed to decrease to zero.
-Thus, it is entirely possible to never achieve 
-    a physically realizable field, $H_z$.
-In such cases, which are the norm rather than the exception,
-    we find that a relatively small residual usually leads to
-    fairly good, although imperfect, device performance.
-    
-The design problem is now
-    \begin{subequations}\label{eq:act}
-    \begin{align} 
-    \text{decrease} & \quad  
-        \| \nabla \times \epsilon^{-1} \nabla \times H_z - 
-            \mu_0 \omega^2 H_z \|^2 \label{eq:act:obj} \\ 
-    \text{subject to} & \quad 
-        \begin{bmatrix}
-        H_z - H_z^\text{perfect} \\
-        \frac{\partial H_z}{\partial n} - 
-            \frac{\partial H_z^\text{perfect}}{\partial n}
-        \end{bmatrix}_\text{boundary}
-        = 0.
-    \end{align}
-    \end{subequations}
-
-This problem contains many local minima (it is non-convex\cite{boydbook});
-    however, when either the field ($H_z$) or the structure ($\epsilon^{-1}$)
-    variable is considered separately, Eq.~\ref{eq:act} has only one minimum
-    (it is convex), and can be easily solved using standard methods
-    such as employed in our previous work\cite{prevwork}.
-We employ such an alternating directions strategy,
-    where both $H_z$ and $\epsilon^{-1}$ are solved independently.
-This process is extremely inefficient,
-    but is employed because the underlying numerical methods
-    do not need to be tuned by the user.
-We expect considerable improvements in computational efficiency
-    when more sophisticated algorithms are applied,
-    especially those which can update $H_z$ and $\epsilon^{-1}$ independently.
-    
-Lastly, we limit the allowable values of $\epsilon$ to be between
+Lastly, we employ an alternating directions strategy,
+    where both $x$ and $p$ are solved iteratively\cite{prevwork}
+    and limit the allowable values of $\epsilon$ to be between
     the permittivity of vacuum and of silicon,
     \begin{equation}
     \epsilon_0 \le \epsilon \le \epsilon_\text{silicon}.
     \end{equation}
-A completely binary structure would be preferred,
-    $\epsilon = \{\epsilon_0, \epsilon_\text{silicon}\}$,
-    and will be pursued in a future work.
+Note that a completely binary structure,
+    where $\epsilon = \{\epsilon_0, \epsilon_\text{silicon}\}$,
+    is needed for manufacturing purposes; this will be pursued in a future work.
 That said, the final designs presented here 
     all have significant portions which are already binary.
 
 
 \subsection{Coupler designs}
-We now present evidence that the method outlined above 
-    is indeed able to design coupling structures between essentially
-    any two nanophotonic waveguide modes.
-To do so, we apply our method to the following five problems:
+We now present five results which suggest our method
+    is indeed able to design arbitrary linear nanophotonic devices.
+These results comprise of couplers between 
+    the following nanophotonic waveguides:
     \begin{enumerate}
     \item coupling between waveguides of different refractive index and width
         (Fig.~\ref{fig:fiber});
@@ -310,14 +267,24 @@ To do so, we apply our method to the following five problems:
     \item coupling from a dielectric waveguide to a (plasmonic) metal wire
         (Fig.~\ref{fig:wire}).
     \end{enumerate}
+All the designs presented are both highly efficient 
+    ($\sim 95\%$ coupling efficiency)
+    and extremely compact 
+    (with footprints of only 1-4 square vacuum wavelengths).
+In addition, good starting points were not required; 
+    all initial designs were simply $\epsilon = 9$ everywhere
+    (a somewhat arbitrary guess, other values work as well).
+Finally, only 15 minutes on a single-core personal computer
+    were needed to obtain each design.
+
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{1} 
     \caption{Coupler from a narrow, high-index ($\epsilon=12.25$) waveguide to
             a wide, low-index ($\epsilon=2.25$) waveguide. 
         The $H_z^\text{perfect}$ boundary values used as 
-            the design objective are plotted in the upper-left quadrant, 
-            the generated structure is shown in the upper-right quadrant, and
+            the design objective are shown in the upper-left plots, 
+            the generated structure is shown in the upper-right plot, and
             the simulated $H_z$ fields of the device are shown 
             in the bottom two plots.
         The computed efficiency of the coupler is high, $98.2\%$, and
@@ -387,44 +354,19 @@ To do so, we apply our method to the following five problems:
         \label{fig:wire}
 \end{figure}
 
-These results clearly demonstrate that our method can
-    be applied to arbitrary input and output modes,
-    as seen from the diverse selection of desired output waveguide modes.
-Moreover, it produces highly efficient devices with  
-    typical coupling efficiencies of $95\%$,
-    which are at the same time compact 
-    (with footprints of only 1-4 square vacuum wavelengths).
-In addition, the method does not require a good initial guess for the design.
-In our case the initial design was simply $\epsilon = 9$ everywhere
-        (a somewhat arbitrary guess, other values work as well).
-Finally, the method is computationally fast, 
-    requiring only 15 minutes on a single-core personal computer.
-
-These results form a key advancement in our understanding of 
-    nanophotonic design; namely, 
-    that it is indeed possible to efficiently design
-    virtually any linear optical device using an objective-first approach.
-
 \section{Conclusion}
 We develop a fundamentally new approach to designing physical structures,
     which we term ``objective-first'', 
     in that we choose to satisfy the design objective 
     even above satisfying the physical equation which governs its operation.
-We show that such an approach drastically reduces the
-    amount of computation required per iteration, and 
-    performs well even with a non-functional initial design.
-
-We then apply an objective-first approach to the design of 
-    five practical nanophotonic waveguide couplers which are difficult
-    to solve with existing methods. 
-We show that our method produces
+We then apply this approach to the design of 
+    various nanophotonic waveguide couplers,
+    and show that our method produces
     high-efficiency designs ($\sim 95\%$ efficiency) 
-    in small footprints ($\sim 1$ square vacuum wavelength)
-    between arbitrary waveguide modes.
-Furthermore, out method
-    is computationally fast (15 minutes on a single-core personal computer), and
-    does not require trial-and-error, or even 
-    a good starting design.\\
+    in small footprints (1-4 square vacuum wavelengths)
+    without needing a good starting point.
+Furthermore, we suggest that such a methodology may be applicable
+    to the design of any linear nanophotonic device.\\
 
 This work has been supported by the 
     AFOSR MURI for Complex and Robust On-chip Nanophotonics 
