@@ -15,7 +15,7 @@
 \begin{abstract}
 We develop an algorithm for designing
     high efficiency ($\sim$95\%), 
-    small-footprint (1-4 square vacuum wavelengths)
+    small-footprint (1.5-4 square vacuum wavelengths)
     couplers between arbitrary nanophotonic waveguide modes
     in two dimensions.
 Our ``objective-first'' method is
@@ -23,9 +23,10 @@ Our ``objective-first'' method is
     requires no trial-and-error, and
     does not require guessing a good starting design.
 We demonstrate designs for various coupling problems which suggest 
-    that our method allows for the design of any linear optical device.
+    that our method allows for the design of any 
+    single-mode, linear optical device.
 \end{abstract}
-\ocis{230.7370, 130.3990.}
+\ocis{230.75370, 130.3990.}
 
 \begin{thebibliography}{99}
 \bibitem{fibergrating} Y. Tang, Z. Wang, L. Wosinski, U. Westergren, and S. He,
@@ -47,7 +48,7 @@ We demonstrate designs for various coupling problems which suggest
     C. Lagahe, and R. Baets, 
     ``Electrically pumped InP-based microdisk lasers integrated with a 
     nanophotonic silicon-on-insulator waveguide circuit,'' 
-    Opt. Express \textbf{15}, 6744-6749 (2007) 
+    Opt. Express \textbf{15}, 6744-6749 (20.75) 
 \bibitem{metallic} L. Tang, S. E. Kocabas, S. Latif, A. K. Okyay, 
     D. S. Ly-Gagnon, K. C. Saraswat and D. A. B. Miller, 
     ``Nanometre-Scale Germanium Photodetector Enhanced by a 
@@ -70,7 +71,7 @@ We demonstrate designs for various coupling problems which suggest
 %     (Cambridge University Press, 2004)
 \bibitem{prevwork} J. Lu, S. Boyd, and J. Vuckovic, 
     ``Inverse design of a three-dimensional nanophotonic resonator,''
-    Opt. Express \textbf{19}, 10563-10570 (2011) 
+    Opt. Express \textbf{19}, 10563-10.750 (2011) 
 \bibitem{code} \url{www.github.com/JesseLu/objective-first}
 \end{thebibliography}
 
@@ -103,7 +104,7 @@ In fact, the problem of converting between nanophotonic modes is essentially
     and the coupling coefficients between them.
 
 In this paper, we present a method to solve the problem 
-    of designing linear nanophotonic devices.
+    of designing single-mode, linear nanophotonic devices.
 We then demonstrate this method by designing coupling structures 
     between various nanophotonic waveguides.
 Furthermore, we show that our method 
@@ -209,7 +210,7 @@ Namely, we first compute the boundary fields needed to obtain
     where $\partial H_z / \partial n$ 
     denotes the spatial derivative in the direction normal to the boundary.
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
     \centering
     \includegraphics[width=\textwidth]{intro} 
     \caption{Boundary-value formulation of the design objective.
@@ -225,7 +226,7 @@ Namely, we first compute the boundary fields needed to obtain
 \end{figure}
     
 Such a design objective is both extremely simple and widely adaptable 
-    to the design of any linear nanophotonic device.
+    to the design of linear nanophotonic devices in general.
 Additionally, it is trivial to enforce,
     often requiring only that we overwrite boundary field values.
 On the other hand, such a formulation often prohibits the physics residual 
@@ -249,7 +250,7 @@ That said, the final designs presented here
 
 \subsection{Coupler designs}
 We now present five results which suggest our method
-    is indeed able to design arbitrary linear nanophotonic devices.
+    is indeed able to design arbitrary single-mode, linear nanophotonic devices.
 These results comprise of couplers between 
     the following nanophotonic waveguides:
     \begin{enumerate}
@@ -268,16 +269,16 @@ These results comprise of couplers between
         (Fig.~\ref{fig:wire}).
     \end{enumerate}
 All the designs presented are both highly efficient 
-    ($\sim 95\%$ coupling efficiency)
+    ($\sim 98\%$ coupling efficiency)
     and extremely compact 
-    (with footprints of only 1-4 square vacuum wavelengths).
+    (with footprints of only 1.5-4 square vacuum wavelengths).
 In addition, good starting points were not required; 
     all initial designs were simply $\epsilon = 9$ everywhere
     (a somewhat arbitrary guess, other values work as well).
 Finally, only 15 minutes on a single-core personal computer
     were needed to obtain each design.
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
     \centering
     \includegraphics[width=0.8\textwidth]{1} 
     \caption{Coupler from a narrow, high-index ($\epsilon=12.25$) waveguide to
@@ -287,14 +288,15 @@ Finally, only 15 minutes on a single-core personal computer
             the generated structure is shown in the upper-right plot, and
             the simulated $H_z$ fields of the device are shown 
             in the bottom two plots.
-        The computed efficiency of the coupler is high, $98.2\%$, and
+        The computed efficiency of the coupler is high, $99.8\%$, and
             the device is also extremely compact, 
-            convering only $36 \times 66$ grid points,
-            where the vacuum wavelength is 42 grid points.
+            convering only $36 \times 76$ grid points,
+            where the vacuum wavelength is 42 grid points
+            (footprint of $1.55$ square vacuum wavelengths).
         Computation time was 15 minutes on a personal computer.}
     \label{fig:fiber}
 \end{figure}
-\begin{figure}[htbp]
+\begin{figure}[htb]
     \centering
     \includegraphics[width=0.8\textwidth]{2} 
     \caption{Coupler that converts the fundamental waveguide mode to the
@@ -307,12 +309,12 @@ Finally, only 15 minutes on a single-core personal computer
         However, our method produces a device 
             (which has the same dimensions and vacuum wavelength as 
             Fig.~\ref{fig:fiber})  
-            with a coupling efficiency of $97.0\%$. 
+            with a coupling efficiency of $98.0\%$. 
         Computation time was 15 minutes on a personal computer.
         }
     \label{fig:mode}
 \end{figure}
-\begin{figure}[htbp]
+\begin{figure}[htb]
     \centering
     \includegraphics[width=0.8\textwidth]{3}
     \caption{Coupler between a dielectric slab waveguide to 
@@ -321,32 +323,33 @@ Finally, only 15 minutes on a single-core personal computer
             but the output waveguide operates on a fundamentally different
             principle (distributed reflection) than the input waveguide 
             (index guided).
-        The device still achieves an efficiency of $85.1\%$, demonstrating the
+        The device still achieves an efficiency of $98.9\%$, demonstrating the
             versatility of our method.
         The vacuum wavelength is 25 grid points, 
-            while the device footprint is still $36 \times 66$ grid points.
+            while the device footprint is still $36 \times 76$ grid points
+            (footprint of 4.38 square vacuum wavelengths).
         Computation time was 15 minutes on a personal computer.
         }
         \label{fig:aircore}
 \end{figure}
-\begin{figure}[htbp]
+\begin{figure}[htb]
     \centering
     \includegraphics[width=0.8\textwidth]{4}
     \caption{Coupler between a dielectric slab waveguide to 
             a plasmonic metal-insulator-metal waveguide.
-        The efficiency of the device is $92.9\%$ and 
+        The efficiency of the device is $97.5\%$ and 
             has the same wavelength and footprint as the device in
             Fig.~\ref{fig:aircore}.
         Computation time was 15 minutes on a personal computer.
         }
         \label{fig:mim}
 \end{figure}
-\begin{figure}[htbp]
+\begin{figure}[htb]
     \centering
     \includegraphics[width=0.8\textwidth]{5}
     \caption{Coupler between a dielectric slab waveguide to 
             a plasmonic wire waveguide.
-        The efficiency of the device is $93.2\%$ and 
+        The efficiency of the device is $99.1\%$ and 
             has the same wavelength and footprint as the device in
             Fig.~\ref{fig:aircore}.
         Computation time was 15 minutes on a personal computer.
@@ -362,16 +365,198 @@ We develop a fundamentally new approach to designing physical structures,
 We then apply this approach to the design of 
     various nanophotonic waveguide couplers,
     and show that our method produces
-    high-efficiency designs ($\sim 95\%$ efficiency) 
-    in small footprints (1-4 square vacuum wavelengths)
+    high-efficiency designs ($\sim 98\%$ efficiency) 
+    in small footprints (1.5-4 square vacuum wavelengths)
     without needing a good starting point.
 Furthermore, we suggest that such a methodology may be applicable
-    to the design of any linear nanophotonic device.\\
+    to the design of any single-mode, linear nanophotonic device.\\
 
 This work has been supported by the 
     AFOSR MURI for Complex and Robust On-chip Nanophotonics 
     (Dr. Gernot Pomrenke), grant number FA9550-09-1-0704.
 The Matlab code used is available online\cite{code}.
+\clearpage
+\begin{appendix}
+\section{Additional mode coupler designs}
+In this section, we present additional mode coupler designs.
+A wide, high-index waveguide is used at both the input and output ports,
+    and all permutations of couplers are fabricated among
+    the first four propagating modes.
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.75\textwidth]{6}
+    \caption{
+        Efficiency: $99.3\%$,
+        footprint: $1.55$ square vacuum wavelengths.
+        }
+        % \label{fig:wire}
+\end{figure}
 
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.75\textwidth]{7}
+    \caption{
+        Efficiency: $98.3\%$,
+        footprint: $1.55$ square vacuum wavelengths.
+        }
+        % \label{fig:wire}
+\end{figure}
+
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.75\textwidth]{8}
+    \caption{
+        Efficiency: $90.6\%$,
+        footprint: $1.55$ square vacuum wavelengths.
+        }
+        % \label{fig:wire}
+\end{figure}
+
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.75\textwidth]{9}
+    \caption{
+        Efficiency: $96.8\%$,
+        footprint: $1.55$ square vacuum wavelengths.
+        }
+        % \label{fig:wire}
+\end{figure}
+
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.75\textwidth]{10}
+    \caption{
+        Efficiency: $86.3\%$,
+        footprint: $1.55$ square vacuum wavelengths.
+        }
+        % \label{fig:wire}
+\end{figure}
+
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.75\textwidth]{11}
+    \caption{
+        Efficiency: $80.1\%$,
+        footprint: $1.55$ square vacuum wavelengths.
+        }
+        % \label{fig:wire}
+\end{figure}
+\clearpage
+\section{Additional designs with wide, low-index input waveguide}
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.75\textwidth]{12}
+    \caption{
+        Efficiency: $96.9\%$,
+        footprint: $1.55$ square vacuum wavelengths.
+        }
+        % \label{fig:wire}
+\end{figure}
+
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.75\textwidth]{13}
+    \caption{
+        Efficiency: $99.0\%$,
+        footprint: $4.38$ square vacuum wavelengths.
+        }
+        % \label{fig:wire}
+\end{figure}
+
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.75\textwidth]{14}
+    \caption{
+        Efficiency: $96.7\%$,
+        footprint: $4.38$ square vacuum wavelengths.
+        }
+        % \label{fig:wire}
+\end{figure}
+
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.75\textwidth]{15}
+    \caption{
+        Efficiency: $99.7\%$,
+        footprint: $4.38$ square vacuum wavelengths.
+        }
+        % \label{fig:wire}
+\end{figure}
+\clearpage
+
+\section{Additional designs with multiple output plasmonic waveguides}
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.75\textwidth]{16}
+    \caption{
+        Efficiency: $94.0\%$,
+        footprint: $4.38$ square vacuum wavelengths.
+        }
+        % \label{fig:wire}
+\end{figure}
+
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.75\textwidth]{17}
+    \caption{
+        Efficiency: $97.3\%$,
+        footprint: $4.38$ square vacuum wavelengths.
+        }
+        % \label{fig:wire}
+\end{figure}
+
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.75\textwidth]{18}
+    \caption{
+        Efficiency: $98.5\%$,
+        footprint: $4.38$ square vacuum wavelengths.
+        }
+        % \label{fig:wire}
+\end{figure}
+
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.75\textwidth]{19}
+    \caption{
+        Efficiency: $97.7\%$,
+        footprint: $4.38$ square vacuum wavelengths.
+        }
+        % \label{fig:wire}
+\end{figure}
+
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.75\textwidth]{20}
+    \caption{
+        Efficiency: $95.6\%$,
+        footprint: $4.38$ square vacuum wavelengths.
+        }
+        % \label{fig:wire}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.75\textwidth]{21}
+    \caption{
+        Efficiency: $87.5\%$,
+        footprint: $4.38$ square vacuum wavelengths.
+        }
+        % \label{fig:wire}
+\end{figure}
+\clearpage
+\end{appendix}
 \end{document}
 
