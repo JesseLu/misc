@@ -5,7 +5,8 @@
 
 
 \begin{document}
-\title{High-Efficiency, Small-Footprint Couplers Between 
+\title{Objective-First Design of 
+    High-Efficiency, Small-Footprint Couplers Between 
     Arbitrary Nanophotonic Waveguide Modes}
 \author{Jesse Lu and Jelena Vu\v{c}kovi\'{c}}
 \address{Stanford University, Stanford, California, USA.}
@@ -13,7 +14,7 @@
 
 \maketitle
 \begin{abstract}
-We develop an algorithm for designing
+We present an algorithm for designing
     high efficiency ($\sim$98\%), 
     small-footprint (1.5-4 square vacuum wavelengths)
     couplers between arbitrary nanophotonic waveguide modes
@@ -164,13 +165,14 @@ We term this formulation ``objective-first''
     not perfectly satisfying the underlying physics which governs its operation.
 
 The motivation behind this formulation is two-fold.
-First, to arrive at a locally-optimal design rapidly 
+First, this approach allows is to arrive at a locally-optimal design rapidly 
     by allowing $x$ and $p$ to vary independently, 
     as opposed to Eq.~\ref{eq:adj}
     where the value of $x$ is completely dependent on $p$.
-Second, to increase the likelihood of arriving at a high efficiency design
+Second, it enables an increase in the likelihood of 
+    arriving at a high efficiency design
     by forcibly imposing $f(x) = 0$,
-    and thereby circumventing any local optima consisting of
+    and thereby circumvents any local optima consisting of
     low-performance devices.
 
 % How is it applied to waveguide coupler design?
@@ -277,6 +279,15 @@ In addition, good starting points were not required;
     (a somewhat arbitrary guess, other values work as well).
 Finally, only 15 minutes on a single-core personal computer
     were needed to obtain each design.
+
+In the appendix, we further demonstrate the generality of our method
+    by presenting several additional examples including
+    \begin{enumerate}
+    \item coupling between all four modes of a wide dielectric waveguide;
+    \item coupling from a wide, low-index waveguide to the output waveguides in 
+        Figs~\ref{fig:mode}-\ref{fig:wire}; and
+    \item coupling to selected channels of a set of five plasmonic waveguides.
+    \end{enumerate}
 
 \begin{figure}[htb]
     \centering
