@@ -14,7 +14,7 @@
 \maketitle
 \begin{abstract}
 We develop an algorithm for designing
-    high efficiency ($\sim$95\%), 
+    high efficiency ($\sim$98\%), 
     small-footprint (1.5-4 square vacuum wavelengths)
     couplers between arbitrary nanophotonic waveguide modes
     in two dimensions.
@@ -344,6 +344,7 @@ Finally, only 15 minutes on a single-core personal computer
         }
         \label{fig:mim}
 \end{figure}
+\clearpage
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.8\textwidth]{5}
@@ -382,65 +383,67 @@ In this section, we present additional mode coupler designs.
 A wide, high-index waveguide is used at both the input and output ports,
     and all permutations of couplers are fabricated among
     the first four propagating modes.
-\begin{figure}[htb]
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.75\textwidth]{6}
+    \includegraphics[width=0.8\textwidth]{6}
     \caption{
+        Coupler from the first-order to the second-order mode 
+            of a wide dielectric waveguide.
         Efficiency: $99.3\%$,
         footprint: $1.55$ square vacuum wavelengths.
         }
         % \label{fig:wire}
 \end{figure}
-
-
-\begin{figure}[htb]
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.75\textwidth]{7}
+    \includegraphics[width=0.8\textwidth]{7}
     \caption{
+        Coupler from the first-order to the third-order mode 
+            of a wide dielectric waveguide.
         Efficiency: $98.3\%$,
         footprint: $1.55$ square vacuum wavelengths.
         }
         % \label{fig:wire}
 \end{figure}
-
-
-\begin{figure}[htb]
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.75\textwidth]{8}
+    \includegraphics[width=0.8\textwidth]{8}
     \caption{
+        Coupler from the first-order to the fourth-order mode 
+            of a wide dielectric waveguide.
         Efficiency: $90.6\%$,
         footprint: $1.55$ square vacuum wavelengths.
         }
         % \label{fig:wire}
 \end{figure}
-
-
-\begin{figure}[htb]
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.75\textwidth]{9}
+    \includegraphics[width=0.8\textwidth]{9}
     \caption{
+        Coupler from the second-order to the third-order mode 
+            of a wide dielectric waveguide.
         Efficiency: $96.8\%$,
         footprint: $1.55$ square vacuum wavelengths.
         }
         % \label{fig:wire}
 \end{figure}
-
-
-\begin{figure}[htb]
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.75\textwidth]{10}
+    \includegraphics[width=0.8\textwidth]{10}
     \caption{
+        Coupler from the second-order to the fourth-order mode 
+            of a wide dielectric waveguide.
         Efficiency: $86.3\%$,
         footprint: $1.55$ square vacuum wavelengths.
         }
         % \label{fig:wire}
 \end{figure}
-
-
-\begin{figure}[htb]
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.75\textwidth]{11}
+    \includegraphics[width=0.8\textwidth]{11}
     \caption{
+        Coupler from the third-order to the fourth-order mode 
+            of a wide dielectric waveguide.
         Efficiency: $80.1\%$,
         footprint: $1.55$ square vacuum wavelengths.
         }
@@ -448,43 +451,50 @@ A wide, high-index waveguide is used at both the input and output ports,
 \end{figure}
 \clearpage
 \section{Additional designs with wide, low-index input waveguide}
-\begin{figure}[htb]
+We now reproduce Figs~\ref{fig:mode}-\ref{fig:wire}
+    but instead use a wide, low-index waveguide as the input.
+Once again, this is to demonstrate the generality of our method;
+    namely, that it can be applied to the design of nearly any
+    single-mode, linear nanophotonic device.
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.75\textwidth]{12}
+    \includegraphics[width=0.8\textwidth]{12}
     \caption{
+        Coupler from a wide, low-index waveguide to the
+            second-order mode of a narrow, high-index waveguide.
         Efficiency: $96.9\%$,
         footprint: $1.55$ square vacuum wavelengths.
         }
         % \label{fig:wire}
 \end{figure}
-
-
-\begin{figure}[htb]
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.75\textwidth]{13}
+    \includegraphics[width=0.8\textwidth]{13}
     \caption{
+        Coupler from a wide, low-index waveguide to an 
+            ``air-core'' waveguide mode.
         Efficiency: $99.0\%$,
         footprint: $4.38$ square vacuum wavelengths.
         }
         % \label{fig:wire}
 \end{figure}
-
-
-\begin{figure}[htb]
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.75\textwidth]{14}
+    \includegraphics[width=0.8\textwidth]{14}
     \caption{
+        Coupler from a wide, low-index waveguide to a
+            metal-insulator-metal plasmonic waveguide mode.
         Efficiency: $96.7\%$,
         footprint: $4.38$ square vacuum wavelengths.
         }
         % \label{fig:wire}
 \end{figure}
-
-
-\begin{figure}[htb]
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.75\textwidth]{15}
+    \includegraphics[width=0.8\textwidth]{15}
     \caption{
+        Coupler from a wide, low-index waveguide to a
+            plasmonic wire waveguide mode.
         Efficiency: $99.7\%$,
         footprint: $4.38$ square vacuum wavelengths.
         }
@@ -493,64 +503,74 @@ A wide, high-index waveguide is used at both the input and output ports,
 \clearpage
 
 \section{Additional designs with multiple output plasmonic waveguides}
-\begin{figure}[htb]
+We also present ``selector'' designs where photons are coupled to 
+    only one of five possible plasmonic output waveguides.
+We demonstrate these selector designs for both metal-insulator-metal and
+    metal-wire plasmonic waveguides.
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.75\textwidth]{16}
+    \includegraphics[width=0.8\textwidth]{16}
     \caption{
+        Coupler from a dielectric waveguide to the 
+            lowest branch of a set of five plasmonic wire waveguides.
         Efficiency: $94.0\%$,
         footprint: $4.38$ square vacuum wavelengths.
         }
         % \label{fig:wire}
 \end{figure}
-
-
-\begin{figure}[htb]
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.75\textwidth]{17}
+    \includegraphics[width=0.8\textwidth]{17}
     \caption{
+        Coupler from a dielectric waveguide to the 
+            second branch of a set of five plasmonic wire waveguides.
         Efficiency: $97.3\%$,
         footprint: $4.38$ square vacuum wavelengths.
         }
         % \label{fig:wire}
 \end{figure}
-
-
-\begin{figure}[htb]
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.75\textwidth]{18}
+    \includegraphics[width=0.8\textwidth]{18}
     \caption{
+        Coupler from a dielectric waveguide to the 
+            middle branch of a set of five plasmonic wire waveguides.
         Efficiency: $98.5\%$,
         footprint: $4.38$ square vacuum wavelengths.
         }
         % \label{fig:wire}
 \end{figure}
-
-
-\begin{figure}[htb]
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.75\textwidth]{19}
+    \includegraphics[width=0.8\textwidth]{19}
     \caption{
+        Coupler from a dielectric waveguide to the 
+            middle branch of a set of five plasmonic 
+            metal-insulator-metal waveguides.
         Efficiency: $97.7\%$,
         footprint: $4.38$ square vacuum wavelengths.
         }
         % \label{fig:wire}
 \end{figure}
-
-
-\begin{figure}[htb]
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.75\textwidth]{20}
+    \includegraphics[width=0.8\textwidth]{20}
     \caption{
+        Coupler from a dielectric waveguide to the 
+            fourth branch of a set of five plasmonic 
+            metal-insulator-metal waveguides.
         Efficiency: $95.6\%$,
         footprint: $4.38$ square vacuum wavelengths.
         }
         % \label{fig:wire}
 \end{figure}
-
-\begin{figure}[htb]
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=0.75\textwidth]{21}
+    \includegraphics[width=0.8\textwidth]{21}
     \caption{
+        Coupler from a dielectric waveguide to the 
+            uppermost branch of a set of five plasmonic 
+            metal-insulator-metal waveguides.
         Efficiency: $87.5\%$,
         footprint: $4.38$ square vacuum wavelengths.
         }
