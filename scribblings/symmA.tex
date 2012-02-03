@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+\newcommand{\BE}{\begin{equation}}
+\newcommand{\EE}{\end{equation}}
+\newcommand{\D}{\Delta}
+\begin{document}
+\BE (AD)^T = DA^T \EE
+\BE (AD)_{ij} = A_{ij} d_j \EE
+\BE (DA^T)_{ij} = d_i (A^T)_{ij} = A_{ji} d_i \EE
+Find $d$ such that $AD$ is symmetric where 
+\BE A = \nabla \times \nabla \times \EE
+for a non-regular cartesian grid.
+In other words, find $d$ such that
+\BE A_{ij} d_j = A_{ji} d_i, \quad \text{for all $i, j$.} \EE
+\begin{quote} FIGURE HERE \end{quote}
+For the figure above,
+\BE A_{ba} = -\frac{1}{\D x_b \D y_b} \EE
+\BE A_{ab} = -\frac{1}{\D x_a \D y_a} \EE
+\BE d_i \propto \frac{1}{\D x_i \D y_i} \EE
+Also, we will have
+\BE A_{ca} = -\frac{1}{\D x_b \D z_b} \EE
+\BE A_{ac} = -\frac{1}{\D x_a \D z_a} \EE
+\BE d_i \propto \frac{1}{\D x_i \D z_i} \EE
+Lastly, we already have $A_{aa'} = A_{a'a}$ 
+    for $a$ and $a'$ in the same direction.
+
+The conclusion, then, is
+\BE d_i = \frac{1}{\D x_i \D y_i \D z_i} \EE
+
+
+\end{document}
