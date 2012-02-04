@@ -1,0 +1,93 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{pstricks}
+\newcommand{\BE}{\begin{equation}}
+\newcommand{\EE}{\end{equation}}
+\newcommand{\D}{\Delta}
+\title{Notes on symmetrizing the FDFD matrix with stretched-coordinate PML.}
+\author{Jesse Lu}
+\begin{document}
+\maketitle
+We want to find a diagonal matrix 
+    \BE D = \text{diag}(d) \EE
+    such that
+    \BE (AD)^T = AD, \EE
+    where $A = \nabla \times \nabla \times$ is the system matrix
+    for the finite-difference frequency-domain problem
+    for Maxwell's equations.
+
+In fact, if we use an equally-spaced Cartesian grid 
+    (constant $\D x$, $\D y$, and $\D z$),
+    $A$ is already symmetric.
+However, when applying a stretched-coordinate perfectly-matched layer (SC-PML)
+    this no longer holds true,
+    and one requires a diagonal preconditioning matrix $D$
+    in order to restore the symmetry of $A$.
+Note that we assume that both $A$ and $D$ are complex-valued,
+    and that our goal is to make $A$ symmetric, not Hermitian.
+
+First we note that,
+    \BE (AD)^T = DA^T \EE
+    \BE (AD)_{ij} = A_{ij} d_j \EE
+    \BE (DA^T)_{ij} = d_i (A^T)_{ij} = A_{ji} d_i, \EE
+    and so state our problem as finding $d$ such that
+\BE A_{ij} d_j = A_{ji} d_i, \quad \text{for all $i, j$.} \EE
+
+\begin{figure}[h]\begin{center}
+\psset{gridcolor=green, subgridcolor=yellow}
+\begin{pspicture}(5,5)
+    \let\psgrid\relax
+    \psline[linestyle=dotted](2,1)(4,1)
+    \psline[linestyle=dotted](2,3)(4,3)
+    \psline[linestyle=dotted](4,1)(4,3)
+    \psline[linestyle=dotted](2,1)(2,3)
+    \psline{->}(2.6,2)(3.4,2)
+    \rput[t](3,1.9){$a$}
+    \psline{|-|}(2,0.8)(4,0.8)
+    \rput[t](3,0.7){$\D x_a$}
+    \psline{|-|}(4.2,1)(4.2,3)
+    \rput[l](4.3,2){$\D y_a$}
+
+    \psline[linestyle=dotted](1,2)(1,4)
+    \psline[linestyle=dotted](3,2)(3,4)
+    \psline[linestyle=dotted](1,4)(3,4)
+    \psline[linestyle=dotted](1,2)(3,2)
+    \psline{->}(2,2.6)(2,3.4)
+    \rput[r](1.9,3){$b$}
+    \psline{|-|}(0.8,2)(0.8,4)
+    \rput[r](0.7,3){$\D y_b$}
+    \psline{|-|}(1,4.2)(3,4.2)
+    \rput[b](2,4.3){$\D x_b$}
+\end{pspicture}
+\caption{Schematic used to find the values of $A_{ab}$ and $A_{ba}$,
+            where $a$ is a vector component in the $x$-direction
+            and $b$ is a vector component in the $y$-direction.
+        A similar schematic can be used to determine
+            the values for the $A_{ac}$ and $A_{ca}$,
+            where $c$ is a vector component in the $z$-direction,
+            by replacing $b \to c$ and $\D y_{a,b} \to \D z_{a,c}$.}
+            \label{fig1}
+\end{center} \end{figure}
+
+To do so, we observe that from figure~\ref{fig1} we can deduce that the
+    $\nabla \times \nabla \times$ operation will result in
+    \BE A_{ba} = -\frac{1}{\D x_b \D y_b} \EE
+    \BE A_{ab} = -\frac{1}{\D x_a \D y_a}, \EE
+    from which we conclude that
+    \BE d_i \propto \frac{1}{\D x_i \D y_i}. \EE
+
+Similarly, if we replace $b \to c$ and $\D y_{a,b} \to \D z_{a,c}$ 
+    in the figure, then we have
+    \BE A_{ca} = -\frac{1}{\D x_b \D z_b} \EE
+    \BE A_{ac} = -\frac{1}{\D x_a \D z_a}, \EE
+    which leads to
+    \BE d_i \propto \frac{1}{\D x_i \D z_i}. \EE
+
+We then conclude that the choice of 
+    \BE d_i = \frac{1}{\D x_i \D y_i \D z_i} \EE
+    will lead to symmetric $AD$.
+Note that none of the $A_{aa'}$ terms need to be included,
+    where $a$ and $a'$ point in the same direction,
+    since $A_{aa'} = A_{a'a}$ will hold both with or without the preconditioner.
+
+\end{document}
