@@ -11,7 +11,7 @@
 We want to find a diagonal matrix 
     \BE D = \text{diag}(d) \EE
     such that
-    \BE (AD)^T = AD, \EE
+    \BE (DA)^T = DA, \EE
     where $A = \nabla \times \nabla \times$ is the system matrix
     for the finite-difference frequency-domain problem
     for Maxwell's equations.
@@ -27,11 +27,11 @@ Note that we assume that both $A$ and $D$ are complex-valued,
     and that our goal is to make $A$ symmetric, not Hermitian.
 
 First we note that,
-    \BE (AD)^T = DA^T \EE
-    \BE (AD)_{ij} = A_{ij} d_j \EE
-    \BE (DA^T)_{ij} = d_i (A^T)_{ij} = A_{ji} d_i, \EE
+    \BE (DA)^T = A^T D \EE
+    \BE (DA)_{ij} = A_{ij} d_i \EE
+    \BE (A^T D)_{ij} = (A^T)_{ij} d_j = A_{ji} d_j, \EE
     and so state our problem as finding $d$ such that
-\BE A_{ij} d_j = A_{ji} d_i, \quad \text{for all $i, j$.} \EE
+\BE A_{ij} d_i = A_{ji} d_j, \quad \text{for all $i, j$.} \EE
 
 \begin{figure}[h]\begin{center}
 \psset{gridcolor=green, subgridcolor=yellow}
@@ -74,18 +74,18 @@ To do so, we observe that from figure~\ref{fig1} we can deduce that the
     \BE A_{ba} = -\frac{1}{\D x_b \D y_b} \EE
     \BE A_{ab} = -\frac{1}{\D x_a \D y_a}, \EE
     from which we conclude that
-    \BE d_i \propto \frac{1}{\D x_i \D y_i}. \EE
+    \BE d_i \propto \D x_i \D y_i. \EE
 
 Similarly, if we replace $b \to c$ and $\D y_{a,b} \to \D z_{a,c}$ 
     in the figure, then we have
     \BE A_{ca} = -\frac{1}{\D x_b \D z_b} \EE
     \BE A_{ac} = -\frac{1}{\D x_a \D z_a}, \EE
     which leads to
-    \BE d_i \propto \frac{1}{\D x_i \D z_i}. \EE
+    \BE d_i \propto \D x_i \D z_i. \EE
 
 We then conclude that the choice of 
-    \BE d_i = \frac{1}{\D x_i \D y_i \D z_i} \EE
-    will lead to symmetric $AD$.
+    \BE d_i = \D x_i \D y_i \D z_i \EE
+    will lead to symmetric $DA$.
 Note that none of the $A_{aa'}$ terms need to be included,
     where $a$ and $a'$ point in the same direction,
     since $A_{aa'} = A_{a'a}$ will hold both with or without the preconditioner.
