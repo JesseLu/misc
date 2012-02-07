@@ -1,0 +1,183 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\title{Notes on the Bi-Conjugate Gradient Method}
+\author{Jesse Lu}
+\begin{document}
+\maketitle
+\tableofcontents
+\section{The algorithm}
+\subsection{Asymmetric case, $A \ne A^T$}
+The algorithm attempts to solve $Ax = b$,
+    where the matrix $A$ is indefinite.
+The algorithm accepts as inputs
+    \begin{enumerate}
+    \item a method to multiply a vector by $A$,
+    \item a method to multiply a vector by $A^T$ 
+        (note that this is the transpose of $A$, 
+        \emph{not} its conjugate-transpose), and
+    \item the vector $b$.
+    \end{enumerate}
+
+The algorithm begins by initializing the following variables,
+    \begin{subequations}\begin{align}
+    r_0 &= b - Ax_0 \\
+    \hat{r}_0 &= b - A^T \hat{x}_0 \\
+    p_0 &= r_0 \\
+    \hat{p}_0 &= \hat{r}_0.
+    \end{align}\end{subequations}
+    \begin{subequations}\begin{align}
+    \end{align}\end{subequations}
+Then loop over the following for $k = 0, 1, \ldots$
+    \begin{subequations}\begin{align}
+    \alpha_k &= \hat{r}_k^T r_k / \hat{p}_k^T A p_k \\
+    x_{k+1} &= x_k + \alpha_k p_k \\
+    \hat{x}_{k+1} &= \hat{x}_k + {\alpha_k} \hat{p}_k \\
+    r_{k+1} &= r_k - \alpha_k A p_k \\
+    \hat{r}_{k+1} &= \hat{r}_k - {\alpha_k} A^T \hat{p}_k \\
+    \beta_k &= \hat{r}_{k+1}^T r_{k+1} / \hat{r}_k^T r_k \\
+    p_{k+1} &= r_{k+1} + \beta_k p_k \\
+    \hat{p}_{k+1} &= \hat{r}_{k+1} + {\beta_k} \hat{p}_k.
+    \end{align}\end{subequations}
+
+\subsection{Symmetric case, $A = A^T$}
+\subsubsection{Basic version}
+Initialize
+    \begin{subequations}\begin{align}
+    r_0 &= b - Ax_0 \\
+    p_0 &= r_0.
+    \end{align}\end{subequations}
+Then loop over the following for $k = 0, 1, \ldots$
+    \begin{subequations}\begin{align}
+    \alpha_k &= r_k^T r_k / p_k^T A p_k \\
+    x_{k+1} &= x_k + \alpha_k p_k \\
+    r_{k+1} &= r_k - \alpha_k A p_k \\
+    \beta_k &= r_{k+1}^T r_{k+1} / r_k^T r_k \\
+    p_{k+1} &= r_{k+1} + \beta_k p_k. 
+    \end{align}\end{subequations}
+
+\subsubsection{Efficient version}
+We now attempt to eliminate redundant calculations by introducing variables
+    $v_k$ and $\rho_k$.
+The algorithm then proceeds by initializing
+    \begin{subequations}\begin{align}
+    r_0 &= b - Ax_0 \\
+    p_{-1} &= r_0 \text{ (arbitrary)} \\
+    \rho_{0} &= r_0^T r_0 \\
+    \beta_0 &= 0,
+    \end{align}\end{subequations}
+and looping over the following for $k = 0, 1, \ldots$
+    \begin{subequations}\begin{align}
+    p_{k} &= r_{k} + \beta_k p_k \\
+    v_k &= A p_k \\
+    \alpha_k &= \rho_k / p_k^T v_k \\
+    x_{k+1} &= x_k + \alpha_k p_k \\
+    r_{k+1} &= r_k - \alpha_k v_k \\
+    \rho_{k+1} &= r_{k+1}^T r_{k+1} \\
+    \beta_{k+1} &= \rho_{k+1} / \rho_k.
+    \end{align}\end{subequations}
+
+\subsubsection{Efficient version with overwrites}
+If we eliminate all possible subscripts then 
+    the algorithm then proceeds by initializing
+    \begin{subequations}\begin{align}
+    r &= b - Ax \\
+    p &= r \text{ (arbitrary)} \\
+    \rho_{0} &= r^T r \\
+    \beta &= 0,
+    \end{align}\end{subequations}
+and looping over the following for $k = 0, 1, \ldots$
+    \begin{subequations}\begin{align}
+    p &= r + \beta p \\
+    v &= A p \\
+    \alpha &= \rho_k / p^T v \\
+    x &= x + \alpha p \\
+    r &= r - \alpha v \\
+    \rho_{k+1} &= r^T r \\
+    \beta &= \rho_{k+1} / \rho_k.
+    \end{align}\end{subequations}
+
+\subsubsection{Parallel version}
+Additionally, the loop operations can be ``lumped'' into two steps.
+By lumping, we mean that all the calculations in one step can proceed
+    simultaneously, before any one calculation finishes,
+    as long as intermediate values are available.
+For this algorithm the loop is composed of the following two steps:
+\begin{enumerate}
+\item $\alpha$-step
+    \begin{subequations}\begin{align}
+    p &= r + \beta p \\
+    v &= A p \\
+    \alpha &= \rho_k / p^T v,
+    \end{align}\end{subequations}
+\item $\beta$-step
+    \begin{subequations}\begin{align}
+    x &= x + \alpha p \\
+    r &= r - \alpha v \\
+    \rho_{k+1} &= r^T r \\
+    \beta &= \rho_{k+1} / \rho_k.
+    \end{align}\end{subequations}
+
+\end{enumerate}
+
+
+\appendix
+\section{Reference algorithm: From C. T. Kelley}
+Found in section 3.6.1 of \cite{kelley}.
+Initialize as follows:
+\begin{equation}
+r = b - Ax, \hat{r} = r, \rho_0 = 1, \hat{p} = p = 0, k = 0.
+\end{equation}
+Repeat the following until a termination condition 
+    such as $\|r\|_2 < \epsilon \|b\|_2$ is satisfied,
+    \begin{subequations}\begin{align}
+    k &= k + 1 \\
+    \rho_k &= \hat{r}^T r, \beta = \rho_k / \rho_{k-1} \\
+    p &= r + \beta p, \hat{p} = \hat{r} + \beta \hat{p} \\
+    v &= Ap \\
+    \alpha &= \rho_k / (\hat{p}^T v) \\
+    x &= x + \alpha p \\
+    r &= r - \alpha v, \hat{r} = \hat{r} - \alpha A^T \hat{p}.
+    \end{align}\end{subequations}
+
+\section{Reference algorithm: From Wikipedia}
+First, choose initial vectors $x_0$, $x_0^\ast$, and $b^\ast$.
+Initialize using
+    \begin{subequations}\begin{align}
+    r_0 &= b - Ax_0 \\
+    r_0^\ast &= b^\ast - x_0^\ast A \\
+    p_0 &= r_0 \\
+    p_0^\ast &= r_0^\ast.
+    \end{align}\end{subequations}
+Then loop over the following for $k = 0, 1, \ldots$
+    \begin{subequations}\begin{align}
+    \alpha_k &= r_k^\ast r_k / p_k^\ast A p_k \\
+    x_{k+1} &= x_k + \alpha_k p_k \\
+    x_{k+1}^\ast &= x_k^\ast + \overline{\alpha_k} p_k^\ast \\
+    r_{k+1} &= r_k - \alpha_k A p_k \\
+    r_{k+1}^\ast &= r_k^\ast - \overline{\alpha_k} p_k^\ast A \\
+    \beta_k &= r_{k+1}^\ast r_{k+1} / r_k^\ast r_k \\
+    p_{k+1} &= r_{k+1} + \beta_k p_k \\
+    p_{k+1}^\ast &= r_{k+1}^\ast + \overline{\beta_k} p_k^\ast.
+    \end{align}\end{subequations}
+
+The residuals $r_k$ and $r_k^\ast$ satisfy
+    \begin{subequations}\begin{align}
+    r_k &= b - A x_k \\
+    r_k^\ast &= b^\ast - x_k^\ast A,
+    \end{align}\end{subequations}
+    where $x_k$ and $x_k^\ast$ are the approximate solutions to
+    \begin{subequations}\begin{align}
+    Ax &= b \\
+    x^\ast A &= b^\ast.
+    \end{align}\end{subequations}
+
+
+
+\begin{thebibliography}{99}
+\bibitem{kelley} C. T. Kelley, 
+    ``Iterative Methods for Linear and Nonlinear Equations'', 
+    SIAM (1995).
+\bibitem{pubdom} \url{http://en.wikipedia.org/wiki/Biconjugate_gradient_method}
+\end{thebibliography}
+\end{document}
