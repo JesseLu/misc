@@ -104,20 +104,22 @@ By lumping, we mean that all the calculations in one step can proceed
     as long as intermediate values are available.
 For this algorithm the loop is composed of the following two steps:
 \begin{enumerate}
-\item $\alpha$-step
+\item $\alpha$-step. 
+    Requires two loads, $p$ and $r$, and two writes, $p$ and $v$.
     \begin{subequations}\begin{align}
     p &= r + \beta p \\
     v &= A p \\
     \alpha &= \rho_k / p^T v,
     \end{align}\end{subequations}
-\item $\beta$-step
+\item $\beta$-step.
+    Requires four loads, $x$, $p$, $r$, and $v$, and two writes, $x$ and $r$.
+    Note that the error, $\|r\|$, should also be computed on this step.
     \begin{subequations}\begin{align}
     x &= x + \alpha p \\
     r &= r - \alpha v \\
     \rho_{k+1} &= r^T r \\
     \beta &= \rho_{k+1} / \rho_k.
     \end{align}\end{subequations}
-
 \end{enumerate}
 
 
