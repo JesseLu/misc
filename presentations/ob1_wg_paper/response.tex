@@ -1,0 +1,67 @@
+\documentclass{article}
+\newcommand{\I}{\item}
+\newcommand{\Q}[1]{\begin{quote} #1 \end{quote}}
+\begin{document}
+\section*{Response to Reviewer 1}
+We appreciate the reviewer's detailed analysis and critique of the submitted
+    publication.
+A short response to the reviewer's remarks follows.
+\begin{itemize}
+\item Reviewer comments: 
+    \Q{The method use only waveguides with the same direction of propagation and it is not
+    possible to use this method for 2 tilt beams as in the case occurring in the grating
+    coupler. first reference of the paper is not really appropriate.}
+
+    The purpose of the first paper is appropriate because it is an example of
+    solving the mode conversion for nanophotonics
+
+\item Reviewer comments: 
+    \Q{The method uses a 2.5 D approximation that it is not able to calculate accurately the
+diffraction losses in the 3rd direction. In the paper, there are no validations of the
+design by an accurate 3D method of modeling like FDTD for example.}
+
+    The paper actually does not use a 2.5D approximation. 
+    All simulations are in 2D. 
+    3D devices will be investigated in a future publication.
+
+\item Reviewer comments:
+    \Q{The problem of realization of such coupler is not address. The size of the grid points
+use for the modeling is closed to 10 nm and Iam not sure that it is compatible with the
+resolution of standard or best lithographic tools. The authors must be added some
+comments and if it possible to adapt her design with some rules that consider the
+limitations induce by the fabrication.}
+
+    According to the captions of Figs. 2 and following, the highest resolution 
+    structures that are even possible are $\lambda_0/42$, where $\lambda_0$
+    is the vacuum wavelength of light. 
+    Therefore, for the case of $\lambda_0 = 1550 nm$ a \emph{single} pixel is 
+    still 37nm $\times$ 37nm in size, from which we infer that the
+    characteristic features of all the devices presented are well within
+    the resolution of the current lithographic tools.
+
+\item Reviewer comments:
+    \Q{The problem of the wavelength tolerance and the alignment tolerances is not address.}
+
+    The goal of this publication is simply to present the objective-first
+    algorithm. 
+    Robustness considerations are left to subsequent investigations.
+
+\item Reviewer comments:
+    \Q{In this paper, there are no comparison with other solution of coupling structure
+describe in the literature. So, it is difficult to evaluate if this new method can be bring
+realistic solutions of waveguide couplers.}
+
+    The reviewer's point is valid.
+    However, the reason why comparable solutions are not evaluated is largely
+    because no competing methods for designing arbitrary mode couplers exist.
+\end{itemize}
+
+\section*{Response to Reviewer 2}
+We appreciate the reviewer's encouraging remarks and suggestions.
+
+The reviewer suggested that
+\Q{ However, the use of the permittivity of a large range makes the example impractical and limit the method to theoretical analysis. I suggest the authors give at least one example (e.g. 1x2 coupler) to show its capability for the binary structure. }
+
+This suggestion is very useful, however, we would like to defer the design of
+    completely binary structures to a later publication.
+\end{document}

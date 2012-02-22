@@ -5,12 +5,12 @@
 
 
 \begin{document}
-\title{Objective-First Design of 
-    High-Efficiency, Small-Footprint Couplers Between 
-    Arbitrary Nanophotonic Waveguide Modes}
-\author{Jesse Lu and Jelena Vu\v{c}kovi\'{c}}
+\title{Objective-first design of 
+    high-efficiency, small-footprint couplers between 
+    arbitrary nanophotonic waveguide modes}
+\author{Jesse Lu$^\ast$ and Jelena Vu\v{c}kovi\'{c}}
 \address{Stanford University, Stanford, California, USA.}
-\email{jesselu@stanford.edu}
+\email{\url{jesselu@stanford.edu}}
 
 \maketitle
 \begin{abstract}
@@ -33,28 +33,28 @@ We demonstrate designs for various coupling problems which suggest
 \bibitem{fibergrating} Y. Tang, Z. Wang, L. Wosinski, U. Westergren, and S. He,
     ``Highly efficient nonuniform grating coupler for silicon-on-insulator 
     nanophotonic circuits,''
-    Opt. Lett. \textbf{35}, 1290-1292 (2010)
+    Opt. Lett. \textbf{35}, 1290-1292 (2010).
 \bibitem{ridge}  K. K. Lee, D. R. Lim, L.C. Kimerling, J. Shin, and F. Cerrina, 
     ``Fabrication of ultralow-loss Si/SiO2 waveguides by roughness reduction,''
-    Opt. Lett. \textbf{26}, 1888-1890 (2001)
+    Opt. Lett. \textbf{26}, 1888-1890 (2001).
 \bibitem{pcslow} Y. A. Vlasov, M. O'Boyle, H. F. Hamann, and S. J. McNab,
     ``Active control of slow light on a chip with photonic crystal waveguides,''
-    Nature \textbf{438}, 65-69 (2005)
+    Nature \textbf{438}, 65-69 (2005).
 \bibitem{slotfocus} M. Lipson, 
-    ``Guiding, Modulating, and Emitting Light on 
-    Silicon-Challenges and Opportunities,'' 
-    J. Lightwave Technol. \textbf{23}, 4222-4238 (2005) 
+    ``Guiding, modulating, and emitting light on 
+    silicon-challenges and opportunities,'' 
+    J. Lightwave Technol. \textbf{23}, 4222-4238 (2005).
 \bibitem{active} J. Van Campenhout, P. Rojo Romeo, P. Regreny, C. Seassal, 
     D. Van Thourhout, S. Verstuyft, L. Di Cioccio, J.-M. Fedeli, 
     C. Lagahe, and R. Baets, 
     ``Electrically pumped InP-based microdisk lasers integrated with a 
     nanophotonic silicon-on-insulator waveguide circuit,'' 
-    Opt. Express \textbf{15}, 6744-6749 (20.75) 
+    Opt. Express \textbf{15}, 6744-6749 (2007).
 \bibitem{metallic} L. Tang, S. E. Kocabas, S. Latif, A. K. Okyay, 
-    D. S. Ly-Gagnon, K. C. Saraswat and D. A. B. Miller, 
-    ``Nanometre-Scale Germanium Photodetector Enhanced by a 
-    Near-Infrared Dipole Antenna,'' 
-    Nature Photonics \textbf{2}, 226 – 229 (2008) 
+    D. S. Ly-Gagnon, K. C. Saraswat, and D. A. B. Miller, 
+    ``Nanometre-scale germanium photodetector enhanced by a 
+    near-infrared dipole antenna,'' 
+    Nature Photonics \textbf{2}, 226 – 229 (2008).
 % \bibitem{fwadia} V. R. Almeida, R. R. Panepucci, and M. Lipson, 
 %     ``Nanotaper for compact mode conversion,'' 
 %     Opt. Lett. \textbf{28}, 1302-1304 (2003) 
@@ -72,7 +72,7 @@ We demonstrate designs for various coupling problems which suggest
 %     (Cambridge University Press, 2004)
 \bibitem{prevwork} J. Lu, S. Boyd, and J. Vuckovic, 
     ``Inverse design of a three-dimensional nanophotonic resonator,''
-    Opt. Express \textbf{19}, 10563-10.750 (2011) 
+    Opt. Express \textbf{19}, 10563-10.750 (2011). 
 \bibitem{code} \url{www.github.com/JesseLu/objective-first}
 \end{thebibliography}
 
@@ -165,7 +165,7 @@ We term this formulation ``objective-first''
     not perfectly satisfying the underlying physics which governs its operation.
 
 The motivation behind this formulation is two-fold.
-First, this approach allows is to arrive at a locally-optimal design rapidly 
+First, this approach allows one to arrive at a locally-optimal design rapidly 
     by allowing $x$ and $p$ to vary independently, 
     as opposed to Eq.~\ref{eq:adj}
     where the value of $x$ is completely dependent on $p$.
@@ -197,7 +197,8 @@ In order to produce a method applicable
     we note that its performance
     will be completely characterized by the fields along its boundary,
     and therefore, 
-    we choose a boundary-value formulation for the design objective.
+    we choose a boundary-value formulation for the design objective 
+    as shown in Fig.~\ref{fig:intro}.
 Namely, we first compute the boundary fields needed to obtain
     perfect performance, $H_z^\text{perfect}$,
     and then form the design objective as
