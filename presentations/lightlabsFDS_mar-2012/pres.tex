@@ -1,7 +1,7 @@
 \documentclass[landscape]{foils}
 \usepackage{graphicx}
 \usepackage{amsmath}
-\usepackage[pdf]{pstricks}
+% \usepackage[pdf]{pstricks}
 \input defs.tex
 \raggedright
 \special{! TeXDict begin /landplus90{true}store end }
@@ -56,25 +56,25 @@ Innovate on three fronts to make this a reality:
 \EIT
 \newpage
    
-\oursection{Example: time-domain solver}
+\oursection{Example}
 
-\psset{unit=1.5cm}
-\psset{gridcolor=green, subgridcolor=yellow}
-\begin{center}
-\begin{pspicture}(8,5)
-    \let\psgrid\relax
-
-    \psframe*[linecolor=gray, fillcolor=gray, fillstyle=solid] (1,2.2)(4,2.8)
-    \psframe*[linecolor=gray, fillcolor=gray, fillstyle=solid] (3,1)(5,4)
-    \psframe*[linecolor=gray, fillcolor=gray, fillstyle=solid] (4,1.4)(7,2)
-    \psframe*[linecolor=gray, fillcolor=gray, fillstyle=solid] (4,3.0)(7,3.6)
-    \rput[B](4,4.1){Device}
-    \psline[linestyle=dashed](1.6,0.6)(1.6,4.0)
-    \rput[B](1.6,4.1){in}
-    \psline[linestyle=dashed](6.4,0.6)(6.4,4.0)
-    \rput[B](6.4,4.1){out}
-\end{pspicture}
-\end{center}
+% \psset{unit=1.5cm}
+% \psset{gridcolor=green, subgridcolor=yellow}
+% \begin{center}
+% \begin{pspicture}(8,5)
+%     \let\psgrid\relax
+% 
+%     \psframe*[linecolor=gray, fillcolor=gray, fillstyle=solid] (1,2.2)(4,2.8)
+%     \psframe*[linecolor=gray, fillcolor=gray, fillstyle=solid] (3,1)(5,4)
+%     \psframe*[linecolor=gray, fillcolor=gray, fillstyle=solid] (4,1.4)(7,2)
+%     \psframe*[linecolor=gray, fillcolor=gray, fillstyle=solid] (4,3.0)(7,3.6)
+%     \rput[B](4,4.1){Device}
+%     \psline[linestyle=dashed](1.6,0.6)(1.6,4.0)
+%     \rput[B](1.6,4.1){in}
+%     \psline[linestyle=dashed](6.4,0.6)(6.4,4.0)
+%     \rput[B](6.4,4.1){out}
+% \end{pspicture}
+% \end{center}
 Time-domain issues include
 \BIT
 \I  Input: clean excitation at input requires an auxiliary simulation
@@ -84,19 +84,51 @@ Time-domain issues include
 \EIT
 \newpage
 
-\begin{center}
-\begin{pspicture}(8,5)
-    \psgrid
+% \begin{center}
+% \begin{pspicture}(8,5)
+%     \psgrid
+% 
+%     \psframe*[linecolor=gray, fillcolor=gray, fillstyle=solid] (1,2.2)(4,2.8)
+%     \psframe*[linecolor=gray, fillcolor=gray, fillstyle=solid] (3,1)(5,4)
+%     \psframe*[linecolor=gray, fillcolor=gray, fillstyle=solid] (4,1.4)(7,2)
+%     \psframe*[linecolor=gray, fillcolor=gray, fillstyle=solid] (4,3.0)(7,3.6)
+%     \rput[B](4,4.1){Device}
+%     \psline[linestyle=dashed](1.6,0.6)(1.6,4.0)
+%     \rput[B](1.6,4.1){in}
+%     \psline[linestyle=dashed](6.4,0.6)(6.4,4.0)
+%     \rput[B](6.4,4.1){out}
+% \end{pspicture}
+% \end{center}
+\BIT
+\I  Fundamental problem: trying to use a time-domain solver as a 
+        frequency-domain solver.
+\I  Additionally, no method to measure simulation error!
+\EIT
+\newpage
 
-    \psframe*[linecolor=gray, fillcolor=gray, fillstyle=solid] (1,2.2)(4,2.8)
-    \psframe*[linecolor=gray, fillcolor=gray, fillstyle=solid] (3,1)(5,4)
-    \psframe*[linecolor=gray, fillcolor=gray, fillstyle=solid] (4,1.4)(7,2)
-    \psframe*[linecolor=gray, fillcolor=gray, fillstyle=solid] (4,3.0)(7,3.6)
-    \rput[B](4,4.1){Device}
-    \psline[linestyle=dashed](1.6,0.6)(1.6,4.0)
-    \rput[B](1.6,4.1){in}
-    \psline[linestyle=dashed](6.4,0.6)(6.4,4.0)
-    \rput[B](6.4,4.1){out}
-\end{pspicture}
-\end{center}
+\BIT
+\I  Allow direct access to frequency-domain data.
+\I  Take care of input and output fields outside of the simulation.
+\I  Material dispersion explicitly defined.
+\I  Simulation error well defined.
+\EIT
+\newpage
+
+\BIT
+\I  Frequency-domain solver made possible by correct choice of PML and 
+        linear algebra algorithm.
+\I  See: Wonseok Shin, Shanhui Fan, 
+            ``Choice of the perfectly matched layer boundary condition for 
+            frequency-domain Maxwell's equations solvers'',
+            Journal of Computational Physics (January 2012).
+\EIT
+
+
+\oursection{Interface}
+\BIT
+\I  No installation required.
+\begin{verbatim}
+>>> [E, H] = fds(omega, epsilon, J); % Run FDS.
+\end{verbatim}
+\EIT
 \end{document}
