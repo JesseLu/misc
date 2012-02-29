@@ -114,6 +114,7 @@ Time-domain issues include
 \EIT
 \newpage
 
+Picture from paper here.
 \BIT
 \I  Frequency-domain solver made possible by correct choice of PML and 
         linear algebra algorithm.
@@ -125,10 +126,37 @@ Time-domain issues include
 
 
 \oursection{Interface}
+\textbf{We want engineers and scientists to absolutely love using FDS
+        and, at the same time, to forget about it because it just works.}
 \BIT
-\I  No installation required.
+\I  No installation, just start up Matlab and
 \begin{verbatim}
->>> [E, H] = fds(omega, epsilon, J); % Run FDS.
+>>> [E, H] = fds(omega, epsilon, J); % Done.
 \end{verbatim}
+\I  Helper functions to
+    \BIT
+    \I  construct the optical structures $(\epsilon, \mu)$,
+    \I  define the input excitations $(J)$, and
+    \I  analyze and visualize the output fields $(E,H,D,B)$
+    \EIT
+    are all included and open-sourced.
+\I  Additionally, lots of examples and tutorials.
+\EIT
+
+\oursection{Hardware}
+Hub and spokes picture here.
+\BIT
+\I  Centralized, shared, custom-tuned server able to deliver the performance
+        of a large cluster
+\I  Performance achieved via heavily optimized GPU code
+\I  Multiple servers can be clustered with nearly $100\%$ computational
+        efficiency.
+\EIT
+
+\oursection{Current status}
+\BIT
+\I  Algorithm: Implemented on GPUs, still optimizing (Jesse)
+\I  Interface: (Wonseok)
+\I  Hardware: Prototype ordered and being built (Jesse)
 \EIT
 \end{document}
