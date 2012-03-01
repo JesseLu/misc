@@ -23,7 +23,7 @@
 \I  Solver
 \I  Interface
 \I  Hardware
-\I  End it
+\I  Current status 
 \EIT
 
 \vfill
@@ -88,9 +88,9 @@ Time-domain issues include
 \EIT
 \newpage
 
-% \begin{center}
+\begin{center}
 \begin{pspicture}(6,5)(-6,0)
-    \psgrid
+    \let\psgrid\relax
 
     \psframe[fillstyle=none](-1,2)(1,3)
     \rput(0,2.5){\textrm{TDS}}
@@ -115,7 +115,7 @@ Time-domain issues include
     \psline(4,2)(3.2,2) \rput(4.8,2){$\vdots$}
     \psline(4,1)(3.2,1) \rput(4.8,1){$Y(\omega_n)$}
 \end{pspicture}
-% \end{center}
+\end{center}
 \BIT
 \I  Fundamental problem: trying to use a time-domain solver as a 
         frequency-domain solver.
@@ -125,7 +125,7 @@ Time-domain issues include
 
 \begin{center}
 \begin{pspicture}(6,4)(-6,-2)
-    \psgrid
+    \let\psgrid\relax
 
     \psframe[fillstyle=none](-1,2)(1,3)
     \rput(0,2.5){\textrm{FDS}}
@@ -151,16 +151,17 @@ Time-domain issues include
     \rput(3.2,-0.9){$Y(\omega_n)$}
 \end{pspicture}
 \end{center}
+In contrast, a frequency-domain solver allows
 \BIT
-\I  Allow direct access to frequency-domain data.
-\I  Take care of input and output fields outside of the simulation.
-\I  Material dispersion explicitly defined.
-\I  Simulation error well defined.
+\I  Direct access to frequency-domain data,
+\I  External processing of input and output fields,
+\I  Explicit definition of material dispersion, and
+\I  Explicit measurement of simulation error.
 \EIT
 \newpage
 
 \begin{center}
-% \includegraphics[width=\textwidth]{pml_cutout}
+\includegraphics[width=0.8\textwidth]{pml_cutout}
 \end{center}
 \BIT
 \I  Frequency-domain solver made possible by correct choice of PML and 
@@ -193,7 +194,7 @@ Time-domain issues include
 \oursection{Hardware}
 \begin{center}
 \begin{pspicture}(6,3)(-6,-3)
-    \psgrid
+    \let\psgrid\relax
     \rput(0,0){\parbox{5cm}{\begin{center}\textrm{lightlabsFDS\\server}
                             \end{center}}}
     \psline{<->}(-1.2,0.8)(-2.8,1.4) \rput(-3.5,1.5){\textrm{user1}}
