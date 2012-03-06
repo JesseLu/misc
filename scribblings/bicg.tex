@@ -119,7 +119,7 @@ For this algorithm the loop is composed of the following two steps:
     Requires two loads, $p$ and $r$, and two writes, $p$ and $v$. 
     Additional loads may also be required to perform the multiplication by $A$.
     \begin{subequations}\begin{align}
-    p &= r + \rho_k / \rho_{k-1} p \\
+    p &= r + (\rho_k / \rho_{k-1}) p \\
     v &= A p \\
     \alpha &= \rho_k / p^T v,
     \end{align}\end{subequations}
