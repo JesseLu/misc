@@ -68,7 +68,7 @@ The algorithm then proceeds by initializing
     \end{align}\end{subequations}
 and looping over the following for $k = 0, 1, \ldots$
     \begin{subequations}\begin{align}
-    p_{k} &= r_{k} + \beta_k p_k \\
+    p_{k} &= r_{k} + \beta_k p_{k-1} \\
     v_k &= A p_k \\
     \alpha_k &= \rho_k / p_k^T v_k \\
     x_{k+1} &= x_k + \alpha_k p_k \\
@@ -97,30 +97,51 @@ and looping over the following for $k = 0, 1, \ldots$
     \beta &= \rho_{k+1} / \rho_k.
     \end{align}\end{subequations}
 
-\subsubsection{Parallel version}
+\subsubsection{Lumped version}
 Additionally, the loop operations can be ``lumped'' into two steps.
 By lumping, we mean that all the calculations in one step can proceed
     simultaneously, before any one calculation finishes,
     as long as intermediate values are available.
 For this algorithm the loop is composed of the following two steps:
 \begin{enumerate}
-\item $\alpha$-step. 
-    Requires two loads, $p$ and $r$, and two writes, $p$ and $v$.
-    \begin{subequations}\begin{align}
-    p &= r + \beta p \\
-    v &= A p \\
-    \alpha &= \rho_k / p^T v,
-    \end{align}\end{subequations}
-\item $\beta$-step.
+\item $\rho$-step: $\rho\_\text{step}(\alpha, p, v, r, x) 
+                    \rightarrow \rho_k, \text{err} $.
     Requires four loads, $x$, $p$, $r$, and $v$, and two writes, $x$ and $r$.
     Note that the error, $\|r\|$, should also be computed on this step.
     \begin{subequations}\begin{align}
     x &= x + \alpha p \\
     r &= r - \alpha v \\
-    \rho_{k+1} &= r^T r \\
-    \beta &= \rho_{k+1} / \rho_k.
+    \rho_k &= r^T r \\
+    \text{err} &= \|r\| 
+    \end{align}\end{subequations}
+\item $\alpha$-step: $\alpha\_\text{step}(\rho_k, \rho_{k-1}, p, v, r) 
+                        \rightarrow \alpha$.
+    Requires two loads, $p$ and $r$, and two writes, $p$ and $v$. 
+    Additional loads may also be required to perform the multiplication by $A$.
+    \begin{subequations}\begin{align}
+    p &= r + \rho_k / \rho_{k-1} p \\
+    v &= A p \\
+    \alpha &= \rho_k / p^T v,
     \end{align}\end{subequations}
 \end{enumerate}
+
+The algorithm is initiated by setting
+    \begin{subequations}\begin{align}
+    \alpha &= 1 \\
+    p &= 0 \\
+    v &= Ax \\
+    r &= b.
+    \end{align}\end{subequations}
+Note that $v$ can be initiated through the use of 
+    $r =b, \alpha\_\text{step}(0, 1, 0, v, r)$.
+The algorithm then proceeds via:
+    \begin{subequations}\begin{align}
+    \rho_k, \text{err} &= \rho\_\text{step}(\alpha, p, v, r, x) \\
+    & \text{check termination condition} \\
+    \alpha &= \alpha\_\text{step}(\rho_k, \rho_{k-1}, p, v, r) 
+    \end{align}\end{subequations}
+
+
 
 
 \appendix

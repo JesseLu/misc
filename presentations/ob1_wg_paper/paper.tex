@@ -54,7 +54,7 @@ We demonstrate designs for various coupling problems which suggest
     D. S. Ly-Gagnon, K. C. Saraswat, and D. A. B. Miller, 
     ``Nanometre-scale germanium photodetector enhanced by a 
     near-infrared dipole antenna,'' 
-    Nature Photonics \textbf{2}, 226 – 229 (2008).
+    Nature Photonics \textbf{2}, 226-229 (2008).
 % \bibitem{fwadia} V. R. Almeida, R. R. Panepucci, and M. Lipson, 
 %     ``Nanotaper for compact mode conversion,'' 
 %     Opt. Lett. \textbf{28}, 1302-1304 (2003) 
@@ -72,7 +72,14 @@ We demonstrate designs for various coupling problems which suggest
 %     (Cambridge University Press, 2004)
 \bibitem{prevwork} J. Lu, S. Boyd, and J. Vuckovic, 
     ``Inverse design of a three-dimensional nanophotonic resonator,''
-    Opt. Express \textbf{19}, 10563-10.750 (2011). 
+    Opt. Express \textbf{19}, 10563-10750 (2011). 
+\bibitem{veronis} G. Veronis, and S. Fan, 
+    ``Theoretical investigations of compact couplers between dielectric slab 
+    waveguides and two-dimensional metal-dielectric-metal plasmonic waveguides,'' 
+    Opt. Express \textbf{15}, 1211-1221 (2007).
+\bibitem{yang} R. Yang, R. A. Wahsheh, Z. Lu, and M. A. G. Abushagur, 
+    ``Efficient light coupling between dielectric slot waveguide and plasmonic
+    slot waveguide,'' Opt. Lett. \textbf{35}, 649-651 (2010).
 \bibitem{code} \url{www.github.com/JesseLu/objective-first}
 \end{thebibliography}
 
@@ -179,6 +186,8 @@ Second, it enables an increase in the likelihood of
 \section{Objective-first design of waveguide couplers}
 We now demonstrate the objective-first approach
     by designing waveguide couplers in two-dimensions.
+As such, we do not analyze effects which are only present in full 
+    three-dimensional systems, such as out-of-plane losses.
 Specifically, we work in the two-dimensional transverse electric mode,
     choosing $H_z$ as the field variable $x$,
     and $\epsilon^{-1}$ (the inverse of the permittivity) 
@@ -246,9 +255,11 @@ Lastly, we employ an alternating directions strategy,
     \end{equation}
 Note that a completely binary structure,
     where $\epsilon = \{\epsilon_0, \epsilon_\text{silicon}\}$,
-    is needed for manufacturing purposes; this will be pursued in a future work.
+    is needed for manufacturing purposes; this will be pursued in a future work
+    along with an analysis of robustness to fabrication imperfections.
 That said, the final designs presented here 
     all have significant portions which are already binary.
+
 
 
 \subsection{Coupler designs}
@@ -272,9 +283,20 @@ These results comprise of couplers between
         (Fig.~\ref{fig:wire}).
     \end{enumerate}
 All the designs presented are both highly efficient 
-    ($\sim 98\%$ coupling efficiency)
+    ($\sim 98\%$ coupling efficiency, in contrast to previous designs
+    which achieve only $\sim 70\%$ coupling efficiency\cite{veronis,yang})
     and extremely compact 
     (with footprints of only 1.5-4 square vacuum wavelengths).
+
+Note, however, that the small footprint of the designs presented does not 
+    imply small, unresolvable feature sizes.
+On the other hand, assuming a vacuum wavelength of 1550 nm,
+    the smallest possible feature in any of the examples presented is still
+    37 nm $\times$ 37 nm (see Fig.~\ref{fig:fiber}, for example),
+    as given by the size of a single grid point;
+    placing virtually all designs within reach of current-generation lithographic
+    systems.
+
 In addition, good starting points were not required; 
     all initial designs were simply $\epsilon = 9$ everywhere
     (a somewhat arbitrary guess, other values work as well).
@@ -354,7 +376,6 @@ In the appendix, we further demonstrate the generality of our method
         }
         \label{fig:mim}
 \end{figure}
-\clearpage
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.8\textwidth]{5}
@@ -367,6 +388,7 @@ In the appendix, we further demonstrate the generality of our method
         }
         \label{fig:wire}
 \end{figure}
+\clearpage
 
 \section{Conclusion}
 We develop a fundamentally new approach to designing physical structures,
@@ -386,7 +408,7 @@ This work has been supported by the
     AFOSR MURI for Complex and Robust On-chip Nanophotonics 
     (Dr. Gernot Pomrenke), grant number FA9550-09-1-0704.
 The Matlab code used is available online\cite{code}.
-\clearpage
+% \clearpage
 \begin{appendix}
 \section{Additional mode coupler designs}
 In this section, we present additional mode coupler designs.
