@@ -1,6 +1,6 @@
 \documentclass[letterpaper,10pt]{article}
 \usepackage{graphicx}
-\usepackage{osameet2}
+\usepackage{opex3}
 \usepackage{amsmath,amssymb}
 
 
@@ -10,9 +10,8 @@
     arbitrary nanophotonic waveguide modes}
 \author{Jesse Lu$^\ast$ and Jelena Vu\v{c}kovi\'{c}}
 \address{Stanford University, Stanford, California, USA.}
-\email{\url{jesselu@stanford.edu}}
+\email{jesselu@stanford.edu}
 
-\maketitle
 \begin{abstract}
 We present an algorithm for designing
     high efficiency ($\sim$98\%), 
@@ -224,7 +223,7 @@ Namely, we first compute the boundary fields needed to obtain
 
 \begin{figure}[htb]
     \centering
-    \includegraphics[width=\textwidth]{intro} 
+    \includegraphics[width=0.8\textwidth]{intro} 
     \caption{Boundary-value formulation of the design objective.
         The values of $H_z^\text{perfect}$, 
             defined along the dashed box surrounding the design area
@@ -239,8 +238,6 @@ Namely, we first compute the boundary fields needed to obtain
     
 Such a design objective is both extremely simple and widely adaptable 
     to the design of linear nanophotonic devices in general.
-Additionally, it is trivial to enforce,
-    often requiring only that we overwrite boundary field values.
 On the other hand, such a formulation often prohibits the physics residual 
     from disappearing completely; 
     however, we find that very good device performance is still obtained
