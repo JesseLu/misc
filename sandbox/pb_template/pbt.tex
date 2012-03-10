@@ -1,35 +1,36 @@
 \documentclass[12pt,twocolumn]{article}
 \usepackage[landscape]{geometry}
+\usepackage{fullpage}
 \pagestyle{empty}
 \newcommand{\B}{\begin{description}}
 \newcommand{\I}[1]{\item[#1]}
 \newcommand{\E}{\end{description}}
+\newcommand{\Q}[1]{\parbox{\columnwidth}{\begin{quote} #1 \end{quote}}}
+\addtolength{\columnsep}{2cm}
+% \setlength{\oddsidemargin}{0cm}
+% \setlength{\evensidemargin}{0cm}
 \begin{document}
 \subsection*{Notes}
 \pagebreak
 \section*{Providence Bible Church Prayer Bulletin}
-\begin{quote}
-    Our Father in Heaven, \\
+\Q{ Our Father in Heaven, \\
     Hallowed be Your name. \\
     Your kingdom come. \\
     Your will be done \\
-    On earth as it is in heaven.
-\end{quote}
+    On earth as it is in heaven.} 
 \B
-\I{Easter} Pray for our ministry oportunity with Lakewood elementary.
+\input{cat1.tex} % Insert first category of requests here.
 \E
-\begin{quote}
-    Give us this day our daily bread, \\
+
+\Q{ Give us this day our daily bread, \\
     And forgive us our debts, \\
     As we forgive our debtors. \\
     And do not lead us into temptation, \\
-    But deliver us from the evil one.
-\end{quote}
+    But deliver us from the evil one.}
 \B
-\I{Needs} the other section...
+% Insert second category of requests here.
+\input{cat2.tex}%% 2
 \E
 
-\begin{quote}
-    For Yours is the kingdom and the power and the glory forever. Amen.
-\end{quote}
+\Q{ For Yours is the kingdom and the power and the glory forever. Amen.}
 \end{document}
