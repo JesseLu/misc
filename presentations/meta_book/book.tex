@@ -24,9 +24,12 @@
                              % when including figure files
 \usepackage{multicol}        % used for the two-column index
 \usepackage[bottom]{footmisc}% places footnotes at page bottom
+\usepackage{amsmath}
 
 % see the list of further useful packages
 % in the Reference Guide
+
+\DeclareMathOperator*{\JLUminimize}{\text{minimize}}
 
 \makeindex             % used for the subject index
                        % please use the style svind.ist with
@@ -55,7 +58,7 @@
 
 \mainmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \include{part}
-\include{chapter}
+\include{my_chapter}
 % \include{appendix}
 
 \backmatter%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

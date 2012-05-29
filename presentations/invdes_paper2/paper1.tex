@@ -1,0 +1,171 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage{opex3}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\begin{document}
+\title{Inverse design of a three-dimensional nanophotonic resonator}
+\author{Jesse Lu, Stephen Boyd, and Jelena Vu\v{c}kovi\'{c}}
+\address{Stanford University, \\ Stanford, C.A., 94305}
+\email{jesselu@stanford.edu}
+
+
+\begin{abstract} 
+The inverse design of a three-dimensional nanophotonic resonator is presented. The design methodology is computationally fast (10 minutes on a standard desktop workstation) and utilizes a 2.5-dimensional approximation of the full three-dimensional structure. As an example, we employ the proposed method to design a resonator which exhibits a mode volume of $0.32(\lambda/n)^3$ and a quality factor of $7063$. % 8808 35648
+\end{abstract}
+
+\ocis{(230.5750) Resonators.} % REPLACE WITH CORRECT OCIS CODES FOR YOUR ARTICLE
+
+%%%%%%%%%%%%%%%%%%%%%%% References %%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{thebibliography}{99}
+\bibitem{miller} D. A. B. Miller, ``Rationale and challenges for optical interconnects to electronic chips,'' Proc. of the IEEE \textbf{88}, 728-749 (2000).
+\bibitem{prevwork} J. Lu and J. Vuckovic, ``Inverse design of nanophotonic structures using complementary convex optimization,'' Opt. Express \textbf{18}, 3793-3804 (2010).
+\bibitem{inan} U. Inan, A. Inan, \emph{Electromagnetic Waves} (Prentice Hall, 2000), page 296.
+\bibitem{yee} K. Yee, ``Numerical solution of initial boundary value problems involving maxwell's equations in isotropic media,'' IEEE Trans. Antennas Propag. Mag. \textbf{14}, 302-307 (1966).
+\bibitem{boydbook} S. Boyd and L. Vandenberghe, \emph{Convex Optimization} (Cambridge University Press, 2004).
+\bibitem{altdir} S. Boyd, N. Parikh, E. Chu, B. Peleato, and J. Eckstein are preparing a manuscript to be called, ``Distributed Optimization and Statistical Learning via the Alternating Direction Method of Multipliers,'' \verb+http://www.stanford.edu/~boyd/papers/distr_opt_stat_learning_admm.html+. 
+\bibitem{cholmod} Y. Chen, T. A. Davis, W. W. Hager, and S. Rajamanickam, ``Algorithm 887: CHOLMOD, supernodal sparse Cholesky factorization and update/downdate,'' ACM Trans. Math. Software \textbf{35}, No. 3, 2009.
+\bibitem{cvx} M. Grant and S. Boyd, \emph{CVX: Matlab software for disciplined convex programming}, version 1.21. \verb+http://cvxr.com/cvx+, January 2011.
+\bibitem{digitize} D. Englund, I. Fushman, and J. Vuckovic, ``General recipe for designing photonic crystal cavities,'' Opt. Express \textbf{13}, 5961-5975 (2005).
+\end{thebibliography}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%  body  %%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Motivation}
+To date, the design of nanophotonic devices has generally involved a lengthy (days, weeks) process in which one perturbs, by trial-and-error, canonical structures such as photonic crystals or waveguide-coupled rings to achieve the desired performance for the device. 
+
+Instead, an inverse design method in which the user only specifies the desired electromagnetic field, or characteristics thereof, and then leaves the computer to find a dielectric structure satisfying these requirements, would be a much more intuitive and computationally efficient design strategy. Furthermore, such a method may even be the only feasible option available for the design of more complex multi-wavelength and multi-functional nanophotonic devices needed for on-chip integration\cite{miller}.
+
+\section{2.5-dimensional approximation}
+Previously, we demonstrated the inverse design of various nanophotonic devices in two dimensions\cite{prevwork}.
+Unfortunately, to directly extend our previous method to full three-dimensional space requires solving for a very large ($\sim 10^7 \times 10^7$) and ill-conditioned matrix, namely that given by the time-harmonic Maxwell's equation in three dimensions, which for the electric ($E$) field is
+\begin{align}
+\nabla\times\nabla\times E - \mu\omega^2\epsilon E &= 0,\quad\text{where}\label{wave} \\
+E &= E(x,y,z).
+\end{align}
+
+Therefore, to make our problem more tractable, we formulate a 2.5-dimensional approximation of the electromagnetic fields of a planar three-dimensional nanophotonic device. As shown in Fig.~\ref{approx}a, this involves treating a planar three-dimensional nanophotonic device as a truncated holey fiber with identical dielectric structure. We take advantage of the planar nature of most nanophotonic devices in this way to produce a tractable, computationally-fast method. The $E$-field inside such a holey fiber is expressed as
+\begin{equation}
+E = E(x,y)e^{-i\beta z},
+\end{equation}
+where $\beta$ is the wave-vector along the fiber axis. Solving for Eq.~\ref{wave} now requires solving for a much smaller ($\sim 10^5 \times 10^5$) matrix, which can be accomplished using standard linear algebra packages. This simulation technique is thus very similar to a two-dimensional finite-difference frequency-domain solve.
+
+As an example, in Fig.~\ref{approx}b, we compare the 2.5-dimensional electric field against the three-dimensional simulated electric field (at the central plane of the slab), given by a standard finite-difference time-domain (FDTD) software package, for an L3 photonic crystal resonator. We see that with the appropriate choice of $\beta$, which we obtain by fitting a sinusoid to the out-of-plane decay in the three-dimensional FDTD solution, our approximation captures most of the characteristics of the three-dimensional field at the center plane of the slab. 
+\begin{figure}[hbt]
+\centering\includegraphics[width=\textwidth]{approx.eps}
+\caption{(a) For computational feasibility, the resonant fields of a planar nanophotonic device are approximated as those of a truncated holey fiber with identical dielectric structure. (b) An example of our approximation using an L3 photonic crystal resonator. Most of the characteristics of the full three-dimensional field at the center of the slab appear in the approximate solution.}\label{approx}
+\end{figure}
+
+In this approximation, converting from a 2.5-dimensional structure to a full three-dimensional structure only requires the correct choice of slab thickness, $t$, since the in-plane values of $\epsilon$ remain the same. To estimate $t$ for the full three-dimensional device, we treat the resonant mode as a guided mode in a slab waveguide surrounded by a cladding of $n=1$. The expression for $t$ is then the thickness of the slab for the lowest-order TE mode of a slab waveguide with effective refractive index $n_\text{eff}$\cite{inan}:
+\begin{align}
+t &= \frac{2}{\beta}\tan^{-1}\frac{\alpha}{\beta},\label{t} \quad\text{where} \\
+\alpha &= \sqrt{k_x^2 - \left(\frac{\omega}{c}\right)^2}, \quad\text{and} \\
+k_x &= \sqrt{\left(\frac{n_\text{eff}\omega}{c}\right)^2 - \beta^2}.
+\end{align}
+Here, $\alpha$ is the wave-vector which determines the evanescent decay of the slab waveguide mode into air, while $k_x$ is an approximated in-plane k-vector. To determine $n_\text{eff}$, the effective refractive index, we use the following approximation,
+\begin{equation}
+n_\text{eff} = \sqrt{\frac{\|\epsilon E^2\|}{\|E^2\|}}.
+\end{equation}
+In the above formulation and for the remainder of the manuscript, the norm ($\|\cdot\|$) refers to the 2-norm over the entire grid and is equivalent to the spatial integral $(\int | \cdot |^2 dr)^{1/2}$.
+
+
+
+\section{Inverse design method}
+\subsection{Original formulation}
+In our inverse design method, one proceeds by specifying either the resulting field or its characteristics and then computing a structure which will produce such a field. In this work, we chose to specify the desired field characteristics, namely, small mode-volume and large quality factor. The inverse design problem can then be formulated as,
+\begin{align}
+\text{minimize} \quad& \frac{\|\epsilon E^2\|}{\text{max}\{\epsilon E^2\}} \label{a1}\\ 
+\text{subject to} \quad 
+    & \nabla\times\nabla\times E - \mu\omega^2\epsilon E = 0 \label{a2}\\
+    & \nabla\cdot\epsilon E = 0 \label{adiv}\\
+    & \text{FT}_\text{lightcone}\{E\} = 0, \label{a3} \\
+    & \epsilon = \{\epsilon_\text{air}, \epsilon_\text{silicon}\} \label{a4}
+\end{align}
+where $\epsilon$ and $E$ are the permittivity and electric vector field respectively, defined within the 2.5-dimensional approximation and discretized along a standard Yee grid\cite{yee} with periodic boundary conditions. $\epsilon$ was constrained to be isotropic by only varying $\epsilon_z$ in each cell, and then determining $\epsilon_x$ and $\epsilon_y$ via spatial interpolation. $\text{FT}$ is the two-dimensional Fourier transform.
+
+In this formulation, the minimization objective (Eq.~\ref{a1}) is the mode volume, which we desire to be as small as possible. Similarily, Eq.~\ref{a3} is a constraint on the electric field to produce a large quality factor by forbidding the existence of any Fourier components within the light cone. Eqs.~\ref{a2} and \ref{adiv} are physical constraints that $\epsilon$ and $E$ must satisfy, that is, the wave equation for the 2.5-dimensional fiber mode and the transversality condition. Lastly, Eq.~\ref{a4} is a binary constraint on epsilon, denoting that we only want the structure to be composed of air or silicon.
+
+Although our 2.5-dimensional approximation has reduced the size and complexity of the matrices found in the above formulation, the form of the problem in Eq.~\ref{a1}-\ref{a4} is actually incredibly difficult to solve, if for no other reason that Eq.~\ref{a1}, \ref{a2}, and \ref{a4} are non-convex\cite{boydbook} for joint minimization on both $\epsilon$ and $E$. To make matters worse, the binary constraint in Eq.~\ref{a4} generally results in a problem which is NP-hard\cite{boydbook}. For these reasons, our strategy is to employ an alternating directions scheme\cite{altdir}, in which we break Eq.~\ref{a1}-\ref{a4} into two separate, tractable sub-problems which we then solve iteratively.
+
+\subsection{Alternating directions: field optimization sub-problem}
+The first sub-problem in the alternating directions scheme involves optimizing $E$ while holding $\epsilon$ constant,
+\begin{align}
+\underset{E}{\text{minimize}} \quad& \|\nabla\times\nabla\times E - \mu\omega^2\epsilon E\|
+    + \eta \|\epsilon E^2\| \label{b1}\\ 
+\text{subject to} \quad 
+    & E_\text{center} = 1 \label{bcenter} \\
+    & \nabla\cdot\epsilon E = 0 \label{bdiv}\\
+    & \text{FT}_\text{lightcone}\{E\} = 0, \label{bQ}
+\end{align}
+which is a quadratic problem with linear equality constraints, and is easily solved using a standard factor-solve method for sparse matrices\cite{cholmod}.
+
+In this sub-problem, the most significant modification to the original formulation in Eq.~\ref{a1}-\ref{a4} is that the constraint in Eq.~\ref{a2} has been relaxed and moved into the minimization objective (Eq.~\ref{b1}). We will denote this term ($\|\nabla\times\nabla\times E - \mu\omega^2\epsilon E\|$) as the \emph{physics residual}. 
+
+At the same time, the term for the mode volume from Eq.~\ref{a1} has also been modified in Eq.~\ref{b1}. We denote this term ($\|\epsilon E^2\|$) as the \emph{design objective}. Note that although the denominator in the original formulation has been removed in order to make the term convex, the present formulation is still equivalent because we fix the $E$-field in the center of the structure (Eq.~\ref{bcenter}), where we want the maximum to occur. Also note that the constraint in Eq.~\ref{bcenter} is crucial in order to avoid the trivial solution $E=0$.
+
+Lastly, the $\eta$ coefficient in Eq.~\ref{b1} allows us to trade-off between the physics residual and the design objective. Thus, in order to achieve a small mode volume, the initial value of $\eta$ is large and is subsequently exponentially reduced once per iteration at all points in the grid in order to bring the physics residual to 0. Furthermore, $\eta$ can also be given a spatial weighting in order to reduce in-plane losses; this strategy was implemented in the results presented here.
+
+
+\subsection{Alternating directions: structure optimization sub-problem}
+The second sub-problem in the alternating directions scheme involves optimizing $\epsilon$ while holding $E$ constant,
+\begin{align}
+\underset{\epsilon}{\text{minimize}} \quad& \|\nabla\times\nabla\times E - \mu\omega^2\epsilon E\| \label{c1} \\
+\text{subject to} \quad 
+    & \epsilon_\text{air} \le \epsilon \le \epsilon_\text{silicon}, \label{clim}
+\end{align}
+which is a quadratic problem with linear inequality constraints and is solved using CVX\cite{cvx}, a convex optimization package for Matlab.
+
+As in the field optimization sub-problem, the physics residual has been relaxed and placed in the minimization objective (Eq.~\ref{c1}). However, we have chosen not to include the design objective term (mode volume). This modification was implemented as a heurestic that seemed to improve the aesthetic quality of the resulting structure.
+
+The second major modification from the original formulation is found in the constraint in Eq.~\ref{clim}. Since the combinatorial problem given by the original constraint in Eq.~\ref{a3} proved to be intractable, the constraint on the values of $\epsilon$ is relaxed to allow for any value in the range from $\epsilon_\text{air}$ to $\epsilon_\text{silicon}$. The sub-problem is now relatively straightforward to solve, although it is very unlikely that one obtains a completely binary structure. In practice various digitization schemes can be implemented\cite{digitize}; however, such schemes were not needed here since a nearly binary structure was produced fortuitously.
+
+\section{Result}
+Using the formulations for the field optimization and structure optimization sub-problems presented above, along with our 2.5-dimensional approximation, the inverse design of a planar three-dimensional nanophotonic device is performed.
+
+In order to do so, the frequency, $\omega = 0.16 c/\Delta x$, and the out-of-plane wave vector, $\beta = 0.24 (\Delta x)^{-1}$, are chosen by the user. Here, $\Delta x$ is the grid spacing and $c$ is the speed of light in vacuum. Lastly, an initial dielectric structure consisting entirely of silion, $\epsilon = \epsilon_\text{silicon}$ everywhere on a $160 \times 160$ grid, is used as a starting point---although other initial structures (e.~g.~ air everywhere or random $\epsilon$) yield nearly identical structures in this case.
+
+Having already determined the desired characteristics of our resonator (small mode-volume and large quality factor) in the formulation of the two sub-problems, the inverse design proceeds by alternately solving the field optimization and then the structure optimization sub-problems. That is to say, in every iteration of the algorithm, $E$ is updated to be the solution of Eq.~\ref{b1}-\ref{bQ} and is then plugged into Eq.~\ref{c1}-\ref{clim}, the solution of which becomes the updated value of $\epsilon$. The subsequent iteration then uses the updated $\epsilon$ variable to re-optimize $E$ once again. And the algorithm continues to proceed in this way until the physics residual ($\|\nabla\times\nabla\times E - \mu\omega^2\epsilon E\|$) is reduced to an acceptable value.
+
+\begin{figure}[hbt]
+\centering\includegraphics[width=\textwidth]{target.eps}
+\caption{The (a) dielectric structure, $\epsilon$, and (b) target field, $E$ ($E_y$ shown only), produced after 75 iterations (10 minutes) on a $160\times 160$ grid. The resulting $\epsilon$ is almost completely binary, and relatively smooth.}\label{target}
+\end{figure}
+Figs.~\ref{target}a and \ref{target}b are the resulting values of $\epsilon$ and $E$ ($E_y$ shown only), respectively, after 75 iterations of our inverse design method. The entire inverse design process takes only 10 minutes on a standard desktop computer for the $160 \times 160$ grid. An animation of the values of $\epsilon$ and $E_y$ at each iteration of the algorithm is included in the supplementary material.  
+
+The values of the physics residual and the design objective (mode volume) at each iteration are shown in Fig.~\ref{progress}. Most importantly, we see that the physics residual seems to converge linearly, indicating that the algorithm is reasonably efficient. The primary factor in determining this rate of convergence is the exponential decrease in $\eta$ (Eq.~\ref{b1}), since as $\eta$ decreases, increasing emphasis is placed on minimizing the physics residual in the field sub-problem. 
+
+\begin{figure}[hbt]
+\centering\includegraphics[width=\textwidth]{the_prog.eps}
+\caption{Value of the physics residual (blue) and design objective, or mode volume, (red) at each iteration. The physics residual seems to exhibit linear convergence, while the mode volume quickly saturates after roughly 25 iterations.}\label{progress}
+\end{figure}
+
+\section{Verification} % Find better section name
+\subsection{Accuracy}
+To evaluate the accuracy of the inverse design method, we compared the field resulting from the iterations (target field) with the actual field of the resulting structure solved by the 2.5-dimensional approximation (2.5D fiber mode) as well as the field of a full three-dimensional FDTD simulation of the resulting structure (full 3D field), as shown in Figs.~\ref{comp} and \ref{xsec}.
+
+As detailed above, the thickness of the corresponding three-dimensional structure is determined by Eq.~\ref{t}, which yielded a value of $8.16 \Delta x$. However, a small sampling of thicknesses in that vicinity resulted in a more accurate thickness of $8.5\Delta x$, which matched the resonant frequency of the target field and 2.5-dimensional fiber mode.
+\begin{figure}[hbt]
+\centering\includegraphics[width=\textwidth]{compare.eps}
+\caption{Comparison ($E_y$) of (a) the target field from the inverse design method (from Fig.~\ref{target}), (b) the actual 2.5-dimensional fiber mode, and (c) the field from the full three-dimensional FDTD simulation. The target field matches well with the full three-dimensional field.}\label{comp}
+\end{figure}
+
+\begin{figure}[hbt]
+\centering\includegraphics[width=\textwidth]{the_xsec.eps}
+\caption{Comparison of the cross sections of the $E_y$ field along the x-axis from the target field (blue), the actual 2.5-dimensional fiber mode (green), and the field from the full three-dimensional FDTD simulation (red). There is some discrepancy between the target field and the full three-dimensional field, but even that is confined to the edges and is only on the order of $\sim 1\%$ of the maximum field amplitude.}\label{xsec}
+\end{figure}
+Fig.~\ref{comp} plots the $E_y$ component of the target field, 2.5-dimensional fiber mode and the full three-dimensional FDTD field side-by-side. Fig.~\ref{xsec} plots the horizontal cross sections of the magnitudes of the fields on a logarithmic scale. We see that the target field and fiber mode match very well, while there is significantly more discrepancy between the target field and the full three-dimensional field. This is expected with the use of our approximation; however, the error is still relatively small (below 1\% of the maximum field strength) and confined mostly to the edges of the structure.
+
+\subsection{Performance}
+The fields from the full three-dimensional FDTD simulation were used to evaluate the performance of the device. The resulting mode volume was $0.32 (\frac{\lambda}{n})^3$ and the total quality factor was 7063. The radiative (out-of-plane) quality factor was 8808 and the in-plane quality factor was 35648.
+
+Fig.~\ref{qcomp} shows the Fourier transforms of the target, fiber and three-dimensional $E_y$ fields taken at the center of the slab. Although there are virtually no field components in the light cone in the case of the target and fiber fields, additional components are present in the full three-dimensional case. This explains why even when leaky radiative components were strictly disallowed in the field optimization sub-problem, the error in the 2.5-dimensional approximation unavoidably introduces some leaky components in the case of the actual three-dimensional structure.
+
+\begin{figure}[hbt]
+\centering\includegraphics[width=\textwidth]{qcomp.eps}
+\caption{Comparison of the Fourier transforms of the $E_y$ fields of the (a) the target field from the inverse design method, (b) the actual 2.5-dimensional fiber mode, and (c) the field from the full three-dimensional FDTD simulation. The error in our approximation introduces some small additional Fourier components into the light cone.}\label{qcomp}
+\end{figure}
+
+\section{Conclusion}
+In summary, by using a 2.5-dimension approximation, we demonstrate the inverse design of a three-dimensional nanophotonic resonator. Further development of our method includes applying our inverse method to design three-dimensional devices which support multiple fields at different frequencies. This includes resonant devices such as a multi-wavelength cavity, as well as waveguiding devices such as $N$-port couplers, multiplexers, and grating couplers.\\
+
+This work has been supported in part by the AFOSR MURI for Complex and Robust On-chip Nanophotonics (Dr. Gernot Pomrenke), grant number FA9550-09-1-0704.
+\end{document}
