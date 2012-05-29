@@ -1,0 +1,56 @@
+\section{The electromagnetic wave equation}
+\subsection{Physics formulation}
+Let's talk about the electromagnetic wave equation from a physics standpoint.
+Let's start from Maxwell's equations without currents.
+\BA \curl E = - \mu_0 \frac{\partial H}{\partial t} \\
+    \curl H = J + \epsilon \frac{\partial E}{\partial t} \EA
+
+\BA \curl E = - i \mu_0 \omega H \\
+    \curl H = J + i \epsilon \omega E \EA
+
+\BE \curl \epsilon^{-1} \curl H - \mu_0 \omega^2 H = \curl \epsilon^{-1} J \EE
+
+Talk about reduced dimensions here. Refer reader to appendix.
+
+\subsection{Numerical formulation}
+Now let's talk about the electromagnetic wave equation from a computational perspective.
+
+To solve the wave equation on a computer we need to use the Yee grid.
+
+To make things easier we will use weird units.
+
+We also need to take care of boundary conditions.
+
+\subsection{Solving for $H$}
+The wave equation from a mathematical perspective.
+
+\BE (\curl \epsilon^{-1} \curl - \mu_0 \omega^2) H = \curl \epsilon^{-1} J \EE
+
+Becomes, with a change of variables.
+
+\BE A(p)x = b(p) \EE 
+
+This can be solved directly in 1D and 2D. 
+Special methods needed in 3D. 
+We just do 1D and 2D.
+
+\subsection{Solving for $\epsilon^{-1}$}
+The wave equation from a optimization perspective.
+
+Because scalar multiplication is transitive 
+    ($\epsilon^{-1} (\curl H) = (\curl H) \epsilon^{-1}$ and
+    $\epsilon^{-1} J = J \epsilon^{-1}$)
+\BE \curl (\curl H) \epsilon^{-1} - \curl J \epsilon^{-1}  = \mu_0 \omega^2 H  \EE
+
+which we write as 
+
+\BE B(x)p = d(x) \EE 
+
+Special constraints... (binary)
+
+\subsection{Insight}
+Basically, we see that the electromagnetic wave equation is separably linear in $H$ and $\epsilon^{-1}$
+
+This means that...
+
+

@@ -1,0 +1,38 @@
+\section{Resonator design}
+Now that we see the usefulness of objective-first design strategy for a 1D resonator,
+    we extend to 2D and approximate 3D as well.
+
+We also transition design objectives:
+    field everywhere,
+    to certain field characteristics.
+
+We continue to fill-out our understanding of objective-first,
+    and we get a fuller flavor of what it can do.
+
+\subsection{``S'' resonator}
+We construct an ``S''-shaped field and create a resonator to make that field.
+This uses the previous equation...
+\myfig{res/S}{caption}
+
+\subsection{2D}
+Now we design for minimal mode-volume and maximal Q.
+Although $Q^{-1}$ minimization should be a constraint we only do this in the next section.
+\BA \minimize{x} \| A(p) x - b(p) \|^2 + \eta \| F x \|^2 \\
+    \subto \| \text{diag}(\sqrt{p}) A_\text{curl} x \|^2 \le a_\text{mode} \EA
+\BA \minimize{p} \| B(x) p - d(x) \|^2 \\
+    \subto 0 \le p \le 1 \EA
+\myfig{res/beam}{caption}
+\myfig{res/circle}{caption}
+
+\subsection{2.5D}
+Although solving for the relevant matrices in 3D is really hard, we can make an approximation.
+
+Here we make 
+\BA \minimize{x} \| A(p) x - b(p) \|^2 + \eta \|\text{diag}(\sqrt{p}) A_\text{curl} x\|^2 \\
+    \subto Fx = 0  \EA
+\BA \minimize{p} \| B(x) p - d(x) \|^2 \\
+    \subto 0 \le p \le 1 \EA
+
+\myfig{res/target}{Add the actual field here!}
+
+

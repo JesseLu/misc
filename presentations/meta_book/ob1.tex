@@ -1,0 +1,32 @@
+
+\section{The objective-first design problem}
+intro
+
+\subsection{Design objectives}
+Talk about $f(x)$ and that we are interested in convex ones.
+
+\subsection{Convexity}
+Convex optimization quick intro.
+
+\subsection{Typical design formulation}
+Typically,
+\BA \minimize{x,p} f(x) \\
+    \subto g(x, p) = 0 \\
+        & p \in {0,1} \EA
+
+\subsection{Objective-first design formulation}
+Objective-first does 
+\BA \minimize{x,p} \|g(x,p)\|^2 \\
+    \subto f(x) = f_\text{ideal} \\
+        & 0 \le p \le 1 \EA
+
+This is a bi-convex problem, which we solve using an alternating directions method.
+
+\subsection{Field sub-problem}
+\BA \minimize{x} \| A(p) x - b(p) \|^2 \\
+    \subto f(x) = f_\text{ideal} \EA
+
+\subsection{Structure sub-problem}
+\BA \minimize{p} \| B(x) p - d(x) \|^2 \\
+    \subto 0 \le p \le 1 \EA
+

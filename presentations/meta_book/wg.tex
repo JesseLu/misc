@@ -1,0 +1,39 @@
+\section{Waveguide coupler design}
+Finally, we now implement 
+    the full objective-first design strategy
+    by doing an alternating directions solve.
+
+\subsection{Choice of design objective}
+We choose, for generality,
+
+\BE f(x) = \begin{cases}
+        x & \text{at boundary}, \\
+        0 & \text{elsewhere}.
+        \end{cases} \EE
+
+    where the boundary denotes the two outermost layers of the design space.
+This means 
+
+\BE f_\text{ideal} = \begin{cases}
+        x_\text{perfect} & \text{at boundary}, \\
+        0 & \text{elsewhere}.
+        \end{cases} \EE
+
+We then do
+
+\BA \minimize{x} \| A(p) x - b(p) \|^2 \\
+    \subto f(x) = f_\text{ideal} \EA
+
+\BA \minimize{p} \| B(x) p - d(x) \|^2 \\
+    \subto 0 \le p \le 1 \EA
+
+\subsection{Coupling between dielectric waveguide modes}
+\myfig{wg/1}{test}
+\myfig{wg/2}{test}
+\myfig{wg/3}{test}
+
+\subsection{Coupling to plasmonic waveguide modes}
+\myfig{wg/4}{test}
+\myfig{wg/5}{test}
+
+

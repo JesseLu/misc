@@ -1,0 +1,37 @@
+\section{1D resonator design}
+We now build up to the objective-first formulation by example. 
+And from a different perspective.
+
+We're going to take a step back and start with the most naive inverse design strategy possible.
+Then we'll end with objective first.
+This motivates the need for the alternating directions and objective-first strategy.
+
+
+\subsection{Direct solve of structure}
+This is the simplest thing you can do. Basically, set $x$ and solve for $p$.
+Also, take out the relaxed constraint on $p$.
+\BA \minimize{p} \| B(x) p - d(x) \|^2 \EA
+\myfig{1d/leastsquares}{test}
+We perfectly satisfy the field but...
+
+\subsection{Regularized solve of structure}
+We add a term to try to control $p$
+\BA \minimize{p} \| B(x) p - d(x) \|^2 + \eta \|p - p_0\|^2 \EA
+\myfig{1d/regularized}{test}
+Better, but a trade-off between field accuracy and structure variation.
+
+\subsection{Alternating directions solve}
+Now we actually do both fields.
+\BA \minimize{p} \| B(x) p - d(x) \|^2 + \eta_1 \|p - p_\text{prev}\|^2 \EA
+
+\BA \minimize{x} \| A(p) x - b(p) \|^2 + \eta_2 \|x - x_\text{prev}\|^2 \EA
+\myfig{1d/complementary}{test}
+
+\subsection{Alternating directions solve with bounded $p$}
+\BA \minimize{p} \| B(x) p - d(x) \|^2 \\
+    \subto 0 \le p \le 1 \EA
+
+\BA \minimize{x} \| A(p) x - b(p) \|^2 + \eta_2 \|x - x_\text{prev}\|^2 \EA
+\myfig{1d/bounded}{test}
+
+
