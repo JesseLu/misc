@@ -1,62 +1,119 @@
 \section{The electromagnetic wave equation}
 
 \subsection{Physics formulation}
-We will start by reviewing 
-    the fundamental physical equation governing nanophotonics, 
-    the electromagnetic wave equation.
-
-We first derive the wave equation by starting with Maxwell's equations:
-
-
+First, let's derive our wave equation,
+    starting with the differential form of Maxwell's equations, 
 \BA \curl E = - \mu_0 \frac{\partial H}{\partial t} \\
-    \curl H = J + \epsilon \frac{\partial E}{\partial t} \EA
+    \curl H = J + \epsilon \frac{\partial E}{\partial t}, \EA
+    where $E$, $H$, and $J$ are 
+    the electric, magnetic and electric current % TODO: Check this.
+    vector fields, respectively,
+    $\epsilon$ is the permittivity
+    and $\mu_0$ is the permeability, which we assume to be 
+    that of vacuum everywhere.
 
+
+For time dependence $\exp(-i \omega t)$, 
+    where $\omega$ is the angular frequency,
+    these become
 \BA \curl E = - i \mu_0 \omega H \\
-    \curl H = J + i \epsilon \omega E \EA
-
-\BE \curl \epsilon^{-1} \curl H - \mu_0 \omega^2 H = \curl \epsilon^{-1} J \EE
-
-Talk about reduced dimensions here. Refer reader to appendix.
+    \curl H = J + i \epsilon \omega E, \label{eq:H2E} \EA
+    which we can combine to form our wave equation,
+\BE \curl \epsilon^{-1} \curl H - \mu_0 \omega^2 H = \curl \epsilon^{-1} J. 
+    \label{eq:wave} \EE
+For further information,
+    as well as simplifications to the wave equation in reduced dimensions,
+    please see the Appendix. % TODO: Use reference.
 
 \subsection{Numerical formulation}
-Now let's talk about the electromagnetic wave equation from a computational perspective.
+Now, on top of the analytical formulation of the wave equation \ER{wave}
+    we will now add a numerical, or discretized, formulation.
+This will be needed in order to solve for arbitrary structures.
 
-To solve the wave equation on a computer we need to use the Yee grid.
+First, we discretize our computational space 
+    according to the Yee grid, % TODO: Reference!
+    which allows us to easily define the curl $(\curl)$
+    operators in \ER{wave} as described in the Appendix. % TODO: ref.
+This allows us, with a change of variables to formulate \ER{wave} as
+\BE A(p)x = b(p), \label{eq:Ab} \EE 
+    where $H \to x$, $\epsilon^{-1} \to p$; 
+    and where
+\BE A(p) = \curl \epsilon^{-1} \curl - \mu_0 \omega^2 \EE 
+    and
+\BE b(p) = \curl \epsilon^{-1} J. \EE
+Note that our use of $A(p)$ and $b(p)$ instead of $A$ and $b$
+    simply serves to clarify the dependence
+    of both $A$ and $b$ to $p$.
 
-To make things easier we will use weird units.
-
-We also need to take care of boundary conditions.
+Additionally,  we use periodic boundary conditions
+    with stretched-coordinate % TODO: ref.
+    perfectly matched layers where necessary for our examples.
 
 \subsection{Solving for $H$}
-The wave equation from a mathematical perspective.
+With our numerical formulation, we can now solve for the $H$-field
+    (the $E$-field can be computed from the $H$-field using \ER{H2E})
+    by using general linear algebra solvers.
+Doing so is also simply known as a time-harmonic or 
+    a finite-difference frequency-domain (FDFD) simulation.
 
-\BE (\curl \epsilon^{-1} \curl - \mu_0 \omega^2) H = \curl \epsilon^{-1} J \EE
+Now, while a full three-dimensional problem
+    is computationally quite taxing;
+    in one- and two-dimensions, 
+    \ER{Ab} is easily solved using the standard sparse solver
+    included in Matlab,
+    and this technique is regularly employed 
+    in the examples which follow.
 
-Becomes, with a change of variables.
-
-\BE A(p)x = b(p) \EE 
-
-This can be solved directly in 1D and 2D. 
-Special methods needed in 3D. 
-We just do 1D and 2D.
 
 \subsection{Solving for $\epsilon^{-1}$}
-The wave equation from a optimization perspective.
+The next step,
+    after having built a field-solver or simulator
+    (finds $x$ given $p$) for our wave equation,
+    is to build a structure-solver for it.
+In other words, we need to be able to solve for $p$ given $x$.
 
-Because scalar multiplication is transitive 
-    ($\epsilon^{-1} (\curl H) = (\curl H) \epsilon^{-1}$ and
-    $\epsilon^{-1} J = J \epsilon^{-1}$)
+To do so, we return to \ER{wave}
+    and remark that 
+    $\epsilon^{-1} (\curl H) = (\curl H) \epsilon^{-1}$ and
+    $\epsilon^{-1} J = J \epsilon^{-1}$ 
+    since scalar multiplication is communicative.
+This allows us to rearrange \ER{wave} as
 \BE \curl (\curl H) \epsilon^{-1} - \curl J \epsilon^{-1}  = \mu_0 \omega^2 H  \EE
+which we now write as 
+\BE B(x)p = d(x), \label{eq:Bd} \EE 
+    where
+\BE B(x) = \curl (\curl H) - \curl J\EE
+    and 
+\BE d(x)  = \mu_0 \omega^2 H.  \EE
 
-which we write as 
+Solving this system would now seem to allow us
+    to choose an electromagnetic field
+    and then find the structure to produce it;
+    which strongly suggests that it will be useful in
+    the design of nanophotonic devices.
 
-\BE B(x)p = d(x) \EE 
+In terms of computational complexity, as with \ER{Ab}, 
+    \ER{Bd} in its current form can be solved using standard tools.
 
-Special constraints... (binary)
+\subsection{Bi-linearity of the wave equation}
+Although additional mathematical machinery must still be added
+    in order to get a useful design tool,
+    we have really shown so far is that the wave equation is 
+    separately linear or \emph{bi-linear} in $x$ and $p$.
+Namely that,
+\BE A(p)x-b(p) = B(x)p - d(x). \EE
+In other words, fixing $p$ makes solving the wave equation for $x$
+    a linear problem, and vice versa.
+Note that the joint problem,
+    where both $x$ and $p$ are allowed to vary,
+    is not linear.
 
-\subsection{Insight}
-Basically, we see that the electromagnetic wave equation is separably linear in $H$ and $\epsilon^{-1}$
-
-This means that...
-
+The bi-linearity of the wave equation
+    is fundamental in our objective-first strategy
+    which relies on the fact
+    that we already know how to solve linear systems well,
+    and is the reason why we chose $\epsilon^{-1} \to p$
+    instead of the more natual $\epsilon \to p$.
+Indeed, this property forms a natural division of labor
+    in the objective-first scheme, which we outline below.
 

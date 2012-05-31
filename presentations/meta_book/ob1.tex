@@ -1,24 +1,79 @@
 
 \section{The objective-first design problem}
-intro
+We now build off of the field-solver and the structure-solver,
+    as previously outlined,
+    by formulating the design problem
+    and outlining the objective-first strategy.
 
 \subsection{Design objectives}
-Talk about $f(x)$ and that we are interested in convex ones.
+A design objective, $f(x)$, is simply defined as
+    a function we wish to be minimal 
+    for the design to be produced.
+
+For instance, in the design of a device
+    which must transmit efficiently into a particular mode,
+    we could choose $f(x)$ to be the negative power transmitted into that mode.
+Or, if the device was to be a low-loss resonator,
+    we could choose $f(x)$ to be the amount of power leaking 
+    out of the device.
+
+In general, there are multiple choices of $f(x)$
+    which can be used to describe the same objective.
+For example, $f(x)$ for a transmissive device 
+    may not only be the negative power transmitted into the desired output mode,
+    but it could also be the amount of power lost to other modes,
+    or even the error in the field values at the output port
+    relative to the field values needed for perfect transmission.
+These design objectives are equivalent in the sense that, if minimized, 
+    all would produce structures with good performance.
+At the same time, we must consider that the computational cost and complexity
+    of using one $f(x)$ over another may indeed vary greatly.
 
 \subsection{Convexity}
-Convex optimization quick intro.
+Before formulating the design problem,
+    we would like to inject a note regarding the complexity of various 
+    optimization problems.
+
+Specifically, we want to introduce the notion of \emph{convexity} %TODO: ref.
+    and to simply note the difference between problems that
+    are convex and those which are not.
+The difference is simply this:
+    convex problems have a single optimum point
+    (only one local optimum, which is therefore the global optimum)
+    which we can reliably find using existing numerical software,
+    whereas non-convex problems typically have multiple optima 
+    and are thus much more difficult to reliably solve.
+
+That a convex problem can be reliably solved, in this case, 
+    means that regardless of the starting guess,
+    convex optimization software will 
+    always arrive at the globally optimal solution
+    and will be able to numerically prove global optimality as well.
+Thus, formulating a design problem in terms of convex optimization problems
+    virtually eliminates any ideas of chance or randomness.
+
+For the examples presented in this chapter,
+    we use CVX, a convex optimization software written for Matlab. % Ref.
+
 
 \subsection{Typical design formulation}
-Typically,
+The typical, and most straightforward formulation
+    of the design problem is
 \BA \minimize{x,p} f(x) \\
-    \subto g(x, p) = 0 \\
-        & p \in {0,1} \EA
+    \subto A(p)x - b(p) = 0, \label{eq:typ:eqcon} \EA
+    which states that we would like to vary $x$ and $p$ simultaneously
+    in order to decrease $f(x)$
+    while always satisfying physics (the electromagnetic wave equation).
+
+Such a formulation, if solved using a steepest-descent method,
+    is the well-known adjoint optimization method. % Ref.
 
 \subsection{Objective-first design formulation}
-Objective-first does 
-\BA \minimize{x,p} \|g(x,p)\|^2 \\
-    \subto f(x) = f_\text{ideal} \\
-        & 0 \le p \le 1 \EA
+In contrast, the objective-first formulation is 
+\BA \minimize{x,p} \| A(p) x - b(p) \|^2 \\
+    \subto f(x) = f_\text{ideal}, \EA
+    where the roles of the wave equation and the design objective are switched.
+
 
 This is a bi-convex problem, which we solve using an alternating directions method.
 
