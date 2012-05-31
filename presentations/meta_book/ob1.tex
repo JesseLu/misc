@@ -64,24 +64,111 @@ The typical, and most straightforward formulation
     which states that we would like to vary $x$ and $p$ simultaneously
     in order to decrease $f(x)$
     while always satisfying physics (the electromagnetic wave equation).
-
 Such a formulation, if solved using a steepest-descent method,
     is the well-known adjoint optimization method. % Ref.
 
 \subsection{Objective-first design formulation}
-In contrast, the objective-first formulation is 
-\BA \minimize{x,p} \| A(p) x - b(p) \|^2 \\
-    \subto f(x) = f_\text{ideal}, \EA
-    where the roles of the wave equation and the design objective are switched.
+In contrast, the objective-first formulation switches
+    the roles of the wave equation and the design objective
+    with one another,
+\BA \minimize{x,p} \| A(p) x - b(p) \|^2 \label{eq:ob1:1} \\
+    \subto f(x) = f_\text{ideal}. \label{eq:ob1:2} \EA
 
+This first means that, as seen from \ER{ob1:1},
+    we allow for non-zero residual in the electromagnetic wave equation.
+This literally means that we allow for \emph{non-physical} $x$ and $p$,
+    since $A(p) x - b(p) \ne 0$ is now allowed.
+For this reason, we denote $A(p) x - b(p)$ the \emph{physics residual}.
 
-This is a bi-convex problem, which we solve using an alternating directions method.
+Secondly, we see from \ER{ob1:2} that we always force the device
+    to exhibit ideal performance,
+    even if doing so means breaking the laws of physics.
+As such, our strategy will be to vary $x$ and $p$
+    in order to decrease the physics residual \ER{ob1:1} to zero,
+    while always maintaining ideal performance.
+
+Our initial motivation for doing this 
+    was that it allowed us to solve for $x$ and $p$ separately,
+    as will be outlined below,
+    and that always forcing ideal performance
+    might provide a mechanism to ``override'' local optima 
+    in the optimization process.
+
+To this end we have found that such a strategy
+    actually allows us to design very unintuitive devices
+    which exhibit very good performance,
+    even when starting from completely non-functional initial guesses.
+Furthermore, we have found this to be true
+    even true when the physics residual is never brought to exactly zero.
+
+From a numerical standpoint, 
+    although the objective-first formulation is still non-convex 
+    in its original form,
+    the bi-linearity of the physics residual term allows us to 
+    naturally break the original problem into two sub-problems
+    which we outline below.
+
+Lastly, we add an additional constraint to the original formulation,
+    which is to set hard-limits on the allowable values of $p$,
+    namely $p_0 \le p \le p_1$.
+This is actually a relaxation of the ideal constraint,
+    which would be to allow $p$ to only have discrete values,
+    $p \in p_0, p_1$,
+    but such a constraint would be essentially force us to only
+    be able to perform brute force trial-and-error.
+
+Our objective-first formulation is thus,
+\BA \minimize{x,p} \| A(p) x - b(p) \|^2 \notag \\
+    \subto f(x) = f_\text{ideal} \label{eq:ob1} \\
+        & p_0 \le p \le p_1. \notag \EA
+
 
 \subsection{Field sub-problem}
-\BA \minimize{x} \| A(p) x - b(p) \|^2 \\
-    \subto f(x) = f_\text{ideal} \EA
+Since the objective-first problem in its original form is still non-convex,
+    we break it down into two convex sub-problems.
+The first of these is the field sub-problem, 
+    which simply involves fixing $p$ and independently optimizing $x$,
+\BA \minimize{x} \| A(p) x - b(p) \|^2 \label{eq:Fsub} \\
+    \subto f(x) = f_\text{ideal}. \notag \EA
+This problem is convex, and actually quadratic,
+    which means that it can even be solved in the same way 
+    as a simple least-squares problem.
 
 \subsection{Structure sub-problem}
-\BA \minimize{p} \| B(x) p - d(x) \|^2 \\
-    \subto 0 \le p \le 1 \EA
+The second sub-problem is formulated by fixing $x$ and
+    independently optimizing $p$.
+At the same time, we use the bi-linearity property
+    of the physics residual from \ER{bilinear}
+    to rewrite the problem in a way that makes
+    its convexity explicit,
+\BA \minimize{p} \| B(x) p - d(x) \|^2 \label{eq:Ssub} \\
+    \subto p_0 \le p \le p_1. \notag \EA
 
+The structure sub-problem is also convex, but not quadratic.
+However, use of the CVX package still allows us to obtain the result
+    quickly and reliably.
+
+\subsection{Alternating directions algorithm}
+We use a simple alternating directions scheme 
+    to peice together \ER{Fsub} and \ER{Ssub},
+    which is to say that we simply
+    alternately solve each and continue until we reach some stopping point,
+    normally measured by how much the physics residual has decreased.
+
+The advantage of such the alternating directions method
+    is that the physics residual is guaranteed to
+    monotonically decrease with every iteration,
+    which is useful in that no safeguards
+    are needed to guard against ``rogue'' steps
+    in the optimization procedure.
+Note that this robustness stems from the fact that,
+    among other things,
+    each sub-problem does not rely on previous values of 
+    the variable which is being optimized,
+    but only on the variable which is held constant.
+
+The disadvantage of such a simple scheme is that 
+    the convergence is quite slow,
+    although we have found it to be sufficient in our cases.
+See ref % cite!
+    for related methods that exhibit far better convergence.
