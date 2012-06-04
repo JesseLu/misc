@@ -43,12 +43,41 @@ Our first mimic is simply to mimic the plasmonic cylinder
                 footprint: $40 \times 120$ grid points,
                 wavelength: 42 grid points.}
 
+\FR{mimic/m1} shows the result of the design.
+The final structure is shown in the upper right plot,
+    while the ideal field and the simulated field
+    are shown in the middle and bottom plots.
+Note that the ideal field is cut off to emphasize 
+    the fields to the right of the device (the output fields).
+Also, the magnitude of the fields are compared at the 
+    dotted black line at which point the relative error
+    is also calculated.
+For this simple, initial mimic, the simulated field is
+    quite closely imitates that produced by a single plasmonic cylinder.
+
 \subsection{Diffraction-limited lens mimic}
+We now design a mimic for a typical diffraction-limited lens.
+In this case, the object which we wish to mimic does not require simulation
+    since the fields of a lens can be readily computed.
+For the three figures below, 
+    the computed ideal fields are shown as the target fields.
+
+\FR{mimic/m3} shows the mimic of a lens with a moderate focus spot. 
+In such a lens, the focusing action is gradual and easily discernable
+    by eye.
+
 \myfig{mimic/m3}{Full-width-half-max at focus: 1.5 $\lambda$,
                 focus depth: 100 grid points.
                 Error: 12.0\%,
                 footprint: $40 \times 120$ grid points,
                 wavelength: 25 grid points.}
+
+In constrast, \fR{mimic/m4} and \fR{mimic/m5} are both mimics of
+    a lens with a smaller half-wavelength spot size.
+Such a lens is much harder to design, 
+    because of the high-frequency spatial components involved;
+    and yet, we show that an objective-first strategy can 
+    produce successful designs with both smaller and larger focus depths.
 \myfig{mimic/m4}{Full-width-half-max at focus: 0.5 $\lambda$,
                 focus depth: 50 grid points.
                 Error: 5.6\%,
@@ -59,12 +88,49 @@ Our first mimic is simply to mimic the plasmonic cylinder
                 Error: 1.4\%,
                 footprint: $40 \times 120$ grid points,
                 wavelength: 25 grid points.}
+\clearpage
 
-\subsection{Sub-diffraction lithographic mask}
-\myfig{mimic/m6}{Error: 19.8\%}
+\subsection{Sub-diffraction lens mimic}
+Our method is now employed to mimic the effect of a sub-diffraction lens.
+Since such a lens can be created using a negative-index material
+    this mimic can be viewed as an imitation of a negative-index material,
+    in that the following device recreates the sub-diffraction target-field 
+    at the output plane (dotted line)
+    when illuminated by the same target field at the input of the device.
+In other words,
+    this device is an image-specific sub-diffraction imager,
+    which is another way of saying that it is a single-mode imager.
+\myfig{mimic/m2}{Sub-diffraction lens mimic.
+                The target field has a full-width half-maximum of 0.14 $\lambda$.
+                Error: 28.6\%,
+                footprint: $60 \times 120$ grid points,
+                wavelength: 42 grid points.}
 
-\subsection{Perfect lens mimic}
-\myfig{mimic/m2}{Perfect lens mimic.
-                Error: 28.6\%}
+As \fR{mimic/m2} shows,
+   we are able to recreate the target field at the output.
+Note that the target field is created simply by placing 
+    the imaging field at the output plane.
+Also note that, as expected, 
+    the output field decays very quickly since,
+    for such a deeply subwavelength field,
+    it is composed primarily of evanescently decaying modes.
 
+\subsection{Sub-diffraction optical mask}
+Lastly, we extend the idea of a sub-diffraction lens mimic
+    one step further and
+    design a sub-diffraction optical mask.
+Such a device takes a plane wave as its input and
+    produces a sub-diffraction image at its output plane.
+Of course, akin to its lens counterpart,
+    this output plane must lie within the near-field of the device
+    because of its sub-wavelength nature.
+\myfig{mimic/m6}{Sub-diffraction optical mask.
+                The three central peaks in the target field are each
+                separated by 0.28 $\lambda$.
+                Error: 19.8\%,
+                footprint: $40 \times 120$ grid points,
+                wavelength: 25 grid points.}
+
+\FR{mimic/m6} shows the design of a simple mask which 
+    successfully produces three peaks at its output.
 
