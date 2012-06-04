@@ -1,9 +1,70 @@
 \section{Optical mimic design}
-\myfig{mimic/m1}{test}
-\myfig{mimic/m2}{test}
-\myfig{mimic/m3}{test}
-\myfig{mimic/m4}{test}
-\myfig{mimic/m5}{test}
-\myfig{mimic/m6}{test}
+We now apply our objective-first strategy to the design of optical mimics.
+
+We define an optical mimic to be a linear nanophotonic device which 
+    mimics the output field of another device.
+In this sense optical mimics are the anti-cloak;
+    whereas cloaks strive to make an object's electromagnetic presence vanish,
+    mimics strive to implement an object's presence without that 
+    object actually being there.
+
+As such, the design of optical mimics provides a tantalyzing approach
+    to the realization of practical metamaterial devices.
+That is to say, if one can reliably produce practical optical mimics,
+    then producing metamaterials (which are often based on fictitious materials)
+    can be accomplished by simply producing an optical mimic of that material.
+
+In a more general sense, 
+    optical mimics is really just a recasting of the thrust of 
+    the objective-first design strategy in its purest form:
+    the design of a nanophotonic device based purely 
+    on the electromagnetic fields one wishes to have it produce.
+As such, devices which perform well-known optical functions
+    (e.g. focusing, lithography) can also be designed.
+
+\subsection{Application of the objective-first strategy}
+The objective-first design of optical mimics proceeds in virtually
+    an identical way to the design of optical cloaks,
+    the only difference being that the output modes are 
+    specifically chosen to be those which produce the desired function.
+For most of the examples provided, the input illumination is still an incident plane wave.
+
+Lastly, instead of measuring efficiency, 
+    we measure the relative error of the simulated field
+    against that of a perfect target field
+    at a relevant plane of some distance away from the device.
+The location of this plane is identified as a dotted line in the subsequent figures.
+
+\subsection{Plasmonic cylinder mimic}
+Our first mimic is simply to mimic the plasmonic cylinder 
+    which we cloaked in the previous section.
+\myfig{mimic/m1}{Plasmonic cylinder mimic. 
+                Error: 8.1\%,
+                footprint: $40 \times 120$ grid points,
+                wavelength: 42 grid points.}
+
+\subsection{Diffraction-limited lens mimic}
+\myfig{mimic/m3}{Full-width-half-max at focus: 1.5 $\lambda$,
+                focus depth: 100 grid points.
+                Error: 12.0\%,
+                footprint: $40 \times 120$ grid points,
+                wavelength: 25 grid points.}
+\myfig{mimic/m4}{Full-width-half-max at focus: 0.5 $\lambda$,
+                focus depth: 50 grid points.
+                Error: 5.6\%,
+                footprint: $40 \times 120$ grid points,
+                wavelength: 25 grid points.}
+\myfig{mimic/m5}{Full-width-half-max at focus: 0.5 $\lambda$,
+                focus depth: 150 grid points.
+                Error: 1.4\%,
+                footprint: $40 \times 120$ grid points,
+                wavelength: 25 grid points.}
+
+\subsection{Sub-diffraction lithographic mask}
+\myfig{mimic/m6}{Error: 19.8\%}
+
+\subsection{Perfect lens mimic}
+\myfig{mimic/m2}{Perfect lens mimic.
+                Error: 28.6\%}
 
 
