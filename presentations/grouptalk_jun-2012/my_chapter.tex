@@ -1,0 +1,60 @@
+% Some custom commands.
+\newcommand{\BE}{\begin{equation}}
+\newcommand{\EE}{\end{equation}}
+\newcommand{\BA}{\begin{eqnarray}}
+\newcommand{\EA}{\end{eqnarray}}
+\newcommand{\curl}{\nabla\times}
+\newcommand{\minimize}[1]{\JLUminimize_{#1}\;&}
+\newcommand{\subto}{\text{subject to}\;&}
+
+% Custom figures.
+\newcommand{\myfig}[2]{\begin{figure}[!h]\includegraphics[width=0.95\textwidth]{fig/#1.jpg}\caption{#2}\label{fig:#1}\end{figure}}
+
+\newcommand{\BI}{\begin{itemize}\item}
+\renewcommand{\I}{\item}
+\newcommand{\EI}{\end{itemize}}
+
+\newcommand{\ER}[1]{\eqref{eq:#1}}
+\newcommand{\SR}[1]{Section~\ref{sec:#1}}
+\newcommand{\sR}[1]{section~\ref{sec:#1}}
+\newcommand{\FR}[1]{Figure~\ref{fig:#1}}
+\newcommand{\fR}[1]{figure~\ref{fig:#1}}
+\chapter{Objective-First Nanophotonic Design}
+\label{intro}
+
+\abstract{The abstract for the book.}
+
+In this chapter, we introduce an ``objective-first'' strategy 
+    for designing nanophotonic devices.
+
+General description:
+\BI Only uses desired fields.
+\I  Can attempt to design any linear device.
+\I  Allows for non-physical fields. \EI
+
+This strategy is unique in that it
+    asks the user only for what electromagnetic field
+    the device should produce,
+    and then attempts to generate the design
+    without further user intervention.
+
+\input{wave_eq}
+\input{ob1}
+% \input{1d}
+% \input{res}
+\input{wg}
+\input{cloak}
+\input{mimic}
+
+\section{Extending the method}
+\subsection{3D}
+\subsection{Multi-mode}
+\subsection{Robustness}
+\subsection{Binary structure}
+
+
+\section{Appendix}
+\subsection{Full 3D curl}
+\subsection{1D}
+\subsection{2D}
+\subsection{2.5D}
