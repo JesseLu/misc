@@ -26,6 +26,15 @@ This is accomplished by modifying the upper and lower boundaries
 In terms of the design objective, 
     we allow the device to span the entire height of the simulation domain,
     and thus consider only the leftmost and rightmost planes as boundary values.
+Specifically, for this section the input and output modes are plane waves
+    with normal incidence, 
+    as can be expected for good cloaking devices.
+The achieved results all yield high efficiency,
+    although we note that the cloaking effect is only measured
+    for a specific input mode.
+That is to say, just as the waveguide couplers previously designed
+    were single-mode devices,
+    so the cloaks designed in this section are also ``single-mode'' cloaks.
 
 An additional modification, as compared to \sR{wg}, is that
     we now disallow the structure to be modified in certain areas
@@ -37,15 +46,81 @@ With these simple changes we continue to solve \ER{ob1}
     instead of waveguide couplers.
 Once again, as in \sR{wg}, each design is run for 400 iterations
     with a uniform initial value of $p = 1/9$ for the structure
-    (where the structure is allowed to vary).
+    (where the structure is allowed to vary),
+    and the range of $p$ is limited to $1/12.25 \le p \le 1$.
 
-Lastly, 
+\subsection{Anti-reflection coating}
+As a first example,
+    we attempt to design the simplest and most elementary ``cloaking'' device available,
+    which, we argue, is a simple anti-reflection coating;
+    in which case the object to be cloaked is nothing more than
+    the interface between two dielectric materials.
+In this case we use the interface between air and silicon, as shown in \fR{cloak/c1}
+\myfig{cloak/c1}{Anti-reflection coating.
+                Efficiency: 99.99\%,
+                footprint: $60 \times 100$ grid points,
+                wavelength: 63 grid points.}
 
-\myfig{cloak/c6}{test}
-\myfig{cloak/c1}{test}
-\myfig{cloak/c2}{test}
-\myfig{cloak/c3}{test}
-\myfig{cloak/c4}{test}
-\myfig{cloak/c5}{test}
-\myfig{cloak/c7}{test}
+Unsurprisingly for such a simple case, 
+    we achieve a very high efficiency device.
+Note also that the efficiency of the device can be deduced by eye,
+    based on the absence of reflections or standing waves 
+    in bottom two plots of \fR{cloak/c1}.
+
+\subsection{Wrap-around cloak}
+Next, we design a cloak for a plasmonic cylinder,
+    which is quite effective at scattering light
+    as can be seen from \fR{cloak/c6}.
+\myfig{cloak/c6}{Plasmonic cylinder to be cloaked. 
+                68.5\% of light is diverted away from the desired output mode.}
+
+In designing the wrap-around cloak,
+    we allow the structure to vary at all points within the design area
+    except in the immediate vicinity of the plasmonic cylinder.
+Application of the objective-first strategy results
+    in an efficient device as seen in \fR{cloak/c2}.
+\myfig{cloak/c2}{Wrap-around cloak.
+                Efficiency: 99.99\%,
+                footprint: $60 \times 100$ grid points,
+                wavelength: 42 grid points.}
+
+Note that our cloak employs only isotropic, non-magnetic materials,
+    and at the same time it is specific to a particular input
+    and to a particular object.
+
+\subsection{Open-channel cloak}
+With a simple modification, from the previous section,
+    we can design a cloak which features an open channel
+    to the exterior electromagnetic environment.
+This simple modification is forcing an air tunnel
+    to be opened which connects the cylinder to the outside world
+    both toward its front and back.
+\myfig{cloak/c4}{Open-channel cloak.
+                Efficiency: 99.8\%,
+                footprint: $60 \times 100$ grid points,
+                wavelength: 42 grid points.}
+
+Such a design is still very efficient
+    and exhibits the usefulness of the objective-first strategy
+    in cases where other methods, such as transformation optics,
+    may not be able to be applied.
+
+\subsection{Channeling cloak}
+Our last cloaking example replaces the plasmonic cylinder 
+    with a thin metallic wall in which is etched a sub-wavelength channel.
+Such a metallic wall is very effective at blocking incoming light
+    (as can be seen from \fR{cloak/c7}) 
+    because of its large negative permittivity ($\epsilon = -20$),
+    meaning that any cloaking device would be forced to channel
+    all the input light into a very small aperture
+    and then to flatten that light out into a plane wave again.
+\myfig{cloak/c7}{Metallic wall with sub-wavelength channel to be cloaked.
+                99.9\% of the light is blocked from the desired output plane-wave.}
+
+Once again, our method is still able to produce a very efficient design,
+    as shown in \fR{cloak/c5}.
+\myfig{cloak/c5}{Channeling cloak.
+                Efficiency: 99.9\%,
+                footprint: $60 \times 100$ grid points,
+                wavelength: 42 grid points.}
 
