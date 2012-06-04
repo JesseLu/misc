@@ -1,0 +1,51 @@
+\section{Optical cloak design}
+In the previous section,
+    we showed that couplers between virtually any two waveguide modes
+    could be constructed using the objective-first design method,
+    and based on the generality of the method
+    one can guess that it may also be
+    able to generate designs for any linear nanophotonic device.
+
+Now, we extend the applicability of our method
+    to the design of metamaterial devices which operate in free-space.
+In particular,
+    we adapt the waveguide coupler algorithm to the 
+    to the design of optical cloaks.
+
+\subsection{Application of the objective-first strategy}
+Adapting the method used in \sR{wg} to the design of optical cloaks
+    really only requires one to change the simulation environment
+    to allow for free-space modes.
+This is accomplished by modifying the upper and lower boundaries
+    of the simulation domain from absorbing boundary conditions
+    to periodic boundary conditions,
+    which allows for plane-wave modes to propagate without loss
+    until reaching the left or right boundaries,
+    where absorbing boundary conditions are still maintained.
+
+In terms of the design objective, 
+    we allow the device to span the entire height of the simulation domain,
+    and thus consider only the leftmost and rightmost planes as boundary values.
+
+An additional modification, as compared to \sR{wg}, is that
+    we now disallow the structure to be modified in certain areas
+    which, naturally, contain the object to be cloaked.
+
+With these simple changes we continue to solve \ER{ob1}
+    with the alternating directions method
+    in order to now design optical cloaks
+    instead of waveguide couplers.
+Once again, as in \sR{wg}, each design is run for 400 iterations
+    with a uniform initial value of $p = 1/9$ for the structure
+    (where the structure is allowed to vary).
+
+Lastly, 
+
+\myfig{cloak/c6}{test}
+\myfig{cloak/c1}{test}
+\myfig{cloak/c2}{test}
+\myfig{cloak/c3}{test}
+\myfig{cloak/c4}{test}
+\myfig{cloak/c5}{test}
+\myfig{cloak/c7}{test}
+

@@ -1,39 +1,190 @@
-\section{Waveguide coupler design}
-Finally, we now implement 
-    the full objective-first design strategy
-    by doing an alternating directions solve.
+\section{Waveguide coupler design}\label{sec:wg}
+We first apply the objective-first formulation
+    with the alternating directions algorithm
+    to the design of nanophotonic waveguide couplers
+    in two dimensions,
+    where our goal is to couple light from
+    a single input waveguide mode
+    to a single output waveguide mode
+    with as close to unity efficiency as possible.
+We would also like to allow the user to choose arbitrary
+    input and output waveguides,
+    as well as to select 
+    arbitrary modes within those waveguides
+    (as opposed to allowing only the fundamental mode, for example).
+
+This problem is very general and, in essence,
+    encompasses the design of all linear nanophotonic components,
+    because the function or performance of all such components
+    is simply to convert a defined set of input modes
+    into a defined set of output modes.
+Such a broad, general problem is ideally suited for 
+    an objective-first strategy,
+    since no approximations or simplifications
+    of the electromagnetic fields are required;
+    we only make the simplification of working in two dimensions
+    and dealing only with a single input and output mode.
+
+Say something about TE mode in 2D. 
 
 \subsection{Choice of design objective}
-We choose, for generality,
-
+As mentioned in \sR{desobj} multiple equivalent choices
+    of design objective exist which should allow one
+    to achieve the same device performance;
+    however, we will choose, for generality, the following design objective,
 \BE f(x) = \begin{cases}
         x & \text{at boundary}, \\
-        0 & \text{elsewhere}.
+        0 & \text{elsewhere},
         \end{cases} \EE
+That is, $f(x)$ simply selects the outermost values of the field
+    in the design space.
 
-    where the boundary denotes the two outermost layers of the design space.
-This means 
-
+When placed into the objective-first problem \ER{ob1},
+    this will result in fixing the boundary values of the field
+    at the edge of the design space
+    to those of an ideal device,
+    as shown in \fR{wg/intro}.
+In this case, we choose such an ideal device
+    to have perfect (unity) coupling efficiency,
 \BE f_\text{ideal} = \begin{cases}
         x_\text{perfect} & \text{at boundary}, \\
         0 & \text{elsewhere}.
         \end{cases} \EE
+These ideal fields are simply obtained by using
+    the input and output mode profiles at the corresponding ports
+    and using values of zero at the remaining ports.
 
-We then do
+\myfig{wg/intro}{Formulation of the design objective.}
 
+Such a design objective is general
+    in the sense that the boundary values of the device 
+    contain all the information necessary to determine
+    how the device will interact with its environment,
+    when excited with the input mode in question.
+In other words,
+    we only need to know the boundary field values,
+    and not the interior field values to determine 
+    the performance of the device;
+    and thus, it would be conceivable that such a scheme
+    might be generally applied to linear nanophotonic devices beyond 
+    just waveguide mode couplers.
+
+In our case,
+    we only need to know the value of $H_z$ and 
+    its derivative along the normal direction, $\partial H_z / \partial n$,
+    along the design boundary
+    in order to completely characterize its performance.
+Alternatively,
+    one can, of course, use the outermost two layers of the $H_z$
+    instead of calculating a spatial derivative.
+
+\subsection{Application of the objective-first strategy}
+Having chosen our design objective we apply
+    alternating directions to \ER{ob1} which 
+    results in solving the following two sub-problems iteratively.
 \BA \minimize{x} \| A(p) x - b(p) \|^2 \\
-    \subto f(x) = f_\text{ideal} \EA
-
+    \subto x = x_\text{perfect} \text{, at boundary} \notag \EA
 \BA \minimize{p} \| B(x) p - d(x) \|^2 \\
-    \subto 0 \le p \le 1 \EA
+    \subto p_0 \le p \le p_1 \notag \EA
 
-\subsection{Coupling between dielectric waveguide modes}
-\myfig{wg/1}{test}
-\myfig{wg/2}{test}
-\myfig{wg/3}{test}
+For the results throughout this chapter, 
+    we uniformily choose $p_0 = 1/12.25$ and $p_0 = 1$,
+    corresponding to $\epsilon^{-1}$ of silicon and air respectively.
+Additionally, since a starting value for $p$ is initially required,
+    we always choose to use a uniform value of $p = 1/9$ 
+    across the entire design space.
+There is nothing really unique about such a choice,
+    although we have noticed that initial value of $p$ near 1 
+    often result in poor designs.
+Note, that, unlike $p$, we do not require an initial guess for $x$.
 
-\subsection{Coupling to plasmonic waveguide modes}
-\myfig{wg/4}{test}
-\myfig{wg/5}{test}
+The only other significant value that needs to be set initially
+    is the frequency, or wavelength of light.
+We use wavelengths in the range of 25 to 42 grid points for
+    the results in this chapter.
+
+Lastly, for all the examples presented in the chapter,
+    we run the alternating directions algorithm for 400 iterations.
+Although we do not present the convergence results here,
+    such information can be obtained by inspecting the source. %Ref!
+
+Also, small footprint and computation time need to be mentioned.
+\subsection{Coupling to a wide, low-index waveguide}
+As a first example, we design a coupler from 
+    the fundamental mode of a narrow, high-index waveguide
+    to the fundamental mode of a wide, low-index waveguide.
+Such a coupler would be useful for coupling from 
+    an on-chip nanophotonic waveguide to
+    an off-chip fiber for example.
+
+\myfig{wg/1}{Coupler to a wide low-index waveguide.
+            Efficiency: 99.8\%, 
+            footprint: $36 \times 76$ grid points, 
+            wavelength: 42 grid points.}
+
+The input and output mode profiles used as
+    the ideal fields are shown in the upper-left corner of \fR{wg/1}.
+The final structure is shown in the upper right plot, and
+    the simulated $H_z$ fields,
+    under excitation of the input mode,
+    are shown in the bottom plots.
+
+\FR{wg/1} then shows that the design structure has nearly unity efficiency
+    and converts between the input and output modes
+    within a very small footprint.
+
+\subsection{Mode converter}
+In addition to coupling to a low-index waveguide,
+    we show that we can successfully apply the objective-first method
+    to convert between modes of a waveguide.
+We do this by simply selecting the output mode 
+    in the design objective to be the second-order waveguide mode,
+    as seen in \fR{wg/2}.
+\myfig{wg/2}{Mode converter.
+            Efficiency: 98.0\%, 
+            footprint: $36 \times 76$ grid points, 
+            wavelength: 42 grid points.}
+
+Note that the design of this coupler is made challenging
+    because of the opposite symmetries of the input and output modes.
+Moreover, because our initial structure is symmetric,
+    we initially have exactly 0\% efficiency to begin with.
+Fortunately, the objective-first method can still design
+    an efficient coupler in this case as well.
+
+\subsection{Coupling to an air-core waveguide mode}
+We can then continue to elucidate the generality of our method
+    by coupling between waveguides which confine light 
+    in completely different ways.
+\myfig{wg/3}{Coupler to a wide low-index waveguide.
+            Efficiency: 98.9\%, 
+            footprint: $36 \times 76$ grid points, 
+            wavelength: 25 grid points.}
+
+\FR{wg/3} shows  a high-efficiency coupling device between 
+    an index-guided input waveguide and
+    a ``air-core'' output waveguide, 
+    in which the waveguiding effect is achieved using distributed Bragg reflection.
+
+\subsection{Coupling to a metal-insulator-metal waveguide }
+Additionally, our design method can also generate couplers
+    between different material systems such as 
+    between dielectric and metallic (plasmonic) waveguides,
+    as shown in \fR{wg/4}.
+\myfig{wg/4}{Coupler to a wide low-index waveguide.
+            Efficiency: 97.5\%, 
+            footprint: $36 \times 76$ grid points, 
+            wavelength: 25 grid points.}
+
+In this case, the permittivity of the metal ($\epsilon = -2$) is chosen to be 
+    near the plasmonic resonance ($\epsilon = -1$).
+
+\subsection{Coupling to a metal wire plasmonic waveguide mode}
+\myfig{wg/5}{Coupler to a wide low-index waveguide.
+            Efficiency: 99.1\%, 
+            footprint: $36 \times 76$ grid points, 
+            wavelength: 25 grid points.}
+Lastly, \fR{wg/5} shows that efficiently coupling to a plasmonic wire
+    is achievable as well.
 
 

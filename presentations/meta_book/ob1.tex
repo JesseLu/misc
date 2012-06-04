@@ -5,7 +5,7 @@ We now build off of the field-solver and the structure-solver,
     by formulating the design problem
     and outlining the objective-first strategy.
 
-\subsection{Design objectives}
+\subsection{Design objectives} \label{sec:desobj}
 A design objective, $f(x)$, is simply defined as
     a function we wish to be minimal 
     for the design to be produced.
@@ -148,7 +148,7 @@ The structure sub-problem is also convex, but not quadratic.
 However, use of the CVX package still allows us to obtain the result
     quickly and reliably.
 
-\subsection{Alternating directions algorithm}
+\subsection{Alternating directions}
 We use a simple alternating directions scheme 
     to peice together \ER{Fsub} and \ER{Ssub},
     which is to say that we simply
