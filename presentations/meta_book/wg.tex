@@ -23,9 +23,8 @@ Such a broad, general problem is ideally suited for
     since no approximations or simplifications
     of the electromagnetic fields are required;
     we only make the simplification of working in two dimensions
+    (transverse magnetic mode)
     and dealing only with a single input and output mode.
-
-Say something about TE mode in 2D. 
 
 \subsection{Choice of design objective}
 As mentioned in \sR{desobj} multiple equivalent choices
@@ -33,24 +32,22 @@ As mentioned in \sR{desobj} multiple equivalent choices
     to achieve the same device performance;
     however, we will choose, for generality, the following design objective,
 \BE f(x) = \begin{cases}
-        x & \text{at boundary}, \\
+        x - x_\text{perfect} & \text{at boundary}, \\
         0 & \text{elsewhere},
         \end{cases} \EE
 That is, $f(x)$ simply selects the outermost values of the field
-    in the design space.
+    in the design space
+    and compares them to values of a perfect device.
 
-When placed into the objective-first problem \ER{ob1},
+Furthermore, we choose $f_\text{ideal} = 0$ so that
+    when placed into the objective-first problem \ER{ob1},
     this will result in fixing the boundary values of the field
     at the edge of the design space
     to those of an ideal device,
     as shown in \fR{wg/intro}.
 In this case, we choose such an ideal device
     to have perfect (unity) coupling efficiency,
-\BE f_\text{ideal} = \begin{cases}
-        x_\text{perfect} & \text{at boundary}, \\
-        0 & \text{elsewhere}.
-        \end{cases} \EE
-These ideal fields are simply obtained by using
+and these ideal fields are simply obtained by using
     the input and output mode profiles at the corresponding ports
     and using values of zero at the remaining ports.
 
@@ -100,7 +97,7 @@ Note, that, unlike $p$, we do not require an initial guess for $x$.
 
 The only other significant value that needs to be set initially
     is the frequency, or wavelength of light.
-We use wavelengths in the range of 25 to 42 grid points for
+We use wavelengths in the range of 25 to 63 grid points for
     the results in this chapter.
 
 Lastly, for all the examples presented in the chapter,
@@ -108,7 +105,7 @@ Lastly, for all the examples presented in the chapter,
 Although we do not present the convergence results here,
     such information can be obtained by inspecting the source. %Ref!
 
-Also, small footprint and computation time need to be mentioned.
+% Also, small footprint and computation time need to be mentioned.
 \subsection{Coupling to a wide, low-index waveguide}
 As a first example, we design a coupler from 
     the fundamental mode of a narrow, high-index waveguide

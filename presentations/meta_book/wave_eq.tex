@@ -1,4 +1,13 @@
 \section{The electromagnetic wave equation}
+In this section, we outline the wave equation
+    that is central to the application of our method,
+    with the end-result being to show that it is 
+    separably linear (bi-linear) in the field and structure variables.
+We do this by first formulating this wave equation in the language of physics,
+    and then discretizing it in order to achieve numerical solutions.
+We then show how one can not only obtain the solution for the field,
+    but how one can obtain the solution for the structure using
+    simple, standard numerical tools.
 
 \subsection{Physics formulation}
 First, let's derive our wave equation,
@@ -13,28 +22,38 @@ First, let's derive our wave equation,
     that of vacuum everywhere.
 
 
-For time dependence $\exp(-i \omega t)$, 
+We use the time dependence $\exp(-i \omega t)$, 
     where $\omega$ is the angular frequency,
     these become
 \BA \curl E = - i \mu_0 \omega H \\
     \curl H = J + i \epsilon \omega E, \label{eq:H2E} \EA
-    which we can combine to form our wave equation,
+    which we can combine to form our (time-harmonic) wave equation,
 \BE \curl \epsilon^{-1} \curl H - \mu_0 \omega^2 H = \curl \epsilon^{-1} J. 
     \label{eq:wave} \EE
-For further information,
-    as well as simplifications to the wave equation in reduced dimensions,
-    please see the Appendix. % TODO: Use reference.
+
+In this chapter, we are going to only consider the two-dimensional form
+    of this equation; and specifically 
+    the two-dimensional transverse magnetic (TM) mode. % Ref.
+In this case \ER{wave} is simplified not only in that
+    the vector fields are two-dimensional, 
+    but that only the $z$-component of $H$ is non-zero.
+
+Nevertheless, \ER{wave}, in a single equation,
+    represents all the physics which we take into account in this chapter.
 
 \subsection{Numerical formulation}
 Now, on top of the analytical formulation of the wave equation \ER{wave}
     we will now add a numerical, or discretized, formulation.
-This will be needed in order to solve for arbitrary structures.
+This will be needed in order to solve for arbitrary structures
+    for which there are not analytical solutions.
 
-First, we discretize our computational space 
-    according to the Yee grid, % TODO: Reference!
+The salient step in order to do so
+    is to the use of the Yee grid, % TODO: Reference!
     which allows us to easily define the curl $(\curl)$
-    operators in \ER{wave} as described in the Appendix. % TODO: ref.
-This allows us, with a change of variables to formulate \ER{wave} as
+    operators in \ER{wave}. % TODO: ref.
+Since both the individual curl operators and the equation as a whole
+    is linear in $H$, it naturally follows to formulate \ER{wave},
+    with a change of variables, as
 \BE A(p)x = b(p), \label{eq:Ab} \EE 
     where $H \to x$, $\epsilon^{-1} \to p$; 
     and where
@@ -45,28 +64,32 @@ Note that our use of $A(p)$ and $b(p)$ instead of $A$ and $b$
     simply serves to clarify the dependence
     of both $A$ and $b$ to $p$.
 
-Additionally,  we use periodic boundary conditions
-    with stretched-coordinate % TODO: ref.
-    perfectly matched layers where necessary for our examples.
+Apart from using the Yee grid, the only other salient implementation detail
+    is the use of
+    stretched-coordinate perfectly matched layers %ref
+    where necessary, in order to prevent unwanted reflections
+    at the boundaries of the simulation domain.
+The effect of such layers is to modify the curl operators,
+    although their linear property is still maintained.
 
 \subsection{Solving for $H$}
 With our numerical formulation, we can now solve for the $H$-field
     (the $E$-field can be computed from the $H$-field using \ER{H2E})
-    by using general linear algebra solvers.
-Doing so is also simply known as a time-harmonic or 
-    a finite-difference frequency-domain (FDFD) simulation.
-
-Now, while a full three-dimensional problem
-    is computationally quite taxing;
-    in one- and two-dimensions, 
+    by applying general linear algebra solvers to \ER{Ab}.
+Recall that since we have chosen a time-harmonic formulation,
+    solving for $x$ in \ER{Ab} is actually performing what is simply known as
+    a time-harmonic or a finite-difference frequency-domain (FDFD) simulation.
+Furthermore, since we have limited ourselves to the two-dimensional case,
     \ER{Ab} is easily solved using the standard sparse solver
-    included in Matlab,
-    and this technique is regularly employed 
-    in the examples which follow.
+    included in Matlab on a single desktop computer.
+
+We call the routine that solves for $x$ in \ER{Ab} given $p$ a field-solver,
+    or a simulator.
+    
 
 
 \subsection{Solving for $\epsilon^{-1}$}
-The next step,
+Now, the next step,
     after having built a field-solver or simulator
     (finds $x$ given $p$) for our wave equation,
     is to build a structure-solver for it.
@@ -86,14 +109,15 @@ which we now write as
     and 
 \BE d(x)  = \mu_0 \omega^2 H.  \EE
 
-Solving this system would now seem to allow us
-    to choose an electromagnetic field
-    and then find the structure to produce it;
-    which strongly suggests that it will be useful in
-    the design of nanophotonic devices.
-
-In terms of computational complexity, as with \ER{Ab}, 
-    \ER{Bd} in its current form can be solved using standard tools.
+With this extremely simple trick,
+    we have shown that we can seemingly solve for $p$ given $x$
+    with approximately the same ease as solving for $x$ given $p$!
+We see this because the dimensions and complexity of $B(x)$ is basically
+    equivalent to that of $A(p)$,
+    and this implies that the same simple tools used in our field-solver
+    should be applicable to solving \ER{Bd}.
+This is indeed what we find, although the later addition of constraints on $p$
+    will require the use of more powerful (but just as dependable) numerical tools.
 
 \subsection{Bi-linearity of the wave equation}
 Although additional mathematical machinery must still be added
@@ -109,11 +133,9 @@ Note that the joint problem,
     is not linear.
 
 The bi-linearity of the wave equation
-    is fundamental in our objective-first strategy
-    which relies on the fact
-    that we already know how to solve linear systems well,
-    and is the reason why we chose $\epsilon^{-1} \to p$
-    instead of the more natual $\epsilon \to p$.
-Indeed, this property forms a natural division of labor
-    in the objective-first scheme, which we outline below.
-
+    is \emph{absolutely fundamental} in our objective-first strategy
+    because it relies on the fact
+    that, although simultaneously solving for $x$ and $p$ is very difficult,
+    we already know how to solve linear systems ($x$ and $p$ separately) well.
+In fact, it is this very property which forms the natural division of labor
+    which the objective-first method, which we now present, exploits.

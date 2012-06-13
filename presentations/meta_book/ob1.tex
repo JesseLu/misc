@@ -1,9 +1,12 @@
 
 \section{The objective-first design problem}
-We now build off of the field-solver and the structure-solver,
-    as previously outlined,
-    by formulating the design problem
-    and outlining the objective-first strategy.
+We now describe the remaining machinery used in the objective-first method,
+    in addition to the field-solver and the structure-solver,
+    as previously outlined.
+Specifically, we introduce the idea of a design objective and a physics residual,
+    and we reference the mathematical notion of convexity
+    in order to motivate the need to divide the 
+    objective-first problem into two separately convex sub-problems.
 
 \subsection{Design objectives} \label{sec:desobj}
 A design objective, $f(x)$, is simply defined as
@@ -49,49 +52,72 @@ That a convex problem can be reliably solved, in this case,
     convex optimization software will 
     always arrive at the globally optimal solution
     and will be able to numerically prove global optimality as well.
-Thus, formulating a design problem in terms of convex optimization problems
-    virtually eliminates any ideas of chance or randomness.
+Thus, the advantage in formulating a design problem 
+    in terms of convex optimization problems
+    is to eliminate both the need to circumvent local optima and 
+    any notion of randomness.
 
-For the examples presented in this chapter,
-    we use CVX, a convex optimization software written for Matlab. % Ref.
+On a practical level, there exist mature convex optimization software packages
+    among which is CVX, a convex optimization package written for Matlab, % Ref.
+    which we use for the examples in this chapter.
 
 
 \subsection{Typical design formulation}
-The typical, and most straightforward formulation
-    of the design problem is
-\BA \minimize{x,p} f(x) \\
-    \subto A(p)x - b(p) = 0, \label{eq:typ:eqcon} \EA
+We now examine the typical, and most straightforward formulation
+    of the design problem,
+    in order to relate and contrast it to the objective-first formulation.
+The design problem for a physical structure is typically formulated as
+\BA \minimize{x,p} f(x) \label{eq:typform} \\
+    \subto A(p)x - b(p) = 0, \notag \EA
     which states that we would like to vary $x$ and $p$ simultaneously
     in order to decrease $f(x)$
-    while always satisfying physics (the electromagnetic wave equation).
-Such a formulation, if solved using a steepest-descent method,
-    is the well-known adjoint optimization method. % Ref.
+    while always satisfying physics (e.g. the electromagnetic wave equation).
+
+Since solving \ER{typform} is quite difficult in the general sense
+    (simultaneously varying $x$ and $p$ makes the problem non-convex)
+    traditional approaches have relied on either brute-force parameter search,
+    or a gradient-descent method utilizing first-order derivatives.
+In the gradient-descent case, solving \ER{typform} results in the
+    well-known adjoint optimization method. % Ref.
 
 \subsection{Objective-first design formulation}
-In contrast, the objective-first formulation switches
-    the roles of the wave equation and the design objective
-    with one another,
+In contrast with the typical formulation, the objective-first formulation 
+    simply switches the roles of 
+    the wave equation and the design objective with one another,
 \BA \minimize{x,p} \| A(p) x - b(p) \|^2 \label{eq:ob1:1} \\
     \subto f(x) = f_\text{ideal}. \label{eq:ob1:2} \EA
+Although such a switch may seem trivial,
+    and even silly at first,
+    we show that it fundamentally changes the nature of the design problem
+    and actually gains us advantages in our efforts at finding a solution.
 
-This first means that, as seen from \ER{ob1:1},
-    we allow for non-zero residual in the electromagnetic wave equation.
+This first fundamental change, as seen from \ER{ob1:1},
+    is that we allow for non-zero residual in the electromagnetic wave equation.
 This literally means that we allow for \emph{non-physical} $x$ and $p$,
-    since $A(p) x - b(p) \ne 0$ is now allowed.
-For this reason, we denote $A(p) x - b(p)$ the \emph{physics residual}.
-
-Secondly, we see from \ER{ob1:2} that we always force the device
-    to exhibit ideal performance,
-    even if doing so means breaking the laws of physics.
+    since $A(p) x - b(p) \ne 0$ is permissible.
+And since $A(p) x - b(p)$ can now be a non-zero entity, 
+    we choose to call it the \emph{physics residual}.  
+The second fundamental change
+    is that we always force the device to exhibit ideal performance,
+    as seen from \ER{ob1:2}.
+This, of course, ties in very closely with \ER{ob1:1} since
+    ideal performance is usually not obtainable unless one
+    allows for some measure of error in the underlying physics
+    (non-zero physics residual).
 As such, our strategy will be to vary $x$ and $p$
     in order to decrease the physics residual \ER{ob1:1} to zero,
     while always maintaining ideal performance.
 
-Our initial motivation for doing this 
-    was that it allowed us to solve for $x$ and $p$ separately,
-    as will be outlined below,
-    and that always forcing ideal performance
-    might provide a mechanism to ``override'' local optima 
+The primary advantage in the objective-first formulation is that,
+    although the full problem is still non-convex,
+    it allows us to form two convex sub-problems, as we outline below.
+In contrast to an adjoint method approach,
+    in so doing we can still access information regarding
+    second-order derivatives, which greatly speeds up finding a solution.
+An additional advantage is that our insistence
+    that ideal performance be always attained
+    provides a mechanism
+    which can potentially ``override'' local optima 
     in the optimization process.
 
 To this end we have found that such a strategy
@@ -101,14 +127,14 @@ To this end we have found that such a strategy
 Furthermore, we have found this to be true
     even true when the physics residual is never brought to exactly zero.
 
-From a numerical standpoint, 
-    although the objective-first formulation is still non-convex 
-    in its original form,
-    the bi-linearity of the physics residual term allows us to 
-    naturally break the original problem into two sub-problems
-    which we outline below.
+% From a numerical standpoint, 
+%     although the objective-first formulation is still non-convex 
+%     in its original form,
+%     the bi-linearity of the physics residual term allows us to 
+%     naturally break the original problem into two sub-problems
+%     which we outline below.
 
-Lastly, we add an additional constraint to the original formulation,
+In practice, we add an additional constraint to the original formulation,
     which is to set hard-limits on the allowable values of $p$,
     namely $p_0 \le p \le p_1$.
 This is actually a relaxation of the ideal constraint,
@@ -120,19 +146,27 @@ This is actually a relaxation of the ideal constraint,
 Our objective-first formulation is thus,
 \BA \minimize{x,p} \| A(p) x - b(p) \|^2 \notag \\
     \subto f(x) = f_\text{ideal} \label{eq:ob1} \\
-        & p_0 \le p \le p_1. \notag \EA
-
+        & p_0 \le p \le p_1, \notag \EA
+    which is still non-convex, but can be broken down into 
+    two convex sub-problems, 
+    the motivation being that each of these will be 
+    able to be easily and reliably solved.
 
 \subsection{Field sub-problem}
-Since the objective-first problem in its original form is still non-convex,
-    we break it down into two convex sub-problems.
 The first of these is the field sub-problem, 
     which simply involves fixing $p$ and independently optimizing $x$,
 \BA \minimize{x} \| A(p) x - b(p) \|^2 \label{eq:Fsub} \\
     \subto f(x) = f_\text{ideal}. \notag \EA
 This problem is convex, and actually quadratic,
-    which means that it can even be solved in the same way 
+    which means that it can even be solved 
+    using standard numerical tools, in the same way 
     as a simple least-squares problem.
+
+The field sub-problem can be thought of as an update to $x$
+    where we try to ``fit'' the electromagnetic fields to the structure.
+Of course, if it were not for the hard-constraint on the design objective,
+    the field sub-problem would be able to perfectly fit $x$ to $p$.
+This, it turns out, would exactly be a simulation.
 
 \subsection{Structure sub-problem}
 The second sub-problem is formulated by fixing $x$ and
@@ -143,10 +177,18 @@ At the same time, we use the bi-linearity property
     its convexity explicit,
 \BA \minimize{p} \| B(x) p - d(x) \|^2 \label{eq:Ssub} \\
     \subto p_0 \le p \le p_1. \notag \EA
-
 The structure sub-problem is also convex, but not quadratic.
 However, use of the CVX package still allows us to obtain the result
     quickly and reliably.
+
+Note that in an analogous fashion to the field sub-problem,
+    the structure sub-problem attempts to fit $p$ to $x$,
+    and is prevented from perfectly doing so by it's own constraint.
+
+Because neither sub-problem is capable of completely reducing the physics residual
+    to zero, they must be used in an iterative manner in order to
+    gradually decrease the physics residual.
+To this end, we employ the alternating directions optimization method.
 
 \subsection{Alternating directions}
 We use a simple alternating directions scheme 
@@ -154,6 +196,16 @@ We use a simple alternating directions scheme
     which is to say that we simply
     alternately solve each and continue until we reach some stopping point,
     normally measured by how much the physics residual has decreased.
+\BA \text{Loop:} & & \notag \\ 
+& \minimize{x} \| A(p) x - b(p) \|^2 \notag \\
+ &    \subto f(x) = f_\text{ideal}. \notag \\ 
+    \\
+& \minimize{p} \| B(x) p - d(x) \|^2 \notag \\
+    & \subto p_0 \le p \le p_1. \notag \EA
+The alternating directions scheme is extremely simple
+    and does not require additional processing
+    of $x$ or $p$ outside of the two sub-problems,
+    nor does it require the use of auxiliary variables.
 
 The advantage of such the alternating directions method
     is that the physics residual is guaranteed to

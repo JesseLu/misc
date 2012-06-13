@@ -22,39 +22,71 @@
 \chapter{Objective-First Nanophotonic Design}
 \label{intro}
 
-\abstract{The abstract for the book.}
+\abstract{We introduce an ``objective-first'' strategy 
+    for designing nanophotonic devices,
+    and we demonstrate the design of nanophotonic
+    coupler, cloak, and mimic devices.}
+    
 
-In this chapter, we introduce an ``objective-first'' strategy 
-    for designing nanophotonic devices.
+Our initial foray into design methods for nanophotonic devices
+    began with a very simple and naive question: that is,
+    if, when presented with a nanophotonic structure,
+    we can solve for the electromagnetic fields it produces;
+    then, why don't we just make an inverse solver which,
+    when given the electromagnetic fields we desire,
+    returns the nanophotonic structure that will produce them? %ref.
+In other words, since we already know how to solve for $E$ and $H$ 
+    in Maxwell's equations, why can't we solve for $\epsilon$
+    or even $\mu$ instead?
 
-General description:
-\BI Only uses desired fields.
-\I  Can attempt to design any linear device.
-\I  Allows for non-physical fields. \EI
+Not surprisingly, it did not take us long to find that such
+    a simple strategy would inevitably run into many problems.
 
-This strategy is unique in that it
-    asks the user only for what electromagnetic field
-    the device should produce,
-    and then attempts to generate the design
-    without further user intervention.
+Over the subsequent years, we were able to come up with a better solution,
+    which we call an ``objective-first'' strategy for nanophotonic design,
+    and which we present in this chapter.
+Although it is much more advanced than our original idea,
+    objective-first design still carries the same fundamental concept;
+    which is to specify the electromagnetic fields, and then
+    to solve for a structure to produce them.
+    
+In this chapter, we present the simple theoretical underpinnings of 
+    objective-first design in the first two sections,
+    and then show examples of the method in action in the rest of the chapter.
+We also include the source code that was used to generate
+    all results presented herein. %ref!
+    
 
 \input{wave_eq}
 \input{ob1}
-% \input{1d}
-% \input{res}
 \input{wg}
 \input{cloak}
 \input{mimic}
 
 \section{Extending the method}
+The objective-first method, as applied in the examples in this chapter,
+    really only represent a small foray into the area of nanophotonic design.
+Several key extensions to what is presented here are needed to
+    fully address real-world nanophotonic design challenges.
+
 \subsection{3D}
+The first of these is the need to design fully three-dimensional structures.
+Doing so provides no inherent difficulties aside from the matrices in
+    \ER{Ab} becoming very large.
+This is not insurmountable as electromagnetic simulation software for 
+    three-dimensional nanophotonic structures already exists.
+
+Also software to solve \ER{Bd} in three-dimensions does not exist,
+    the size of matrix $B(x)$ can be greatly compressed by considering
+    only fabrication processes which modify a structure in-plane.
+Thus, the degrees of freedom in $p$ can be greatly reduced and the original
+    methods used in this chapter can still be applied.
+    
 \subsection{Multi-mode}
+A second necessary extension is to be able to consider the multiple fields
+    that a structure produces.
+This includes fields of different frequencies and inputs.
+
 \subsection{Robustness}
 \subsection{Binary structure}
 
-
-\section{Appendix}
-\subsection{Full 3D curl}
-\subsection{1D}
-\subsection{2D}
-\subsection{2.5D}
