@@ -3,7 +3,7 @@ We now apply our objective-first strategy to the design of optical mimics.
 
 We define an optical mimic to be a linear nanophotonic device which 
     mimics the output field of another device.
-In this sense optical mimics are the anti-cloak;
+In this sense optical mimics are the anti-cloaks;
     whereas cloaks strive to make an object's electromagnetic presence vanish,
     mimics strive to implement an object's presence without that 
     object actually being there.
@@ -15,7 +15,7 @@ That is to say, if one can reliably produce practical optical mimics,
     can be accomplished by simply producing an optical mimic of that material.
 
 In a more general sense, 
-    optical mimics is really just a recasting of the thrust of 
+    designing optical mimics is really just a recasting of the thrust of 
     the objective-first design strategy in its purest form:
     the design of a nanophotonic device based purely 
     on the electromagnetic fields one wishes to have it produce.
@@ -38,9 +38,9 @@ The location of this plane is identified as a dotted line in the subsequent figu
 \subsection{Plasmonic cylinder mimic}
 Our first mimic is simply to mimic the plasmonic cylinder 
     which we cloaked in the previous section.
-\myfig{mimic/m1}{Plasmonic cylinder mimic. 
+\myfig{mimic/m1}{Plasmonic cylinder mimic (see \fR{cloak/c6} for the original object). 
                 Error: 8.1\%,
-                footprint: $40 \times 120$ grid points,
+                device footprint: $40 \times 120$ grid points,
                 wavelength: 42 grid points.}
 
 \FR{mimic/m1} shows the result of the design.
@@ -69,7 +69,7 @@ In such a lens, the focusing action is gradual and easily discernable
 \myfig{mimic/m3}{Full-width-half-max at focus: 1.5 $\lambda$,
                 focus depth: 100 grid points.
                 Error: 12.0\%,
-                footprint: $40 \times 120$ grid points,
+                device footprint: $40 \times 120$ grid points (1.6 $\lambda$ thick),
                 wavelength: 25 grid points.}
 
 In constrast, \fR{mimic/m4} and \fR{mimic/m5} are both mimics of
@@ -81,12 +81,12 @@ Such a lens is much harder to design,
 \myfig{mimic/m4}{Full-width-half-max at focus: 0.5 $\lambda$,
                 focus depth: 50 grid points.
                 Error: 5.6\%,
-                footprint: $40 \times 120$ grid points,
+                device footprint: $40 \times 120$ grid points (1.6 $\lambda$ thick),
                 wavelength: 25 grid points.}
 \myfig{mimic/m5}{Full-width-half-max at focus: 0.5 $\lambda$,
                 focus depth: 150 grid points.
                 Error: 1.4\%,
-                footprint: $40 \times 120$ grid points,
+                device footprint: $40 \times 120$ grid points (1.6 $\lambda$ thick),
                 wavelength: 25 grid points.}
 \clearpage
 
@@ -103,7 +103,7 @@ In other words,
 \myfig{mimic/m2}{Sub-diffraction lens mimic.
                 The target field has a full-width half-maximum of 0.14 $\lambda$.
                 Error: 28.6\%,
-                footprint: $60 \times 120$ grid points,
+                device footprint: $60 \times 120$ grid points (1.43 $\lambda$ thick),
                 wavelength: 42 grid points.}
 
 As \fR{mimic/m2} shows,
@@ -122,13 +122,14 @@ Lastly, we extend the idea of a sub-diffraction lens mimic
 Such a device takes a plane wave as its input and
     produces a sub-diffraction image at its output plane.
 Of course, akin to its lens counterpart,
-    this output plane must lie within the near-field of the device
+    this output plane must lie within the near-field 
+    of the device (specifically, two computational cells away)
     because of its sub-wavelength nature.
 \myfig{mimic/m6}{Sub-diffraction optical mask.
                 The three central peaks in the target field are each
                 separated by 0.28 $\lambda$.
                 Error: 19.8\%,
-                footprint: $40 \times 120$ grid points,
+                device footprint: $40 \times 120$ grid points,
                 wavelength: 25 grid points.}
 
 \FR{mimic/m6} shows the design of a simple mask which 

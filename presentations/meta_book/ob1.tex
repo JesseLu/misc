@@ -15,7 +15,7 @@ A design objective, $f(x)$, is simply defined as
 
 For instance, in the design of a device
     which must transmit efficiently into a particular mode,
-    we could choose $f(x)$ to be the negative power transmitted into that mode.
+    we could choose $f(x)$ to be the negative power flow into that mode.
 Or, if the device was to be a low-loss resonator,
     we could choose $f(x)$ to be the amount of power leaking 
     out of the device.
@@ -34,10 +34,10 @@ At the same time, we must consider that the computational cost and complexity
 
 \subsection{Convexity}
 Before formulating the design problem,
-    we would like to inject a note regarding the complexity of various 
+    we would like to add a note regarding the complexity of various 
     optimization problems.
 
-Specifically, we want to introduce the notion of \emph{convexity} %TODO: ref.
+Specifically, we want to introduce the notion of \emph{convexity}\cite{boyd}
     and to simply note the difference between problems that
     are convex and those which are not.
 The difference is simply this:
@@ -58,7 +58,7 @@ Thus, the advantage in formulating a design problem
     any notion of randomness.
 
 On a practical level, there exist mature convex optimization software packages
-    among which is CVX, a convex optimization package written for Matlab, % Ref.
+    among which is CVX, a convex optimization package written for Matlab\cite{cvx}, 
     which we use for the examples in this chapter.
 
 
@@ -74,11 +74,11 @@ The design problem for a physical structure is typically formulated as
     while always satisfying physics (e.g. the electromagnetic wave equation).
 
 Since solving \ER{typform} is quite difficult in the general sense
-    (simultaneously varying $x$ and $p$ makes the problem non-convex)
+    (simultaneously varying $x$ and $p$ makes the problem non-convex),
     traditional approaches have relied on either brute-force parameter search,
     or a gradient-descent method utilizing first-order derivatives.
 In the gradient-descent case, solving \ER{typform} results in the
-    well-known adjoint optimization method. % Ref.
+    well-known adjoint optimization method\cite{miller}. 
 
 \subsection{Objective-first design formulation}
 In contrast with the typical formulation, the objective-first formulation 
@@ -112,7 +112,7 @@ The primary advantage in the objective-first formulation is that,
     although the full problem is still non-convex,
     it allows us to form two convex sub-problems, as we outline below.
 In contrast to an adjoint method approach,
-    in so doing we can still access information regarding
+    in doing we can still access information regarding
     second-order derivatives, which greatly speeds up finding a solution.
 An additional advantage is that our insistence
     that ideal performance be always attained
@@ -134,7 +134,7 @@ Furthermore, we have found this to be true
 %     naturally break the original problem into two sub-problems
 %     which we outline below.
 
-In practice, we add an additional constraint to the original formulation,
+In practice, we add an additional constraint to the original formulation, \cite{opex1}
     which is to set hard-limits on the allowable values of $p$,
     namely $p_0 \le p \le p_1$.
 This is actually a relaxation of the ideal constraint,
@@ -162,8 +162,8 @@ This problem is convex, and actually quadratic,
     using standard numerical tools, in the same way 
     as a simple least-squares problem.
 
-The field sub-problem can be thought of as an update to $x$
-    where we try to ``fit'' the electromagnetic fields to the structure.
+The field sub-problem can be thought of as an update to $x$ (field)
+    where we try to ``fit'' the electromagnetic fields to the structure ($p$).
 Of course, if it were not for the hard-constraint on the design objective,
     the field sub-problem would be able to perfectly fit $x$ to $p$.
 This, it turns out, would exactly be a simulation.
@@ -177,13 +177,14 @@ At the same time, we use the bi-linearity property
     its convexity explicit,
 \BA \minimize{p} \| B(x) p - d(x) \|^2 \label{eq:Ssub} \\
     \subto p_0 \le p \le p_1. \notag \EA
-The structure sub-problem is also convex, but not quadratic.
+The structure sub-problem is also convex, but not quadratic because of the 
+    inequality constraints on $p$.
 However, use of the CVX package still allows us to obtain the result
     quickly and reliably.
 
 Note that in an analogous fashion to the field sub-problem,
     the structure sub-problem attempts to fit $p$ to $x$,
-    and is prevented from perfectly doing so by it's own constraint.
+    and is prevented from perfectly doing so by its own constraint.
 
 Because neither sub-problem is capable of completely reducing the physics residual
     to zero, they must be used in an iterative manner in order to
@@ -222,5 +223,5 @@ Note that this robustness stems from the fact that,
 The disadvantage of such a simple scheme is that 
     the convergence is quite slow,
     although we have found it to be sufficient in our cases.
-See ref % cite!
-    for related methods that exhibit far better convergence.
+Related methods, such as the Alternating Directions Method of Multipliers\cite{admm}, 
+    exhibit far better convergence.

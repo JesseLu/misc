@@ -78,7 +78,7 @@ Alternatively,
 \subsection{Application of the objective-first strategy}
 Having chosen our design objective we apply
     alternating directions to \ER{ob1} which 
-    results in solving the following two sub-problems iteratively.
+    results in solving the following two sub-problems iteratively:
 \BA \minimize{x} \| A(p) x - b(p) \|^2 \\
     \subto x = x_\text{perfect} \text{, at boundary} \notag \EA
 \BA \minimize{p} \| B(x) p - d(x) \|^2 \\
@@ -97,13 +97,13 @@ Note, that, unlike $p$, we do not require an initial guess for $x$.
 
 The only other significant value that needs to be set initially
     is the frequency, or wavelength of light.
-We use wavelengths in the range of 25 to 63 grid points for
+We use free space wavelengths in the range of 25 to 63 grid points for
     the results in this chapter.
 
 Lastly, for all the examples presented in the chapter,
     we run the alternating directions algorithm for 400 iterations.
 Although we do not present the convergence results here,
-    such information can be obtained by inspecting the source. %Ref!
+    such information can be obtained by inspecting the source code\cite{code}.
 
 % Also, small footprint and computation time need to be mentioned.
 \subsection{Coupling to a wide, low-index waveguide}
@@ -116,14 +116,14 @@ Such a coupler would be useful for coupling from
 
 \myfig{wg/1}{Coupler to a wide low-index waveguide.
             Efficiency: 99.8\%, 
-            footprint: $36 \times 76$ grid points, 
+            device footprint: $36 \times 76$ grid points, 
             wavelength: 42 grid points.}
 
 The input and output mode profiles used as
     the ideal fields are shown in the upper-left corner of \fR{wg/1}.
 The final structure is shown in the upper right plot, and
     the simulated $H_z$ fields,
-    under excitation of the input mode,
+    under excitation of the input mode in this final structure,
     are shown in the bottom plots.
 
 \FR{wg/1} then shows that the design structure has nearly unity efficiency
@@ -139,7 +139,7 @@ We do this by simply selecting the output mode
     as seen in \fR{wg/2}.
 \myfig{wg/2}{Mode converter.
             Efficiency: 98.0\%, 
-            footprint: $36 \times 76$ grid points, 
+            device footprint: $36 \times 76$ grid points, 
             wavelength: 42 grid points.}
 
 Note that the design of this coupler is made challenging
@@ -155,31 +155,32 @@ We can then continue to elucidate the generality of our method
     in completely different ways.
 \myfig{wg/3}{Coupler to a wide low-index waveguide.
             Efficiency: 98.9\%, 
-            footprint: $36 \times 76$ grid points, 
+            device footprint: $36 \times 76$ grid points, 
             wavelength: 25 grid points.}
 
 \FR{wg/3} shows  a high-efficiency coupling device between 
     an index-guided input waveguide and
     a ``air-core'' output waveguide, 
-    in which the waveguiding effect is achieved using distributed Bragg reflection.
+    in which the waveguiding effect is achieved using distributed Bragg reflection
+    (instead of total internal reflection as in the input waveguide).
 
 \subsection{Coupling to a metal-insulator-metal waveguide }
 Additionally, our design method can also generate couplers
     between different material systems such as 
     between dielectric and metallic (plasmonic) waveguides,
     as shown in \fR{wg/4}.
-\myfig{wg/4}{Coupler to a wide low-index waveguide.
+\myfig{wg/4}{Coupler to a plasmonic metla-insulator-metal waveguide.
             Efficiency: 97.5\%, 
-            footprint: $36 \times 76$ grid points, 
+            device footprint: $36 \times 76$ grid points, 
             wavelength: 25 grid points.}
 
 In this case, the permittivity of the metal ($\epsilon = -2$) is chosen to be 
     near the plasmonic resonance ($\epsilon = -1$).
 
 \subsection{Coupling to a metal wire plasmonic waveguide mode}
-\myfig{wg/5}{Coupler to a wide low-index waveguide.
+\myfig{wg/5}{Coupler to a plasmonic wire waveguide.
             Efficiency: 99.1\%, 
-            footprint: $36 \times 76$ grid points, 
+            device footprint: $36 \times 76$ grid points, 
             wavelength: 25 grid points.}
 Lastly, \fR{wg/5} shows that efficiently coupling to a plasmonic wire
     is achievable as well.

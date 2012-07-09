@@ -1,0 +1,79 @@
+
+\section{Extending the method}
+The objective-first method, as applied in the examples in this chapter,
+    really only represent a small foray into the area of nanophotonic design.
+Several key extensions to what is presented here are needed to
+    fully address real-world nanophotonic design challenges.
+
+\subsection{Three-dimensional design}
+The first of these is the need to design fully three-dimensional structures.
+Doing so provides no inherent difficulties aside from the matrices in
+    \ER{Ab} becoming very large.
+This is not insurmountable as electromagnetic simulation software for 
+    three-dimensional nanophotonic structures already exists.
+
+In fact, for certain choices of the design objective 
+    (i.e. those of low-rank) 
+    \ER{Fsub} can be efficiently solved by a small number of calls
+    to unmodified simulation software. 
+Of course, for general design objectives, such software will need 
+    to be modified in order to solve \ER{Fsub}.
+
+On the other hand, specialized software to solve \ER{Bd} in 
+    any number of dimensions does not exist,
+    although this was not a problem in two dimensions since generic 
+    linear algebra solvers are more than accurate.
+In three dimensions, 
+    the large size of matrix $B(x)$ can be greatly compressed by considering
+    only fabrication processes which modify a structure in-plane.
+In this way, the degrees of freedom in $p$ can be greatly reduced and the original
+    methods used in this chapter can still be applied.
+This work-around is especially viable since in-plane structures are 
+    of most interest from a practical standpoint.
+    
+\subsection{Multi-mode}
+A second necessary extension is to be able to consider the multiple fields
+    that a structure produces in response to input fields of differing frequency
+    and spatial distribution.
+Such an extension is straightforward in the objective-first formulation
+    and results in the following modified problem statement,
+\BA \minimize{x_i,p} \sum_i \| A(p) x_i - b(p) \|^2 \notag \\
+    \subto f(x_i) = f_{i,\text{ideal}} \quad \text{i = 1, \ldots, n} \\
+        & p_0 \le p \le p_1, \notag \EA
+    which can be separated into field and structure sub-problems 
+    as in the single-mode formulation.
+In the multi-mode case, this results in one structure sub-problem 
+    and $n$ field sub-problems.
+Interestingly, the $n$ field sub-problems lend themselves 
+    naturally to parallelization
+    since they can be solved independently,
+    leading to the possibility that a multi-mode design completing in
+    roughly the same time as a single-mode design.
+
+\subsection{Binary structure}
+Another necessary extension of our method is to force 
+    the values of $p$ to be discrete.
+This is not trivial since a naive restatement of \ER{ob1}
+    which includes such a constraint,
+\BA \minimize{x,p} \| A(p) x - b(p) \|^2 \notag \\
+    \subto f(x) = f_\text{ideal} \\
+        & p \in \{p_0, p_1\}, \notag \EA
+    results in a very difficult combinatorial problem.
+
+Tractable approaches include penalizing intermediate values of $p$\cite{simp}
+    or even transferring to a level-set method\cite{miller}
+    where the distinction between materials is explicit.
+
+\subsection{Robustness}
+Lastly, the design of structures which are robust to both
+    fabrication imperfections and fluctuations in environmental parameters
+    is also a necessity for practical real-world devices.
+
+It seems likely in this case that a heurestic approach may
+    be most successful in this case, rather than to tackle 
+    the problem head-on.
+For instance, to account for fluctuating material parameters
+    induced by temperature changes
+    one may design a device to operate for a larger-than-necessary 
+    frequency range.
+

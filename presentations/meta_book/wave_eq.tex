@@ -6,7 +6,7 @@ In this section, we outline the wave equation
 We do this by first formulating this wave equation in the language of physics,
     and then discretizing it in order to achieve numerical solutions.
 We then show how one can not only obtain the solution for the field,
-    but how one can obtain the solution for the structure using
+    but also obtain the solution for the structure using
     simple, standard numerical tools.
 
 \subsection{Physics formulation}
@@ -15,14 +15,14 @@ First, let's derive our wave equation,
 \BA \curl E = - \mu_0 \frac{\partial H}{\partial t} \\
     \curl H = J + \epsilon \frac{\partial E}{\partial t}, \EA
     where $E$, $H$, and $J$ are 
-    the electric, magnetic and electric current % TODO: Check this.
+    the electric, magnetic and electric current
     vector fields, respectively,
     $\epsilon$ is the permittivity
     and $\mu_0$ is the permeability, which we assume to be 
     that of vacuum everywhere.
 
 
-We use the time dependence $\exp(-i \omega t)$, 
+Assuming the time dependence $\exp(-i \omega t)$, 
     where $\omega$ is the angular frequency,
     these become
 \BA \curl E = - i \mu_0 \omega H \\
@@ -32,25 +32,24 @@ We use the time dependence $\exp(-i \omega t)$,
     \label{eq:wave} \EE
 
 In this chapter, we are going to only consider the two-dimensional form
-    of this equation; and specifically 
-    the two-dimensional transverse magnetic (TM) mode. % Ref.
-In this case \ER{wave} is simplified not only in that
-    the vector fields are two-dimensional, 
-    but that only the $z$-component of $H$ is non-zero.
+    of this equation, and specifically 
+    the two-dimensional transverse electric (TE) mode\cite{taflove}.
+In this case \ER{wave} is simplified 
+    because only the $z$-component of $H$ is non-zero.
 
-Nevertheless, \ER{wave}, in a single equation,
+Nevertheless,  a single equation \ER{wave},
     represents all the physics which we take into account in this chapter.
 
 \subsection{Numerical formulation}
-Now, on top of the analytical formulation of the wave equation \ER{wave}
+On top of the analytical formulation of the wave equation \ER{wave}
     we will now add a numerical, or discretized, formulation.
 This will be needed in order to solve for arbitrary structures
     for which there are not analytical solutions.
 
 The salient step in order to do so
-    is to the use of the Yee grid, % TODO: Reference!
+    is to the use of the Yee grid\cite{yee}, 
     which allows us to easily define the curl $(\curl)$
-    operators in \ER{wave}. % TODO: ref.
+    operators in \ER{wave}. 
 Since both the individual curl operators and the equation as a whole
     is linear in $H$, it naturally follows to formulate \ER{wave},
     with a change of variables, as
@@ -66,7 +65,7 @@ Note that our use of $A(p)$ and $b(p)$ instead of $A$ and $b$
 
 Apart from using the Yee grid, the only other salient implementation detail
     is the use of
-    stretched-coordinate perfectly matched layers %ref
+    stretched-coordinate perfectly matched layers \cite{pml}
     where necessary, in order to prevent unwanted reflections
     at the boundaries of the simulation domain.
 The effect of such layers is to modify the curl operators,
@@ -78,7 +77,7 @@ With our numerical formulation, we can now solve for the $H$-field
     by applying general linear algebra solvers to \ER{Ab}.
 Recall that since we have chosen a time-harmonic formulation,
     solving for $x$ in \ER{Ab} is actually performing what is simply known as
-    a time-harmonic or a finite-difference frequency-domain (FDFD) simulation.
+    a time-harmonic or a finite-difference frequency-domain (FDFD) simulation\cite{shin}. 
 Furthermore, since we have limited ourselves to the two-dimensional case,
     \ER{Ab} is easily solved using the standard sparse solver
     included in Matlab on a single desktop computer.
@@ -89,17 +88,16 @@ We call the routine that solves for $x$ in \ER{Ab} given $p$ a field-solver,
 
 
 \subsection{Solving for $\epsilon^{-1}$}
-Now, the next step,
-    after having built a field-solver or simulator
-    (finds $x$ given $p$) for our wave equation,
-    is to build a structure-solver for it.
+    After having built a field-solver or simulator
+    (which finds $x$ given $p$) for our wave equation,
+    the next step is to build a structure-solver for it.
 In other words, we need to be able to solve for $p$ given $x$.
 
 To do so, we return to \ER{wave}
     and remark that 
     $\epsilon^{-1} (\curl H) = (\curl H) \epsilon^{-1}$ and
     $\epsilon^{-1} J = J \epsilon^{-1}$ 
-    since scalar multiplication is communicative.
+    since scalar multiplication is commutative.
 This allows us to rearrange \ER{wave} as
 \BE \curl (\curl H) \epsilon^{-1} - \curl J \epsilon^{-1}  = \mu_0 \omega^2 H  \EE
 which we now write as 
@@ -112,7 +110,7 @@ which we now write as
 With this extremely simple trick,
     we have shown that we can seemingly solve for $p$ given $x$
     with approximately the same ease as solving for $x$ given $p$!
-We see this because the dimensions and complexity of $B(x)$ is basically
+We see this because the dimensions and complexity of $B(x)$ are basically
     equivalent to that of $A(p)$,
     and this implies that the same simple tools used in our field-solver
     should be applicable to solving \ER{Bd}.
@@ -122,9 +120,9 @@ This is indeed what we find, although the later addition of constraints on $p$
 \subsection{Bi-linearity of the wave equation}
 Although additional mathematical machinery must still be added
     in order to get a useful design tool,
-    we have really shown so far is that the wave equation is 
-    separately linear or \emph{bi-linear} in $x$ and $p$.
-Namely that,
+    we have shown so far that the wave equation is 
+    separately linear or in $x$ and $p$ (i.e. bilinear).
+Namely,
 \BE A(p)x-b(p) = B(x)p - d(x). \label{eq:bilinear} \EE
 In other words, fixing $p$ makes solving the wave equation for $x$
     a linear problem, and vice versa.
@@ -138,4 +136,4 @@ The bi-linearity of the wave equation
     that, although simultaneously solving for $x$ and $p$ is very difficult,
     we already know how to solve linear systems ($x$ and $p$ separately) well.
 In fact, it is this very property which forms the natural division of labor
-    which the objective-first method, which we now present, exploits.
+    which our objective-first method exploits.
