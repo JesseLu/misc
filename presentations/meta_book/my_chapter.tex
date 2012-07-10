@@ -8,7 +8,8 @@
 \newcommand{\subto}{\text{subject to}\;&}
 
 % Custom figures.
-\newcommand{\myfig}[2]{\begin{figure}[!h]\includegraphics[width=0.95\textwidth]{fig/#1.jpg}\caption{#2}\label{fig:#1}\end{figure}}
+% \newcommand{\myfig}[2]{\begin{figure}[!h]\includegraphics[width=0.95\textwidth]{fig/#1.jpg}\caption{#2}\label{fig:#1}\end{figure}}
+\newcommand{\myfig}[2]{\begin{figure}[!h]\includegraphics[width=0.95\textwidth]{fig/#1}\caption{#2}\label{fig:#1}\end{figure}}
 
 \newcommand{\BI}{\begin{itemize}\item}
 \renewcommand{\I}{\item}
@@ -32,7 +33,7 @@ Our initial foray into design methods for nanophotonic devices
     began with a very simple and naive question: 
     could we make an inverse solver which,
     when given the electromagnetic fields we desire,
-    returns the nanophotonic structure that will produce them\cite{opex3}?
+    returns the nanophotonic structure that will produce them \cite{opex3}?
 In other words, since we already know how to solve for $E$ and $H$ 
     in Maxwell's equations, why can't we solve for $\epsilon$
     or even $\mu$ instead?
@@ -52,7 +53,7 @@ In this chapter, we present the simple theoretical underpinnings of
     objective-first design in the first two sections,
     and then show examples of the method in action in the rest of the chapter.
 We also include the source code that was used to generate
-    all results presented herein\cite{code}.
+    all results presented herein \cite{code}.
     
 
 \input{wave_eq}
@@ -70,7 +71,7 @@ We have introduced an objective-first approach
 In doing so, we hope to have exhibited both the simplicity
     and the breadth of our method to the design of a broad
     class of linear, single-mode devices.
-In addition to posting the source code for all the examples online\cite{code}, 
+In addition to posting the source code for all the examples online \cite{code}, 
     we have outlined the necessary extensions to our method in order
     to design practical, three-dimensional devices.
 
