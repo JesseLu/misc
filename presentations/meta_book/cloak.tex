@@ -47,7 +47,8 @@ With these simple changes we continue to solve \ER{ob1}
 Once again, as in \sR{wg}, each design is run for 400 iterations
     with a uniform initial value of $p = 1/9$ for the structure
     (where the structure is allowed to vary),
-    and the range of $p$ is limited to $1/12.25 \le p \le 1$.
+    and the range of $p$ is limited to $1/12.25 \le p \le 1$,
+    implying a dielectric cloak.
 
 \subsection{Anti-reflection coating}
 As a first example,
@@ -58,7 +59,7 @@ As a first example,
 In this case we use the interface between air and silicon, as shown in \fR{cloak/c1}
 \myfig{cloak/c1}{Anti-reflection coating.
                 Efficiency: 99.99\%,
-                footprint: $60 \times 100$ grid points,
+                device footprint: $60 \times 100$ grid points,
                 wavelength: 63 grid points.}
 
 Unsurprisingly for such a simple case, 
@@ -81,7 +82,7 @@ Application of the objective-first strategy results
     in an efficient device as seen in \fR{cloak/c2}.
 \myfig{cloak/c2}{Wrap-around cloak.
                 Efficiency: 99.99\%,
-                footprint: $60 \times 100$ grid points,
+                device footprint: $60 \times 100$ grid points,
                 wavelength: 42 grid points.}
 
 Note that our cloak employs only isotropic, non-magnetic materials,
@@ -97,7 +98,7 @@ This simple modification is forcing an air tunnel
     both toward its front and back.
 \myfig{cloak/c4}{Open-channel cloak.
                 Efficiency: 99.8\%,
-                footprint: $60 \times 100$ grid points,
+                device footprint: $60 \times 100$ grid points,
                 wavelength: 42 grid points.}
 
 Such a design is still very efficient
@@ -107,7 +108,7 @@ Such a design is still very efficient
 
 \subsection{Channeling cloak}
 Our last cloaking example replaces the plasmonic cylinder 
-    with a thin metallic wall in which is etched a sub-wavelength channel.
+    with a thin metallic wall in which a sub-wavelength channel is etched.
 Such a metallic wall is very effective at blocking incoming light
     (as can be seen from \fR{cloak/c7}) 
     because of its large negative permittivity ($\epsilon = -20$),
@@ -121,6 +122,6 @@ Once again, our method is still able to produce a very efficient design,
     as shown in \fR{cloak/c5}.
 \myfig{cloak/c5}{Channeling cloak.
                 Efficiency: 99.9\%,
-                footprint: $60 \times 100$ grid points,
+                device footprint: $60 \times 100$ grid points,
                 wavelength: 42 grid points.}
 

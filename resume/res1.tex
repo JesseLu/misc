@@ -1,0 +1,76 @@
+% LaTeX file for resume 
+% This file uses the resume document class (res.cls)
+
+\documentclass{res} 
+%\usepackage{helvetica} % uses helvetica postscript font (download helvetica.sty)
+%\usepackage{newcent}   % uses new century schoolbook postscript font 
+\setlength{\textheight}{9.5in} % increase text height to fit on 1-page 
+
+\begin{document} 
+
+\name{Jesse Lu\\[12pt]}
+\address{\texttt{jesselu@stanford.edu} \\ 66 Newell Rd. Apt. O \\ East Palo Alto, CA \\ (408) 568-9356}
+                                  
+\begin{resume}
+
+\section{JOB OBJECTIVE}          
+    A full-time position in COMPANY with starting date of November 2012 
+    (upon completion of doctoral degree).
+
+\section{EDUCATION}          
+    Stanford University, PhD, Electrical Engineering, November 2012 (in progress) \\
+    Stanford University, Masters of Science, Electrical Engineering, May 2012 \\
+    University of California Los Angeles, Bachelor of Science, Electrical Engineering, June 2006
+
+\section{HONORS}
+    Stanford Graduate Fellowship, Stanford University, 2007 \\
+    Dean's Honors List, University of California Los Angeles, five quarters
+ 
+\section{EXPERIENCE}
+   \vspace{-0.1in}	
+   \begin{tabbing}
+   \hspace{2.3in}\= \hspace{2.6in}\= \kill % set up two tab positions
+    {\bf Graduate Researcher} \>Jelena Vuckovic Group \>2007-Present\\
+                             \>Stanford University
+   \end{tabbing}\vspace{-20pt}      % suppress blank line after tabbing
+    Existing nanophotonic design process consisted of trial-and-error
+        where each simulation about 24 hours to complete.
+    Implemented FDTD and FDFD simulation software on Nvidia GPUs to bring 
+        simulation times down to 10 minutes.
+    Also developed a novel ``objective-first'' nanophotonic design algorithm
+        and demonstrated automated design of 
+        small-footprint, high-efficiency waveguide couplers.
+   \begin{tabbing}
+   \hspace{2.3in}\= \hspace{2.6in}\= \kill % set up two tab positions
+    {\bf Undergraduate Researcher} \>Eli Yablonovitch Group \> 2005-2006\\
+                          \>University of California, Los Angeles
+   \end{tabbing}\vspace{-20pt}
+    Surface plasmon focusing device required a grating coupler to inject energy
+        into the surface plasmon mode.
+    Wrote a Matlab program interfacing with a FEM package (COMSOL),
+        developed a hierarchal optimization routine as well as an extended 
+        transfer matrix model to produce first-ever thoroughly optimized 
+        grating coupler design.
+   \begin{tabbing}%
+   \hspace{2.3in}\= \hspace{2.6in}\= \kill % set up two tab positions          
+   {\bf Research Assistant Intern}  \>Inko Pellicles \> Summer 2003\\
+                          \>Sunnyvale, CA
+   \end{tabbing}\vspace{-20pt}
+    Pellicle removal left residue on expensive lithography masks.
+    Assisted in researching and developing a UV irradition process
+        to modify the adhesive properties of the glue.
+
+
+\section{PROGRAMMING}          
+    Fluent in Python, CUDA, and Matlab. \\
+    Currently working with Git and Amazon EC2.
+
+
+\section{PUBLICATIONS}          
+    ``Objective-first design of high-efficiency, small-footprint couplers between arbitrary nanophotonic waveguide modes'' Jesse Lu, Jelena Vuckovic (Optics Express, 2012). \\
+    ``Inverse design of a three-dimensional nanophotonic resonator'' Jesse Lu, Stephen Boyd, Jelena Vuckovic (Optics Express, 2011). \\
+    ``Inverse design of nanophotonic structures using complementary convex optimization'' Jesse Lu, Jelena Vuckovic (Optics Express, 2010). \\
+    ``Numerical optimization of a grating coupler for the efficient excitation of surface plasmons at an Ag-SiO2 interface'' Jesse Lu, Csaba Petre, Josh Conway, Eli Yablonovitch (JOSA B, 2007).
+ 
+\end{resume}
+\end{document}
