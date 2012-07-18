@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\input defs.tex
+\newcommand{\inv}[1]{\frac{1}{#1}}
+\newcommand{\tC}{\tilde{C}}
+\newcommand{\BSE}{\begin{subequations}\begin{align}}
+\newcommand{\EA}{\end{align}}
+\newcommand{\ESE}{\end{subequations}\end{align}}
+\newcommand{\env}[2]{\begin{#1}#2\end{#1}}
+\newcommand{\E}[1]{\begin{subequations}\begin{align}#1\end{align}\end{subequations}}
+\DeclareMathOperator*{\minimize}{\text{minimize}\quad}
+\newcommand{\subto}{\text{subject to}\quad}
+\title{Objective-First Nanophotonic Design Plan} 
+\author{Jesse Lu}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Goal}
+    Software to solve the following general inverse design problem in nanophotonics.
+    \E{ \minimize&  f(x) + g(z) \\
+        \subto&     A(z)x - b(z) = 0}
+% \end{align}\end{subequations}
+    The software will include two 
+\end{document}
