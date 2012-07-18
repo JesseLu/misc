@@ -9,9 +9,13 @@
 \newcommand{\EA}{\end{align}}
 \newcommand{\ESE}{\end{subequations}\end{align}}
 \newcommand{\env}[2]{\begin{#1}#2\end{#1}}
-\newcommand{\E}[1]{\begin{subequations}\begin{align}#1\end{align}\end{subequations}}
+\newcommand{\E}[2]{\begin{subequations}\begin{align}#1\end{align}\label{eq:#2}\end{subequations}}
 \DeclareMathOperator*{\minimize}{\text{minimize}\quad}
 \newcommand{\subto}{\text{subject to}\quad}
+\newcommand{\er}[1]{\eqref{eq:#1}}
+\newcommand{\BI}{\begin{itemize}\item}
+\newcommand{\EI}{\end{itemize}}
+\newcommand{\I}{\item}
 \title{Objective-First Nanophotonic Design Plan} 
 \author{Jesse Lu}
 \begin{document}
@@ -19,9 +23,28 @@
 \tableofcontents
 
 \section{Goal}
-    Software to solve the following general inverse design problem in nanophotonics.
+    Software to solve the following general inverse design problem, specfically for nanophotonics.
     \E{ \minimize&  f(x) + g(z) \\
-        \subto&     A(z)x - b(z) = 0}
-% \end{align}\end{subequations}
-    The software will include two 
+        \subto&     A(z)x - b(z) = 0}{prob}
+    where $f(x)$ and $g(z)$ are the \emph{design objectives} for the field ($x$) and structure ($z$) variables respectively,
+    and $A(z)x - b(z)$ is the \emph{physics residual} of the problem.
+
+\section{Strategy}
+    The general strategy is to divide the problem 
+        into field and structure sub-problems,
+        which can be tackled separately and in a modular fashion
+        by using various
+        \emph{optimization paradigms} and 
+        \emph{structure parameterizations}
+        interchangeably.
+
+    Specifically, the available optimization paradigms are
+    \BI adjoint
+    \I  ob-1    \EI
+    and the available structure parameterizations include
+    \BI point
+    \I  boundary
+    \I  shape
+    \I  include/exclude \EI
+
 \end{document}
