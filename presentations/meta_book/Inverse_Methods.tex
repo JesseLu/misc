@@ -618,12 +618,12 @@ We use a simple alternating directions scheme
     which is to say that we simply
     continually alternate between solving each equation until we reach some stopping point,
     normally measured by how much the physics residual has decreased.
-\BA \text{Loop:} & & \notag \\ 
-& \minimize{x} \| A(p) x - b(p) \|^2 \notag \\
- &    \subto f(x) = f_\text{ideal}. \notag \\ 
+\BA \text{Loop:} & \notag \\ 
+ \minimize{x} \| A(p) x - b(p) \|^2 \notag \\
+     \subto f(x) = f_\text{ideal}. \notag \\ 
     \\
-& \minimize{p} \| B(x) p - d(x) \|^2 \notag \\
-    & \subto p_0 \le p \le p_1. \notag \EA
+ \minimize{p} \| B(x) p - d(x) \|^2 \notag \\
+     \subto p_0 \le p \le p_1. \notag \EA
 The alternating directions scheme is extremely simple
     and does not require additional processing
     of $x$ or $p$ outside of the two sub-problems,
@@ -775,9 +775,14 @@ The only other significant value that needs to be set initially
     is the frequency, or wavelength of light.
 We use free space wavelengths in the range of 25 to 63 grid points for
     the results in this chapter.
+
 Lastly, for all the examples presented in the chapter,
     we run the alternating directions algorithm for 400 iterations.
-Although we do not present the convergence results here,
+In terms of convergence,
+    the physics residual never fully vanishes, and 
+    seems to asymptopically approach a non-zero value.
+Even so, we seem to obtain good performance from the produced designs.
+Note that although we do not present the convergence results here,
     such information can be obtained by inspecting the source code \cite{code}.
     
     
@@ -1164,7 +1169,7 @@ Such a lens is much harder to design,
 %---------------------------------------------------------% 
 
 Our method is now employed to mimic the effect of a sub-diffraction lens.
-Since such a lens can be created using a negative-index material
+Since such a lens can be created using a negative-index material \cite{pendry}
     this mimic can be viewed as an imitation of a negative-index material,
     in that the following device recreates the sub-diffraction target-field 
     at the output plane (dotted line)
@@ -1405,7 +1410,8 @@ This work has been supported by the
 %     Opt. Express \textbf{19}, 10563--10750 (2011). 
 
 
-
+\bibitem{pendry} J. B. Pendry, ``Negative refraction makes a perfect lens,''
+    Physical Review Letters, \textbf{85}, 3966-3969 (2000).
 
 \bibitem{simp} M. P. Bendsoe, and O. Sigmund, 
     ``Material interpolation schemes in topology optimization,''
