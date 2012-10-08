@@ -1,0 +1,23 @@
+General Chapter Modifications:
+
+I'm asking everyone to add a paragraph or so to their introduction that covers the strengths and limitations of their method.  I took a shot at summarizing what I though was an accurate summary of these ideas for your chapter.  Feel free to use as much or as little of this as you'd like.
+
+Strengths:
+One of the strengths of this method is that it recasts the optimization problem into a convex representation.  As a result, there exists a single optimum point that can be reliably determined regardless of initial conditions.  At the same time, we eliminate any local optima which might otherwise trap our optimization routine.  Additionally, the objective-first formulation presented in this chapter is general enough that it encompasses the design of all linear nanophotonic structures and is not limited to the design of optical metamaterials.
+
+Limitations:
+While this approach typically produces designs with > 98\% (or whatever the actual number is) efficiency, these solutions rely on continuously varying values of the dielectric constant with position across the optical structure being designed.  Approaches for dealing with this constraint will be discussed in Section \ref{sec:binary}; however, adding the additional constraint that the dielectric distribution across the structure be binary (either air or a specifically chosen material) results in a very difficult combinatorial problem.
+
+Also in the Introduction, can you add a paragraph describing the general progression of topics that will be covered over the course of the chapter. 
+
+As a general question about the method itself, how do you or would you deal with arrays or array effects with this formulation?  Would it be worth adding a small discussion of this towards the beginning of the chapter?
+In the figure captions and in a number of places in the text throughout the chapter (e.g. the middle of page 12), would it be practical to list wavelengths and dimensions in terms of nm rather than grid points?  As it reads now, it feels a bit vague in terms of quantifying the geometries involved.  I'm assuming it's done this way because the solutions are applicable over a wide range of wavelengths.  If this is the case, can you spend a paragraph or two (maybe at the start of Section 4?) discussing at which wavelength ranges these types of assumptions hold, and how these solutions evolve at shorter wavelengths when dispersive effects come into play (if you look at broad band simulations).
+I modified the figure sizes slightly.  Now there are three figure commands instead of one.  Previously, the figures were getting away from the sections of text that referenced them.  By decreasing the size of the figures with two rows of panels from 0.95 to 0.85, the figures are all within 1 page of where they're referenced.  Additionally, for the figures with three rows of panels, I had to drop that down to 0.73.  Could we also make the figure panel labels and axis details larger, especially since the figures have been shrunk slightly for better chapter formatting. 
+Separately in regards to the figures, there's an impressive number of examples in the second half of the chapter.  In the body of the text for each sections, could we add the quantitative details of each device performance (most of which is in the figure captions) and possibly add a brief bit about convergence details.  I think this is a case of being a victim of your own success.  Sections 4 - 6 have a massive number of examples, but as it reads now, any details that are presented for a given structure you've designed are mainly contained within the figure captions', and as a result, the body of the text conveys very little information . 
+
+
+Minor Chapter Modifications:
+At the bottom of page 10 or wherever else seems appropriate, could you spend some time discussing the number of steps or iterations needed for convergence or quantify the convergence somehow?
+In equation 20, something's not working properly.  The variables that should be under "minimize" are listed as subscripts.   
+
+Lastly, in the print version of the book, the majority of the figures are going to be grayscale.  I don't know if you want to go back and adjust any color scales accordingly.  If there are a few figures in the chapter that you'd really like to have in color, let me know and I can add them to the list.  For the electronic version of the book, everything will be in color.
