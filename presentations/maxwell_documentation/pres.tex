@@ -2,6 +2,8 @@
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{hyperref}
+\usepackage{pstricks}
+\usepackage{pst-grad}
 \input defs.tex
 \raggedright
 \special{! TeXDict begin /landplus90{true}store end }
@@ -10,7 +12,7 @@
 }
 
 \title{Maxwell: bringing cloud-powered electromagnetic simulations to Matlab}
-\author{}
+\author{Advanced user interface tutorial}
 \MyLogo{Jesse Lu, Jelena Vuckovic group, Stanford University}
 \date{}
 
@@ -19,16 +21,86 @@
 \maketitle
 
 \BIT \itemsep -1pt
-\item Quick-start
-\item How Maxwell uses the cloud (EC2)
-\item How Maxwell solves electromagnetics
-\item Examples
+\I  Quick-start
+\I  How Maxwell uses the cloud (EC2)
+\I  How Maxwell solves electromagnetics
+\I  Examples
 \EIT
 
 \vfill
 
+\oursection{Definitions}
+\BIT
+\I  What is Maxwell?
+    \BIT
+    \I  a Matlab toolset 
+    \I  that uses Amazon's Elastic Compute Cloud (EC2)
+    \I  to solve frequency-domain electromagnetic simulations.
+    \EIT
+\I  Maxwell provides two user interfaces: advanced and other
+    \BIT
+    \I  advanced:
+    \I  other:
+    \EIT
+\I  This presentation covers the advanced interface 
+\EIT
+
 \oursection{Quick-start}
+\BIT \I Sign up at \EIT
+\begin{verbatim}
+% Download maxwell.m
+>> urlwrite('m.lightlabs.co', 'maxwell.m');
+
+% Provide AWS credentials and launch a 2-node cluster.
+>> maxwell.aws_credentials('aws-access-id', 'aws-secret-key');
+>> maxwell.launch('cluster-name', 2); 
+
+% Run a 1-node simulation.
+>> [E, H] = maxwell.solve('cluster-name', 1, ...); 
+
+% Terminate cluster
+>> maxwell.terminate('cluster-name');
+\end{verbatim}
+
+{Wait, what just happened?}
+\BIT
+\I  \verb=urlwrite()= downloaded the advanced interface for Maxwell,
+\I  \verb=maxwell.aws_credentials()= provided the AWS credentials that
+\I  \verb=maxwell.launch()= needed to create a cluster on EC2.
+\I  \verb=maxwell.solve()= solved the electromagnetic simulation on
+    the cluster and downloaded the resulting electromagnetic fields, and
+\I  \verb=maxwell.terminate()= terminated the EC2 cluster.
+\EIT
+
 \oursection{How Maxwell uses the cloud (EC2)}
+
+\newpage
+\begin{center}
+
+\psset{unit=2cm}
+\begin{pspicture}(6,4)(-5,-2)
+\psset{gridcolor=green, subgridcolor=yellow}
+    % \let\psgrid\relax
+    \psgrid
+    \psframe[linestyle=none,
+            fillstyle=gradient,
+            gradbegin=white,gradend=lightgray,
+            gradmidpoint=0.5,
+            gradangle=0](0,-1.5)(6,3.5)
+    \psline[linestyle=dotted](0,3)(0,-1)
+    \rput(-2.5,3.5){Matlab}
+    \rput(3,3.5){Amazon EC2}
+
+    \psline(-1.5,2.5)(3,2.5)
+    \psline{->}(3,2.5)(3,2)
+
+
+\end{pspicture}
+\end{center}
+\BIT
+\I  Wait, what's going on here?
+\EIT
+
 \oursection{How Maxwell solves electromagnetics}
 \oursection{Examples}
 
