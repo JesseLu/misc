@@ -22,9 +22,9 @@
 
 \BIT \itemsep -1pt
 \I  Quick-start
+\I  Examples
 \I  How Maxwell uses the cloud (EC2)
 \I  How Maxwell solves electromagnetics
-\I  Examples
 \EIT
 
 \vfill
@@ -35,15 +35,27 @@
     \BIT
     \I  a Matlab toolset 
     \I  that uses Amazon's Elastic Compute Cloud (EC2)
-    \I  to solve frequency-domain electromagnetic simulations.
+    \I  to solve 3D frequency-domain electromagnetic simulations.
     \EIT
-\I  Maxwell provides two user interfaces: advanced and other
+
+\I  Features:
     \BIT
-    \I  advanced:
-    \I  other:
+    \I  Cryptographically-secure communication (https)
+    \I  Full control over all simulation parameters
+    \I  GPU-acceleration provided by Nvidia Tesla GPUs
+    \I  Queueing system to allow for full usage of cluster
+    \I  Scalable to hundreds of simultaneous simulations 
+        running on hundreds of nodes.
     \EIT
-\I  This presentation covers the advanced interface 
 \EIT
+
+\newpage
+Maxwell provides two user interfaces: advanced and other
+\BIT
+\I  advanced:
+\I  other:
+\EIT
+This presentation covers the advanced interface 
 
 \oursection{Quick-start}
 \BIT \I Sign up at \EIT
@@ -55,7 +67,7 @@
 >> maxwell.aws_credentials('aws-access-id', 'aws-secret-key');
 >> maxwell.launch('cluster-name', 2); 
 
-% Run a 1-node simulation.
+% Run simulation on 1 node.
 >> [E, H] = maxwell.solve('cluster-name', 1, ...); 
 
 % Terminate cluster
@@ -72,36 +84,241 @@
 \I  \verb=maxwell.terminate()= terminated the EC2 cluster.
 \EIT
 
+\oursection{Examples}
+
 \oursection{How Maxwell uses the cloud (EC2)}
+\BIT
+\I  Maxwell uses your Amazon Web Services (AWS) account to
+    \BIT
+    \I  Create a custom Amazon EC2 cluster, and
+    \I  Solve electromagnetic simulations on it;
+    \EIT
+    all without leaving your local Matlab environment.
+
+ 
+
+\I  To get started, you need to
+    \BIT
+    \I  sign up for an AWS account,
+    \I  retrieve your AWS security credentials, and
+    \I  purchase the custom Maxwell Amazon Machine Image (AMI).
+    \EIT
+    For detailed instructions see Website.
 
 \newpage
-\begin{center}
+\I  Maxwell's advanced interface comprises of just five commands:
+    \BIT
+    \I  \verb+maxwell.aws_credentials()+
+    \I  \verb+maxwell.launch()+
+    \I  \verb+maxwell.solve()+
+    \I  \verb+maxwell.solve_async()+
+    \I  \verb+maxwell.terminate()+
+    \EIT
 
+\I  \verb+maxwell.aws_credentials('aws-key-id', 'aws-secret-key');+
+    \BIT
+    \I  Stores the security credentials linked to your AWS account locally
+    \I  Security credentials are used to launch and terminate clusters
+    \I  Transmitted over https and never stored on server-side
+    \I  Tutorial on obtaining your credentials at Website.
+    \EIT
+\EIT
+
+\newpage
+% Launch diagram.
+\begin{center}
 \psset{unit=2cm}
-\begin{pspicture}(6,4)(-5,-2)
+\begin{pspicture}(6,4)(-5,-1.0)
 \psset{gridcolor=green, subgridcolor=yellow}
-    % \let\psgrid\relax
-    \psgrid
+    \let\psgrid\relax
+    % \psgrid
     \psframe[linestyle=none,
             fillstyle=gradient,
             gradbegin=white,gradend=lightgray,
             gradmidpoint=0.5,
-            gradangle=0](0,-1.5)(6,3.5)
-    \psline[linestyle=dotted](0,3)(0,-1)
+            gradangle=0](0,-1.0)(6,3.8)
+    \psline[linestyle=dotted](0,3)(0,-0.2)
     \rput(-2.5,3.5){Matlab}
     \rput(3,3.5){Amazon EC2}
 
-    \psline(-1.5,2.5)(3,2.5)
-    \psline{->}(3,2.5)(3,2)
+    \psverbboxtrue
+    \rput(-2.5,2.5){\small \verb=>> maxwell.launch(...)=}
+    \psverbboxfalse
 
+    
+    \psline[linewidth=1pt](-0.6,2.5)(3,2.5) \rput[b](1.45, 2.6){\small{launch 3-node cluster}}
+    \psline{->, linewidth=1pt}(3,2.5)(3,2)
+
+    \psframe[linestyle=dashed](2.2,1.8)(3.8,0.8) \rput(3,1.3){master}
+
+    \psframe[linestyle=dashed](0.4,0.6)(2,-0.4) \rput(1.2,0.1){node001}
+    \psframe[linestyle=dashed](2.2,0.6)(3.8,-0.4) \rput(3,0.1){node002}
+    \psframe[linestyle=dashed](4.0,0.6)(5.6,-0.4) \rput(4.8,0.1){node003}
+\end{pspicture}
+\end{center}
+
+\BIT
+\I  \verb+maxwell.launch('cluster-name', num_nodes);+
+    \BIT
+    \I  Creates an EC2 cluster consisting of 1 master node and \verb+num_nodes+ worker nodes
+    \I  \verb+'cluster-name'+ parameter allows for using multiple clusters at once.
+    \I  The launch can be monitored manually from the EC2 Management Console at \url{console.aws.amazon.com/ec2}
+    \EIT
+\I  The master node is launched 
+    \BIT
+    \I  with the paid Maxwell Amazon Machine Image (AMI),
+    \I  as an on-demand instance, and 
+    \I  as an \texttt{m1.medium} instance.
+    \EIT
+\I  The worker nodes are launched
+    \BIT
+    \I  using a public (free) AMI,
+    \I  as spot request instances (in order to achieve up to 80\% savings), and
+    \I  as \texttt{cg1.4xlarge} instances.
+    \EIT
+\EIT
+Note that the use of spot requests for worker nodes may result in sudden cluster termination, 
+in this case the cluster will need to be terminated and a new cluster should be started.
+
+
+\newpage
+% Solve diagram.
+\begin{center}
+\psset{unit=2cm}
+\begin{pspicture}(6,4)(-5,-1.0)
+\psset{gridcolor=green, subgridcolor=yellow}
+    \let\psgrid\relax
+    % \psgrid
+    \psframe[linestyle=none,
+            fillstyle=gradient,
+            gradbegin=white,gradend=lightgray,
+            gradmidpoint=0.5,
+            gradangle=0](0,-1.0)(6,3.8)
+    \psline[linestyle=dotted](0,3)(0,-0.2)
+    \rput(-2.5,3.5){Matlab}
+    \rput(3,3.5){Amazon EC2}
+
+    \psverbboxtrue
+    \rput(-2.5,2.5){\small \verb+>> [E, H] = maxwell.solve(...)+}
+    \psverbboxfalse
+
+    
+    \psline{->, linewidth=1pt}(-0.1,2.5)(2.4,2.5) \rput[b](1.15,2.55){\small inputs}
+    \psline[linewidth=1.0pt](2.4,2.1)(-3.9,2.1) \rput [t](0.6,2.0){\small solution}
+    \psline{->, linewidth=1pt}(-3.9,2.1)(-3.9,2.3)
+    \psframe[linestyle=solid](2.2,2.8)(3.8,1.8) \rput(3,2.3){master}
+
+    \psline[linestyle=dashed](3,1.8)(3,1)
+    \psline[linestyle=dashed](3,1.2)(1.6,1.2)
+    \psline[linestyle=dashed](1.6,1.2)(1.6,1)
+    \rput[br](2.9,1.3){\small 2 nodes used}
+    \psframe[linestyle=solid](0.4,1.0)(2,0.0) \rput(1.2,0.5){node001}
+    \psframe[linestyle=solid](2.2,1.0)(3.8,0.0) \rput(3,0.5){node002}
+    \psframe[linestyle=solid](4.0,1.0)(5.6,0.0) \rput(4.8,0.5){node003}
 
 \end{pspicture}
 \end{center}
+\BIT 
+\I  \verb+[E, H] = maxwell.solve('cluster-name', n, ...);+
+    \BIT
+    \I  Solves an electromagnetic simulation on \verb+n+ nodes of cluster \verb+'cluster-name'+
+    \I  Additional simulation parameters ``\verb+...+'' described in following section
+    \I  Returns as solution both electric and magnetic fields
+    \I  For full documentation of this function see Website
+    \EIT
+
+\I  \verb+maxwell.solve()+ proceeds as follows:
+    \BIT
+    \I  Transfers simulation parameters to the specified cluster
+    \I  Waits for worker nodes to be provisioned for the simulation
+    \I  Continues to wait as simulation is executed on worker nodes
+    \I  Retrieves simulation results back to Matlab
+    \EIT
+
+\I  Although attempting to use more nodes than available in the cluster will
+    result in an error, the provided queueing system does allow for the 
+    \emph{total} number of requested nodes to exceed the number of nodes in the cluster.
+\EIT
+
+
+
+\newpage
+% Solve_async diagram.
+\begin{center}
+\psset{unit=2cm}
+\begin{pspicture}(6,4)(-5,-1.0)
+\psset{gridcolor=green, subgridcolor=yellow}
+    \let\psgrid\relax
+    % \psgrid
+    \psframe[linestyle=none,
+            fillstyle=gradient,
+            gradbegin=white,gradend=lightgray,
+            gradmidpoint=0.5,
+            gradangle=0](0,-1.0)(6,3.8)
+    \psline[linestyle=dotted](0,3)(0,-0.2)
+    \rput(-2.5,3.5){Matlab}
+    \rput(3,3.5){Amazon EC2}
+
+    \psverbboxtrue
+    \rput[l](-5.2,2.5){\small \verb+>> cb = maxwell.solve_async(...)+}
+    \rput[l](-5.2,1.5){\small \verb+>> [done, E, H] = cb()+}
+    \psverbboxfalse
+
+    
+    \psline{->, linewidth=1.0pt}(-0.1,2.5)(2.4,2.5) \rput[b](1.15,2.55){\small inputs}
+    \psline[linewidth=1.0pt](2.4,2.1)(-3.5,2.1) \rput [t](0.6,2.0){\small solution}
+    \psline{->, linewidth=1.0pt}(-3.5,2.1)(-3.5,1.8)
+    \psframe[linestyle=solid](2.2,2.8)(3.8,1.8) \rput(3,2.3){master}
+
+    \psline[linestyle=dashed](3,1.8)(3,1)
+    \psline[linestyle=dashed](3,1.2)(1.6,1.2)
+    \psline[linestyle=dashed](1.6,1.2)(1.6,1)
+    \rput[br](2.9,1.3){\small 2 nodes used}
+    \psframe[linestyle=solid](0.4,1.0)(2,0.0) \rput(1.2,0.5){node001}
+    \psframe[linestyle=solid](2.2,1.0)(3.8,0.0) \rput(3,0.5){node002}
+    \psframe[linestyle=solid](4.0,1.0)(5.6,0.0) \rput(4.8,0.5){node003}
+
+\end{pspicture}
+\end{center}
+
+\BIT 
+\I  \verb+callback = maxwell.solve_async('cluster-name', n, ...);+
+    \BIT
+    \I  Asynchronous solve that returns a callback function instead of waiting
+        for the simulation to complete 
+    \I  The callback function is then used to check for solve completion and 
+        to retrieve the simulation results:
+        \begin{verbatim}
+        [is_finished, E, H] = callback();
+        \end{verbatim}
+    \I  If the solve has not finished, \verb+is_finished+ returns \verb+false+ and 
+        \verb+E+ and \verb+H+ both return empty cell arrays.
+    \I  The additional simulation parameters ``\verb+...+'' are identical to those 
+        used in \verb+maxwell.solve()+ and are detailed in the following section
+    \EIT
+\I  \verb+maxwell.solve_async()+ allows even single-threaded Matlab users to simultaneously execute
+    a virtually unlimited number of simulations.
+    \BIT
+    \I  \verb+maxwell.solve_async()+ proceeds by uploading the simulation to the cluster
+        and then immediately returns the function \verb+callback+.
+    \EIT
+\EIT
+
+\newpage
 \BIT
-\I  Wait, what's going on here?
+\I  \verb+maxwell.terminate('cluster-name');+
+    \BIT
+    \I  Terminates the cluster \verb+'cluster-name'+
+    \I  Note that AWS instances are charged by the hour and that partial hours
+        are charged the full hour.
+    \EIT
 \EIT
 
 \oursection{How Maxwell solves electromagnetics}
-\oursection{Examples}
+\BIT
+\I  In this section we detail the simulation parameters used by the 
+    \verb+maxwell.solve()+ and \verb+maxwell.solve_async()+ functions
+\EIT
+
 
 \end{document}
