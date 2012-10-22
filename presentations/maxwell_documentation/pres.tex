@@ -318,6 +318,27 @@ in this case the cluster will need to be terminated and a new cluster should be 
 \BIT
 \I  In this section we detail the simulation parameters used by the 
     \verb+maxwell.solve()+ and \verb+maxwell.solve_async()+ functions
+\I  Along with the \verb+'cluster-name'+ and \verb+n+ parameters, both
+    functions support the following parameters which describe the physical simulation:
+    \BIT
+    \I  \verb+omega+
+    \I  \verb+d_prim, d_dual, s_prim, s_dual+
+    \I  \verb+mu, epsilon+
+    \I  \verb+E, J+
+    \I  \verb+max_iters, err_thresh+
+    \EIT
+    and can be understood from the master equation:
+    \BEQ
+    \nabla \times \mu^{-1} \nabla \times E - \omega^2 \epsilon E = -i \omega J
+    \EEQ
+
+\newpage
+\I  Frequency parameter: \verb+omega+
+\I  Spatial grid parameters: \verb+d_prim, d_dual, s_prim, s_dual+
+\I  Material parameters: \verb+mu, epsilon+
+\I  Field parameters: \verb+E, J+
+\I  Convergence parameters: \verb+max_iters, err_thresh+
+%  [E, H, err] = fds(omega, d_prim, d_dual, s_prim, s_dual, mu, epsilon, E, J, max_iters, err_thresh, view_progress)
 \EIT
 
 
