@@ -1,0 +1,100 @@
+\documentclass[landscape]{foils}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[pdf]{pstricks}
+\usepackage[off]{auto-pst-pdf}
+\input defs.tex
+\raggedright
+\special{! TeXDict begin /landplus90{true}store end }
+\renewcommand{\oursection}[1]{
+\foilhead[-1.0cm]{#1}
+}
+
+% Custom figures.
+\newcommand{\myfig}[1]{\begin{figure}[!h]\includegraphics[width=\textwidth]{fig/#1.jpg}\end{figure}}
+
+\newcommand{\BE}{\begin{equation}}
+\newcommand{\EE}{\end{equation}}
+\newcommand{\BA}{\begin{eqnarray}}
+\newcommand{\EA}{\end{eqnarray}}
+\newcommand{\curl}{\nabla\times}
+\newcommand{\minimize}[1]{\JLUminimize_{#1}\;&}
+\newcommand{\subto}{\text{subject to}\;&}
+
+\title{Jesse Lu, group presentation, 2012-06-07}
+\author{}
+\MyLogo{}
+\date{}
+
+\begin{document}
+\setlength{\parskip}{0cm}
+\maketitle
+
+% \BIT \itemsep -1pt
+% \EIT
+
+\vfill
+
+\oursection{Ob-1 says...}
+\BA \minimize{x,p} \| A(p) x - b(p) \|^2 \notag \\
+    \subto f(x) = f_\text{ideal} \notag \\
+        & p_0 \le p \le p_1. \notag \EA
+\BIT
+\I  $x \to H$
+\I  $p \to \epsilon^{-1}$
+\I  $A(p) x - b(p) \to \curl \epsilon^{-1} \curl H - \mu \omega^2 H$
+\I  In general, $A(p) x - b(p) \ne 0$, the \emph{physics residual}
+\I  $f(x)$ is the \emph{design objective}, always met.
+\EIT
+\myfig{intro}
+\myfig{1}
+\myfig{2}
+\myfig{3}
+\myfig{4}
+\myfig{5}
+
+\oursection{Ob-1, metamaterials also do, you must.}
+\BIT 
+\I  Try two classes: cloaks and mimics.
+\I  Only modification: periodic boundary conditions on top and bottom.
+\I  Allows for plane waves, and
+\I  consequently only need $f_\text{ideal}$ at left and right (not top and bottom).
+\EIT
+\vfill
+\newpage
+
+\myfig{c1}
+\myfig{c6}
+\myfig{c2}
+\myfig{c4}
+\myfig{c7}
+\myfig{c5}
+\myfig{m1}
+\myfig{m3}
+\myfig{m4}
+\myfig{m5}
+\myfig{m2}
+\myfig{m6}
+
+\oursection{One more thing...}
+\myfig{L3med}
+\myfig{wg1}
+\myfig{wg2}
+\myfig{wg3}
+\myfig{disk1}
+\myfig{disk2}
+\myfig{disk3}
+\myfig{disk4}
+\myfig{disk5}
+\myfig{disk6}
+\myfig{disk7}
+\myfig{med1}
+\myfig{med2}
+\myfig{med3}
+\myfig{med4}
+\myfig{med5}
+\myfig{hi1}
+\myfig{hi2}
+\myfig{hi3}
+
+\end{document}
