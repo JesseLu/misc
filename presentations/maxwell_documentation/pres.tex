@@ -12,7 +12,7 @@
 }
 
 \title{Maxwell: bringing cloud-powered electromagnetic simulations to Matlab}
-\author{Advanced user interface tutorial}
+\author{Advanced interface tutorial}
 \MyLogo{Jesse Lu, Jelena Vuckovic group, Stanford University}
 \date{}
 
@@ -21,8 +21,8 @@
 \maketitle
 
 \BIT \itemsep -1pt
-\I  Quick-start
-\I  Examples
+\I  Advanced interface quick-start
+\I  Examples: Maxwell in action
 \I  How Maxwell uses the cloud (EC2)
 \I  How Maxwell solves electromagnetics
 \EIT
@@ -50,14 +50,14 @@
 \EIT
 
 \newpage
-Maxwell provides two user interfaces: advanced and other
+Maxwell provides two user interfaces: Advanced and other
 \BIT
 \I  advanced:
 \I  other:
 \EIT
 This presentation covers the advanced interface 
 
-\oursection{Quick-start}
+\oursection{Advanced interface quick-start}
 \BIT \I Sign up at \EIT
 \begin{verbatim}
 % Download maxwell.m
@@ -84,7 +84,7 @@ This presentation covers the advanced interface
 \I  \verb=maxwell.terminate()= terminated the EC2 cluster.
 \EIT
 
-\oursection{Examples}
+\oursection{Examples: Maxwell in action}
 
 \oursection{How Maxwell uses the cloud (EC2)}
 \BIT
@@ -114,6 +114,7 @@ This presentation covers the advanced interface
     \I  \verb+maxwell.solve_async()+
     \I  \verb+maxwell.terminate()+
     \EIT
+    for full documentation use ``\verb+doc maxwell.command+'' in Matlab.
 
 \I  \verb+maxwell.aws_credentials('aws-key-id', 'aws-secret-key');+
     \BIT
@@ -179,6 +180,15 @@ This presentation covers the advanced interface
 \EIT
 Note that the use of spot requests for worker nodes may result in sudden cluster termination, 
 in this case the cluster will need to be terminated and a new cluster should be started.
+\BIT
+\I  Naturally, a cluster can only run simulations on the nodes that it contains
+    (i.e. you can't run a 5-node simulation on a 4-node cluster)
+\I  However, each cluster contains a built-in queueing system that allows for 
+    multiple jobs to be handled simultaneously (i.e. 10 2-node simulations on a 4-node cluster is okay)
+\I  Lastly, Amazon, by default, caps the number of worker nodes allows at 10;
+    to request more, go to \url{aws.amazon.com/contact-us/ec2-request/}
+    and request the limit of \verb+cg1.4xlarge+ spot requests to be increased for your account.
+\EIT
 
 
 \newpage
@@ -235,9 +245,16 @@ in this case the cluster will need to be terminated and a new cluster should be 
     \I  Retrieves simulation results back to Matlab
     \EIT
 
-\I  Although attempting to use more nodes than available in the cluster will
-    result in an error, the provided queueing system does allow for the 
-    \emph{total} number of requested nodes to exceed the number of nodes in the cluster.
+\I  \verb+maxwell.solve()+ features
+    \BIT
+    \I  complete integration within Matlab
+    \I  no need to deal with simulations files
+    \I  real-time plot of simulation progress
+    \EIT
+% 
+% \I  Although attempting to use more nodes than available in the cluster will
+%     result in an error, the provided queueing system does allow for the 
+%     \emph{total} number of requested nodes to exceed the number of nodes in the cluster.
 \EIT
 
 
@@ -291,17 +308,31 @@ in this case the cluster will need to be terminated and a new cluster should be 
         \begin{verbatim}
         [is_finished, E, H] = callback();
         \end{verbatim}
-    \I  If the solve has not finished, \verb+is_finished+ returns \verb+false+ and 
-        \verb+E+ and \verb+H+ both return empty cell arrays.
+    \I  If the solve has not finished, \verb+is_finished+ is set to \verb+false+ and 
+        \verb+E+ and \verb+H+ both return empty cell arrays
+    \I  If the solve has indeed finished, \verb+is_finished+ is set to \verb+true+
+        and \verb+E+ and \verb+H+ contain the solution fields to the problem
     \I  The additional simulation parameters ``\verb+...+'' are identical to those 
         used in \verb+maxwell.solve()+ and are detailed in the following section
     \EIT
-\I  \verb+maxwell.solve_async()+ allows even single-threaded Matlab users to simultaneously execute
-    a virtually unlimited number of simulations.
-    \BIT
-    \I  \verb+maxwell.solve_async()+ proceeds by uploading the simulation to the cluster
-        and then immediately returns the function \verb+callback+.
-    \EIT
+\newpage
+\I  The purpose of \verb+maxwell.solve_async()+ is to allow even single-threaded Matlab users 
+    to simultaneously execute a virtually unlimited number of simulations.
+        \begin{verbatim}
+        % Start n simulations.
+        cb{1} = maxwell.solve_async(...);
+        ...
+        cb{n} = maxwell.solve_async(...);
+
+        % Wait for the simulations to complete.
+        [is_finished, E, H] = cb{1}();
+        ...
+        CHECK THIS!!
+        \end{verbatim}
+%     \BIT
+%     \I  \verb+maxwell.solve_async()+ proceeds by uploading the simulation to the cluster
+%         and then immediately returns the function \verb+callback+.
+%     \EIT
 \EIT
 
 \newpage
@@ -312,6 +343,11 @@ in this case the cluster will need to be terminated and a new cluster should be 
     \I  Note that AWS instances are charged by the hour and that partial hours
         are charged the full hour.
     \EIT
+\I  Terminations (and launches) can be monitored manually from the EC2 management
+    console at \url{console.aws.amazon.com/ec2}
+\I  Terminations can also be executed manually from the console, 
+    although it is recommended to perform the full termination from Matlab
+    in order to tie up all loose ends.
 \EIT
 
 \oursection{How Maxwell solves electromagnetics}
@@ -334,10 +370,90 @@ in this case the cluster will need to be terminated and a new cluster should be 
 
 \newpage
 \I  Frequency parameter: \verb+omega+
+    \BIT
+    \I  The angular frequency of the simulation
+    \I  Since Maxwell employs a frequency-domain solver, the exact frequency for the simulation
+        can be set with this parameter
+    \I  is equal to $2 \pi f$ where $f$ is in units of Hz
+    \EIT
+    \newpage
+
+\begin{center}
+The Yee cell \\
+\psset{unit=1.3cm}
+\begin{pspicture}(-2,-2)(7,7)
+\psset{gridcolor=green, subgridcolor=yellow}
+    \let\psgrid\relax
+    
+    % Origin.
+    \psdot(0,0) \rput[br](-0.1,0.1){$(0,0,0)$}
+
+    % Principle axes.
+    \psline[linestyle=dashed](-1,0)(6,0) \rput(6.3,0){$x$}
+    \psline[linestyle=dashed](0,-1)(0,6) \rput(0,6.3){$z$}
+    \psline[linestyle=dashed](-0.8,-0.6)(4.8,3.6) \rput(5.05,3.75){$y$}
+
+    % Intermediate axes.
+    \psline[linestyle=dashed](0,3)(3,3) % Hy point.
+    \psline[linestyle=dashed](3,3)(3,0)
+
+    \psline[linestyle=dashed](0,3)(2.4,4.8) % Hx point.
+    \psline[linestyle=dashed](2.4,4.8)(2.4,1.8)
+
+    \psline[linestyle=dashed](2.4,1.8)(5.4,1.8) % Hz point.
+    \psline[linestyle=dashed](5.4,1.8)(3,0)
+
+    % E-field vectors.
+    \psline{->, linewidth=2pt}(2.6,0)(3.4,0) \rput(3,-0.4){$E_x$}
+    \psline{->, linewidth=2pt}(0,2.6)(0,3.4) \rput(-0.4,3){$E_z$}
+    \psline{->, linewidth=2pt}(2.1,1.55)(2.7,2.05) \rput(2.05,2.05){$E_y$}
+
+    % H-field vectors.
+    \psline{->, linewidth=2pt}(2,4.8)(2.8,4.8) \rput(2.4,5.2){$H_x$}
+    \psline{->, linewidth=2pt}(5.4,1.4)(5.4,2.2) \rput(5.8,1.8){$H_z$}
+    \psline{->, linewidth=2pt}(2.7,2.75)(3.3,3.25) \rput(2.7,3.3){$H_y$}
+\end{pspicture}
+\end{center}
+
+\newpage
 \I  Spatial grid parameters: \verb+d_prim, d_dual, s_prim, s_dual+
+    \BIT 
+    \I  Controls the spatial grid of the simulation
+    \I  \verb+d_prim+ and \verb+d_dual+ are typically used to set 
+        the spatial grid within the simulation
+    \I  \verb+s_prim+ and \verb+s_dual+ are typically used to set 
+        the spatial grid within the absorbing layers at the edges of the simulation.
+    \I  In the end, both \verb+d+ and \verb+s+ parameters are essentially interchangeable
+    \I  \verb+d_prim+ and \verb+s_prim+ refer to the distances between $E_w$ in direction $w$ 
+        where $w = x,y,z$ (e.g. distances between $E_x$ in the $x$ direction)
+    \I  \verb+d_dual+ and \verb+s_dual+ refer to the distances in directions other than $w$ of 
+        adjacent $E_w$ (e.g. distances between $E_y$ in the $x$ direction)
+    \I  Lastly, Maxwell uses a periodic wrap-around grid, so that the first \verb+_prim+
+        and last \verb+_dual+ entries correspond to the the wrap-around distances from 
+        the last to the first Yee cells
+    \EIT
+
+\newpage
 \I  Material parameters: \verb+mu, epsilon+
+    \BIT
+    \I  defined at $H$- and $E$- field points on the Yee grid respectively
+    \EIT
+
 \I  Field parameters: \verb+E, J+
+    \BIT
+    \I  \verb+E+ allows you to set the initial value of the E-field for the solver.
+    \I  \verb+E = 0+ works for most cases, but a random initial field is needed
+        in other cases.
+    \I  \verb+J+ describes the current source in the master equation and is situated
+        at the $E$-field point on the Yee grid.
+    \EIT
+
 \I  Convergence parameters: \verb+max_iters, err_thresh+
+    \BIT
+    \I  \verb+max_iters+ determines the maximum number of iterations before the solver terminates
+    \I  \verb+err_thresh+ determines the error threshold below with the solver termiantes,
+        typically set to \verb+1e-6+.
+    \EIT
 %  [E, H, err] = fds(omega, d_prim, d_dual, s_prim, s_dual, mu, epsilon, E, J, max_iters, err_thresh, view_progress)
 \EIT
 
