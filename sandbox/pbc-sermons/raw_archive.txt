@@ -1,0 +1,1816 @@
+This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+<Name>pbc-sermons</Name>
+<Prefix/>
+<Marker/>
+<MaxKeys>1000</MaxKeys>
+<IsTruncated>false</IsTruncated>
+<Contents>
+<Key>2006-12-10 Final.mp3</Key>
+<LastModified>2012-11-10T18:10:58.000Z</LastModified>
+<ETag>"614c11cd6afb4c5f28214f073235e6b0"</ETag>
+<Size>47154040</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2006-12-10 Sermon.mp3</Key>
+<LastModified>2012-11-10T18:15:29.000Z</LastModified>
+<ETag>"cd7cd570b3a5ae5b0aa658da82498479"</ETag>
+<Size>56688231</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2006-12-17 12h40m24s.mp3</Key>
+<LastModified>2012-11-10T18:21:01.000Z</LastModified>
+<ETag>"99bacde8b8a6039e18897775edbfeba7"</ETag>
+<Size>45036</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2006-12-17 Final.mp3</Key>
+<LastModified>2012-11-10T18:21:01.000Z</LastModified>
+<ETag>"dd765a735ab207ff9d14c34c7a4ea7c0"</ETag>
+<Size>48521184</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2006-12-17 Sermon.mp3</Key>
+<LastModified>2012-11-10T18:25:41.000Z</LastModified>
+<ETag>"87c253ce7f3897dff58e3118fc9594ec"</ETag>
+<Size>48639351</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2006-12-24 Sermon.mp3</Key>
+<LastModified>2012-11-10T18:30:21.000Z</LastModified>
+<ETag>"209dd2a4c5a207331eb38363dfa1d71a"</ETag>
+<Size>42113247</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2006-12-31What a differene a Day Makes.mp3</Key>
+<LastModified>2012-11-10T18:06:18.000Z</LastModified>
+<ETag>"196b08669fab4ff6a6062c2b83618bd2"</ETag>
+<Size>47507559</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-01-07 Whose Acts-Acts 1-1-3.mp3</Key>
+<LastModified>2012-11-10T18:34:25.000Z</LastModified>
+<ETag>"02dbedab5404f1ffd7adb3bcfee9cecb"</ETag>
+<Size>42172098</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-01-14 Why Wait.mp3</Key>
+<LastModified>2012-11-10T18:38:29.000Z</LastModified>
+<ETag>"14ecf8dca6120a32f76b6b2108b1b040"</ETag>
+<Size>41684154</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-01-21 One Good Question, Two Good Answers.mp3</Key>
+<LastModified>2012-11-10T18:42:30.000Z</LastModified>
+<ETag>"4ad93f897ed2a46612e69d9b01b80187"</ETag>
+<Size>44156130</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-01-22 Teaching Theology Pt 1.mp3</Key>
+<LastModified>2012-11-10T18:46:44.000Z</LastModified>
+<ETag>"bffa1f262094344497d8330bef043206"</ETag>
+<Size>54305076</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-01-22 Teaching Theology Pt 2.mp3</Key>
+<LastModified>2012-11-10T18:51:58.000Z</LastModified>
+<ETag>"b40fad70f8fc99c673d62a0c9b544a2f"</ETag>
+<Size>49683882</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-01-28 The Necessity of Urgent Prayer.mp3</Key>
+<LastModified>2012-11-10T18:56:45.000Z</LastModified>
+<ETag>"0df44439e3c612cdac6144384ef40110"</ETag>
+<Size>34204479</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-02-11 Syncretism, Alive and Well.mp3</Key>
+<LastModified>2012-11-10T19:00:01.000Z</LastModified>
+<ETag>"f63971c857faec0ee8088b24f2cf5132"</ETag>
+<Size>50542122</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-02-18 When We Don't Know What Else To Do.mp3</Key>
+<LastModified>2012-11-10T19:04:51.000Z</LastModified>
+<ETag>"6c0ea51c28a685f958827d16b136c1fa"</ETag>
+<Size>43296330</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-02-25 It Is Necessary.mp3</Key>
+<LastModified>2012-11-10T19:09:00.000Z</LastModified>
+<ETag>"771be827b4f5827f32c6981fb7162c08"</ETag>
+<Size>46002660</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-03-04 Friend, I Have Lost A Day.mp3</Key>
+<LastModified>2012-11-10T19:13:27.000Z</LastModified>
+<ETag>"fcbd5890ce6972fe063031fdee92836b"</ETag>
+<Size>41690463</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-03-11 Acts 2 1-13.mp3</Key>
+<LastModified>2012-11-10T19:17:30.000Z</LastModified>
+<ETag>"83c67ca76f253c54e8a662a2dca42aff"</ETag>
+<Size>46907967</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-03-18 One Multitude, Two Responses.mp3</Key>
+<LastModified>2012-11-10T19:22:12.000Z</LastModified>
+<ETag>"c198eb5414ab1fb089992cfb6c2030b2"</ETag>
+<Size>44592783</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-03-25 The First Christain Sermon.mp3</Key>
+<LastModified>2012-11-10T19:26:28.000Z</LastModified>
+<ETag>"e55e343a313aa5ac4b12b66682983025"</ETag>
+<Size>54282612</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-04-08 God Trumps Man.mp3</Key>
+<LastModified>2012-11-10T19:31:41.000Z</LastModified>
+<ETag>"348d86650d1701e2d4dfc897cdde3681"</ETag>
+<Size>43305087</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-04-15 guest preacher.mp3</Key>
+<LastModified>2012-11-10T19:35:52.000Z</LastModified>
+<ETag>"4dced38218d340e0e3cb5f65d9e76541"</ETag>
+<Size>33626100</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-04-22 Some Basics.mp3</Key>
+<LastModified>2012-11-10T19:39:12.000Z</LastModified>
+<ETag>"f6f62fe8b26d13b3031697088647cfc8"</ETag>
+<Size>45317946</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-04-29 The Just Shall Live.mp3</Key>
+<LastModified>2012-11-10T19:43:35.000Z</LastModified>
+<ETag>"b3c66536c8241c68f30db53bd9419d4f"</ETag>
+<Size>40734282</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-04-29 The Welcomed Word.mp3</Key>
+<LastModified>2012-11-10T19:47:29.000Z</LastModified>
+<ETag>"452802caafd8e217ac3add7d57b2f145"</ETag>
+<Size>43560708</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-05-06We Also Have It.mp3</Key>
+<LastModified>2012-11-10T19:51:40.000Z</LastModified>
+<ETag>"fb4c05f6ab9e7d22367e40b2c06e5783"</ETag>
+<Size>46380879</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-05-13 Our Standard and Responsibility.mp3</Key>
+<LastModified>2012-11-10T19:56:06.000Z</LastModified>
+<ETag>"ee9b6dc2788bfa3e60ba558c77e1c639"</ETag>
+<Size>38263140</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-05-20 Doubting Faith.mp3</Key>
+<LastModified>2012-11-10T19:59:48.000Z</LastModified>
+<ETag>"8b53954e1e0f63e3e65b8dbad92b443f"</ETag>
+<Size>55147887</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-05-27 The Assurance of Salvation.mp3</Key>
+<LastModified>2012-11-10T20:05:07.000Z</LastModified>
+<ETag>"7a8d4d3b8dc06a45f1acece51ea98ead"</ETag>
+<Size>46154031</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-06-03 Encouragement.mp3</Key>
+<LastModified>2012-11-10T20:09:34.000Z</LastModified>
+<ETag>"baee4a8244db247855c85a8779206ca0"</ETag>
+<Size>37280271</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-06-10 The Fear of God.mp3</Key>
+<LastModified>2012-11-10T20:13:09.000Z</LastModified>
+<ETag>"f4570514f9fcaf3033e0fe7220d195fa"</ETag>
+<Size>42671247</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-06-17 Access Denied, Access Granted.mp3</Key>
+<LastModified>2012-11-10T20:17:16.000Z</LastModified>
+<ETag>"73c14aa507a11a8cd66b6145895569ff"</ETag>
+<Size>53477802</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-06-24 He Came To Bless.mp3</Key>
+<LastModified>2012-11-10T20:22:23.000Z</LastModified>
+<ETag>"5e89017416d28595ba3182b230553f3d"</ETag>
+<Size>47423796</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-07-01 Wisdom Ignored, Wisdom Found.mp3</Key>
+<LastModified>2012-11-10T20:26:56.000Z</LastModified>
+<ETag>"d08b93bf308f2a7e7e6d46d1be54ad53"</ETag>
+<Size>46594383</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-07-08 Courtesy, Courage, Conviction.mp3</Key>
+<LastModified>2012-11-10T20:31:25.000Z</LastModified>
+<ETag>"c56325e14dc233b50c6ce5cad15d1c10"</ETag>
+<Size>48209007</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>
+2007-07-15 Effective Witness Leads to Persecution.mp3
+</Key>
+<LastModified>2012-11-10T20:36:01.000Z</LastModified>
+<ETag>"0a334eae46b26d3798a7a75949c9c3fd"</ETag>
+<Size>50183919</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-07-22 Our Sovereign God.mp3</Key>
+<LastModified>2012-11-10T20:40:49.000Z</LastModified>
+<ETag>"a4f65211dfab8e2139e87a2c5e0f804d"</ETag>
+<Size>49894938</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>
+2007-08-05 A Church's Generosity, A Couple's Sin.mp3
+</Key>
+<LastModified>2012-11-10T20:45:37.000Z</LastModified>
+<ETag>"461679ede6312e400911cc037c3b39aa"</ETag>
+<Size>45322116</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-08-12 Sermon.mp3</Key>
+<LastModified>2012-11-10T20:49:58.000Z</LastModified>
+<ETag>"c1da75b850d8fccf2baf2476dfb70c73"</ETag>
+<Size>52890666</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-08-19 Barnabas, A Man To Emulate.mp3</Key>
+<LastModified>2012-11-10T20:55:02.000Z</LastModified>
+<ETag>"5a5efe4e76d7cd17522245f8396d78b5"</ETag>
+<Size>38042964</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-08-26 Acts5 12-16.mp3</Key>
+<LastModified>2012-11-10T20:58:41.000Z</LastModified>
+<ETag>"c8489836e1ca629baccea306dcdc14a6"</ETag>
+<Size>45731610</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-09-02 Psalm 147.mp3</Key>
+<LastModified>2012-11-10T21:03:06.000Z</LastModified>
+<ETag>"af531069c7ecc139d07f34f9e307c779"</ETag>
+<Size>53417754</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-09-09 Snares and Traps.mp3</Key>
+<LastModified>2012-11-10T21:08:15.000Z</LastModified>
+<ETag>"c3562bf229356ea29a98458a4511be06"</ETag>
+<Size>52116714</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-09-16 Injustice Overcome.mp3</Key>
+<LastModified>2012-11-10T21:13:16.000Z</LastModified>
+<ETag>"51b13d5378fd6c9a3439fb856622cdc2"</ETag>
+<Size>55468143</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-09-23 Romans 8_1.mp3</Key>
+<LastModified>2012-11-10T21:18:37.000Z</LastModified>
+<ETag>"e692afc5c6e316805863e49ef70e2493"</ETag>
+<Size>64215135</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-09-30 True and Lasting Gain.mp3</Key>
+<LastModified>2012-11-10T21:24:47.000Z</LastModified>
+<ETag>"703252b44cdc61578ab49a5abb32bb1b"</ETag>
+<Size>51998703</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-10-07 That We Might Not Settle.mp3</Key>
+<LastModified>2012-11-10T21:29:45.000Z</LastModified>
+<ETag>"2716a4a80a46cde41ebb2b23f7fc63c5"</ETag>
+<Size>50068410</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-10-14 Heaven On Earth.mp3</Key>
+<LastModified>2012-11-10T21:34:33.000Z</LastModified>
+<ETag>"2ca807e1bc1809979c8cf4a7f6e767b4"</ETag>
+<Size>48562623</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-10-21 The Christian Race.mp3</Key>
+<LastModified>2012-11-10T21:39:14.000Z</LastModified>
+<ETag>"77d60041eee6c16e18946d447e60a96e"</ETag>
+<Size>39775599</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-10-28 Growth Brings a Problem.mp3</Key>
+<LastModified>2012-11-10T21:43:04.000Z</LastModified>
+<ETag>"155ebf86e3d9fcadfd8266b9f7d48147"</ETag>
+<Size>41670447</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-11-04 What is Prayer.mp3</Key>
+<LastModified>2012-11-10T21:47:05.000Z</LastModified>
+<ETag>"50f85dde3db924e0f961ffdb4044554b"</ETag>
+<Size>40778484</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-11-11 Who Is Being Accused.mp3</Key>
+<LastModified>2012-11-10T21:51:00.000Z</LastModified>
+<ETag>"230a9f436550f46b9b63f290324ddd5e"</ETag>
+<Size>49318644</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-11-18 A Descendant Or A Child.mp3</Key>
+<LastModified>2012-11-10T21:55:43.000Z</LastModified>
+<ETag>"504103014d5863da3150547f39874023"</ETag>
+<Size>48151044</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-11-25 Sermon.mp3</Key>
+<LastModified>2012-11-10T22:00:21.000Z</LastModified>
+<ETag>"af32a805d3606cf766d89beb97bbdaf6"</ETag>
+<Size>49071780</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-12-02 The Gospel Changes Everything.mp3</Key>
+<LastModified>2012-11-10T22:05:03.000Z</LastModified>
+<ETag>"b26681bf5508cebbb1b0fbf8ea6cdf59"</ETag>
+<Size>49245252</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-12-09 A Fixed Gaze.mp3</Key>
+<LastModified>2012-11-10T22:09:46.000Z</LastModified>
+<ETag>"f1797eb354749027831a16c87768a84e"</ETag>
+<Size>50081754</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-12-16 Depression.mp3</Key>
+<LastModified>2012-11-10T22:14:34.000Z</LastModified>
+<ETag>"896dcba71cd96d0ed7a1bf3e8a1bc6e7"</ETag>
+<Size>39726810</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-12-23 Christmas-Sovereignty on Display.mp3</Key>
+<LastModified>2012-11-10T22:18:24.000Z</LastModified>
+<ETag>"4c9a2906d9b9174e000ce5deec96c168"</ETag>
+<Size>51238095</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2007-12-30 Sermon.mp3</Key>
+<LastModified>2012-11-10T22:23:19.000Z</LastModified>
+<ETag>"dd6ac1994c6300a8f90b5378dd2f58d5"</ETag>
+<Size>43249626</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-01-06 Joyful Duty.mp3</Key>
+<LastModified>2012-11-10T22:27:29.000Z</LastModified>
+<ETag>"16b72ff02a11357eb28d4550d9694932"</ETag>
+<Size>44510634</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-01-13 The Sovereignty of God on Display.mp3</Key>
+<LastModified>2012-11-10T22:31:43.000Z</LastModified>
+<ETag>"f22d192a2e2bd6979f24c7f0c5c9bef2"</ETag>
+<Size>48633930</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-01-20 One Message, Two Responses.mp3</Key>
+<LastModified>2012-11-10T22:36:24.000Z</LastModified>
+<ETag>"eb636b66620fbe4d289f57beed32e5b4"</ETag>
+<Size>46434255</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-01-27 A Terrible Word.mp3</Key>
+<LastModified>2012-11-10T22:40:50.000Z</LastModified>
+<ETag>"0bebe224dbe86a601a02c8de4d9f737e"</ETag>
+<Size>51600468</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-02-03 Faith Trumps Fear.mp3</Key>
+<LastModified>2012-11-10T22:45:48.000Z</LastModified>
+<ETag>"6315342d4961f0cec700ca808b8a39b7"</ETag>
+<Size>39459930</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-02-10 Marriage.mp3</Key>
+<LastModified>2012-11-10T22:49:36.000Z</LastModified>
+<ETag>"a57ea59547310274b665a8dcce848149"</ETag>
+<Size>37387023</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-02-17 Love and Unity.mp3</Key>
+<LastModified>2012-11-10T22:53:12.000Z</LastModified>
+<ETag>"0656ac1d4d2ba4f43432928437619af0"</ETag>
+<Size>41984031</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-02-24 Eph-5-22-33.mp3</Key>
+<LastModified>2012-11-10T22:57:15.000Z</LastModified>
+<ETag>"f4777f584e98157d02ba3ad4763b9e81"</ETag>
+<Size>46763268</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-03-02 Not Enough The First Time.mp3</Key>
+<LastModified>2012-11-10T23:01:45.000Z</LastModified>
+<ETag>"7133266be988f8f9d64739663810c286"</ETag>
+<Size>48615999</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-03-09 Acts 8_26-40.mp3</Key>
+<LastModified>2012-11-10T23:06:25.000Z</LastModified>
+<ETag>"6c58c4e01392152c3f4722416a1c23b7"</ETag>
+<Size>46436340</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-03-16 Acts 9_1-7.mp3</Key>
+<LastModified>2012-11-10T23:10:52.000Z</LastModified>
+<ETag>"e29dd46a13172fe27009d6eacc4bcdf3"</ETag>
+<Size>44708292</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-03-23 Our Eternal Shepherd.mp3</Key>
+<LastModified>2012-11-10T23:15:10.000Z</LastModified>
+<ETag>"b3c37e2cd6b1e7b01b0e7c6644e360e9"</ETag>
+<Size>48229023</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>
+2008-03-30 Saul_A Showcase of God's Sovereignty_Ananias_A First Century Jonah.mp3
+</Key>
+<LastModified>2012-11-10T23:19:47.000Z</LastModified>
+<ETag>"a23854c997d978a80f5187da54657a01"</ETag>
+<Size>44566095</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-04-06 The Way To Joy.mp3</Key>
+<LastModified>2012-11-10T23:24:04.000Z</LastModified>
+<ETag>"aeda11e0596f0eca9565884c0ad4d8bb"</ETag>
+<Size>48275727</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-04-13 A New Heart.mp3</Key>
+<LastModified>2012-11-10T23:28:42.000Z</LastModified>
+<ETag>"d469556a5d3ac73ea3e6a8feabe5c415"</ETag>
+<Size>43069482</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-04-20 Saul's Contribution.mp3</Key>
+<LastModified>2012-11-10T23:32:50.000Z</LastModified>
+<ETag>"719cdf33048557776382fd03b39e0b21"</ETag>
+<Size>49365348</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-04-27 Saul_A Safe Man Turned Dangerous.mp3</Key>
+<LastModified>2012-11-10T23:37:35.000Z</LastModified>
+<ETag>"d0d43bf01fbc2780553c29256ca28d9e"</ETag>
+<Size>37874079</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-05-04 Faithful Persistence.mp3</Key>
+<LastModified>2012-11-10T23:41:15.000Z</LastModified>
+<ETag>"03ecd88a1b8697d651a1555f4abcf586"</ETag>
+<Size>51671775</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-05-11 Habitats for Divinity.mp3</Key>
+<LastModified>2012-11-10T23:46:12.000Z</LastModified>
+<ETag>"7338064faddb201a5404da4b8c451e2b"</ETag>
+<Size>49783599</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>
+2008-05-18 Seeking the Lord, A Lesson From A King .mp3
+</Key>
+<LastModified>2012-11-10T23:50:59.000Z</LastModified>
+<ETag>"e7622784674773e381ede1e4a8ef3c15"</ETag>
+<Size>58822074</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-05-25 When All Is Well, What to Do.mp3</Key>
+<LastModified>2012-11-10T23:56:40.000Z</LastModified>
+<ETag>"6dc4655194296dca99cd01f786a48447"</ETag>
+<Size>47824116</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-06-01 Peter and Cornelius.mp3</Key>
+<LastModified>2012-11-11T00:01:16.000Z</LastModified>
+<ETag>"4f35fd24abae8fa6ab1a382f9228a5e0"</ETag>
+<Size>46859178</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>
+2008-06-08 The Lord Of All Has Proclaimed Peace.mp3
+</Key>
+<LastModified>2012-11-11T00:05:46.000Z</LastModified>
+<ETag>"ccde71beb2f5469ce45e7a52f0255039"</ETag>
+<Size>54767583</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-06-15 Come and See.mp3</Key>
+<LastModified>2012-11-11T00:11:02.000Z</LastModified>
+<ETag>"8f2216fa254fa0fe79a6cb91fbeaf61a"</ETag>
+<Size>53032863</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-06-22 An Encouragement To Holiness.mp3</Key>
+<LastModified>2012-11-11T00:16:08.000Z</LastModified>
+<ETag>"0082c199d77f52973191a8ae69286455"</ETag>
+<Size>37949556</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-06-29 Return to Glory.mp3</Key>
+<LastModified>2012-11-11T00:19:47.000Z</LastModified>
+<ETag>"6eebc1b164b8865238bd4e1b57f7054e"</ETag>
+<Size>51596298</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-07-06 History Repeats Itself.mp3</Key>
+<LastModified>2012-11-11T00:24:44.000Z</LastModified>
+<ETag>"8bfd8e82bbedea0933c59d4fe3a6ba0a"</ETag>
+<Size>54725466</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-07-13 Endurance in Prayer.mp3</Key>
+<LastModified>2012-11-11T00:29:58.000Z</LastModified>
+<ETag>"7787f7c8d7f2fd51099d970df44f034f"</ETag>
+<Size>40247226</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-07-20 Evidence of God's Grace.mp3</Key>
+<LastModified>2012-11-11T00:33:50.000Z</LastModified>
+<ETag>"f68655e3b4b7890d5e1e64afdbb0f1de"</ETag>
+<Size>42439812</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-08-03 The Mind Of Christ.mp3</Key>
+<LastModified>2012-11-11T00:37:56.000Z</LastModified>
+<ETag>"c75c2273dc0adda92aa6c709962c292b"</ETag>
+<Size>44514804</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-08-10 To Be Called A Christian.mp3</Key>
+<LastModified>2012-11-11T00:42:14.000Z</LastModified>
+<ETag>"f102773f25f3c46b5718dcc2b45030c1"</ETag>
+<Size>48949599</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-08-17 He Who Have Ears, Let Him Hear.mp3</Key>
+<LastModified>2012-11-11T00:46:57.000Z</LastModified>
+<ETag>"44cb782039c184bf131732a68976d94f"</ETag>
+<Size>39166362</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-08-24 What to do Instead of Worrying.mp3</Key>
+<LastModified>2012-11-11T00:50:43.000Z</LastModified>
+<ETag>"28d6f46b4deed46b70fc09146230712e"</ETag>
+<Size>42266340</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-08-31 A Brief Summary.mp3</Key>
+<LastModified>2012-11-11T00:54:47.000Z</LastModified>
+<ETag>"65bcda47f607ed58b2ee12521ab6a08b"</ETag>
+<Size>50228538</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-09-07 The Compassion of The Lord.mp3</Key>
+<LastModified>2012-11-11T00:59:36.000Z</LastModified>
+<ETag>"6fee5111c71d8cb5418edc55be72ffef"</ETag>
+<Size>42408954</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-09-14 The Covenant With David.mp3</Key>
+<LastModified>2012-11-11T01:03:41.000Z</LastModified>
+<ETag>"cc3b5cb33bfd415f84bf1f4053d37eea"</ETag>
+<Size>59844975</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-09-21 Blessings and Folly.mp3</Key>
+<LastModified>2012-11-11T01:09:25.000Z</LastModified>
+<ETag>"db7f18bfc52543f06240d135414a61a1"</ETag>
+<Size>52886079</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-09-28 Jehoshaphat Part 1.mp3</Key>
+<LastModified>2012-11-11T01:14:31.000Z</LastModified>
+<ETag>"6f1b555f0d7196083502d36009e5e950"</ETag>
+<Size>50655546</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-10-05 But Jehoshaphat Cried Out...mp3</Key>
+<LastModified>2012-11-11T01:19:25.000Z</LastModified>
+<ETag>"604f911acbec99db7ad203f6d2edc332"</ETag>
+<Size>58379220</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-10-12 Pray with Purpose.mp3</Key>
+<LastModified>2012-11-11T01:25:00.000Z</LastModified>
+<ETag>"57aac6f18028dc0098f8bcc2e3321331"</ETag>
+<Size>46145274</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-10-19 Our Influences.mp3</Key>
+<LastModified>2012-11-11T01:29:26.000Z</LastModified>
+<ETag>"7c301e6e30b9c4b52a9cfe21c7a780d0"</ETag>
+<Size>58748682</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-10-26 With All Our Heart.mp3</Key>
+<LastModified>2012-11-11T01:35:04.000Z</LastModified>
+<ETag>"21f2b552942cc280e70a1d589d03b94d"</ETag>
+<Size>55599498</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-11-02 For God So Loved.mp3</Key>
+<LastModified>2012-11-11T01:40:25.000Z</LastModified>
+<ETag>"44e941d2e4437d71853bf3f82d990eee"</ETag>
+<Size>42733380</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-11-09 Our Common Failure.mp3</Key>
+<LastModified>2012-11-11T01:44:31.000Z</LastModified>
+<ETag>"dc69d55418e71f37654b718e5044a6b4"</ETag>
+<Size>52098783</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-11-16 A Common Condition.mp3</Key>
+<LastModified>2012-11-11T01:49:31.000Z</LastModified>
+<ETag>"67de0cf79e37bff24f9fa678918b2f7a"</ETag>
+<Size>54213807</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-11-23 No End To Thanksgiving.mp3</Key>
+<LastModified>2012-11-11T01:54:42.000Z</LastModified>
+<ETag>"137bad251f35338b072ad52e62447cb9"</ETag>
+<Size>62631786</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-11-30 Jotham.mp3</Key>
+<LastModified>2012-11-11T02:00:44.000Z</LastModified>
+<ETag>"4c86301ae4a73a04bc7b33b0f780ffb4"</ETag>
+<Size>57896751</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-12-07 Seeing God.mp3</Key>
+<LastModified>2012-11-11T02:06:17.000Z</LastModified>
+<ETag>"c6b210831f1b4ff44de35db6c6837dda"</ETag>
+<Size>45153231</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-12-14 Why The God Man.mp3</Key>
+<LastModified>2012-11-11T02:10:38.000Z</LastModified>
+<ETag>"052e7a60c585a5dbd7d63075c3f70e8a"</ETag>
+<Size>42909354</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-12-21 The Advent-Cause For Hope.mp3</Key>
+<LastModified>2012-11-11T02:14:45.000Z</LastModified>
+<ETag>"d25d5cdbd95cb1c238ca647440577416"</ETag>
+<Size>47206122</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2008-12-28 sermon.mp3</Key>
+<LastModified>2012-11-11T02:19:16.000Z</LastModified>
+<ETag>"3ac36b8020159c173257965d14d807d0"</ETag>
+<Size>31340106</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-01-04 Seeing God.mp3</Key>
+<LastModified>2012-11-11T02:22:19.000Z</LastModified>
+<ETag>"1450c13b0d7626cc7d849870892e9f4c"</ETag>
+<Size>62013375</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-01-11 Victims of our Environment.mp3</Key>
+<LastModified>2012-11-11T02:28:14.000Z</LastModified>
+<ETag>"27f7684e633aae9a8bb90ebfa5708cba"</ETag>
+<Size>41977722</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-01-18 She Was Precious To Him.mp3</Key>
+<LastModified>2012-11-11T02:32:17.000Z</LastModified>
+<ETag>"159012d246071f294f25ebd0588b5f40"</ETag>
+<Size>38281071</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-01-25 Preparing For Worship.mp3</Key>
+<LastModified>2012-11-11T02:35:58.000Z</LastModified>
+<ETag>"851bf1dd505669697120fd30f36a2a35"</ETag>
+<Size>47455071</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-02-01 Invitation To The Thirsty.mp3</Key>
+<LastModified>2012-11-11T02:40:32.000Z</LastModified>
+<ETag>"1037043cd21f9c949e31391ae6143232"</ETag>
+<Size>40224708</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-02-08 The Promised Rest.mp3</Key>
+<LastModified>2012-11-11T02:44:23.000Z</LastModified>
+<ETag>"ac8a9001664e3821a30768ede6d99265"</ETag>
+<Size>63332346</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-02-15 The Benefits of Remembering.mp3</Key>
+<LastModified>2012-11-11T02:50:27.000Z</LastModified>
+<ETag>"4582542cac8dd6cd4aa773a9cea47ad4"</ETag>
+<Size>48776127</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-02-22 Hezekiah's One Great Failure.mp3</Key>
+<LastModified>2012-11-11T02:55:09.000Z</LastModified>
+<ETag>"9ece2b097e6b5ed210936c68bae886f1"</ETag>
+<Size>51057951</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-03-01 A Great Task Completed.mp3</Key>
+<LastModified>2012-11-11T03:00:03.000Z</LastModified>
+<ETag>"aa15a113fdc4c387d28ab1a91087e34f"</ETag>
+<Size>53631258</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-03-08 Revelant Repentance.mp3</Key>
+<LastModified>2012-11-11T03:05:13.000Z</LastModified>
+<ETag>"8fa06c7a344377a87e51c0280de9aa21"</ETag>
+<Size>57058164</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-03-15 Sermon.mp3</Key>
+<LastModified>2012-11-11T03:10:42.000Z</LastModified>
+<ETag>"50b475af1f166b033ecffb3d70b3c632"</ETag>
+<Size>55530276</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-03-22 To The Glory of God.mp3</Key>
+<LastModified>2012-11-11T03:16:02.000Z</LastModified>
+<ETag>"25c26ab56ac0dbbe70cbbdfa1514e8b4"</ETag>
+<Size>33850863</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-03-29 The Crooked Made Straight.mp3</Key>
+<LastModified>2012-11-11T03:19:18.000Z</LastModified>
+<ETag>"779b7aa637ed49a8513aa9ef6703a811"</ETag>
+<Size>48954186</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-04-05 The Necessity of God's Wrath.mp3</Key>
+<LastModified>2012-11-11T03:23:59.000Z</LastModified>
+<ETag>"fb12013c365f07e9882a5a46fe740ef6"</ETag>
+<Size>51747252</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-04-12 The Answer is the Resurrection.mp3</Key>
+<LastModified>2012-11-11T03:28:56.000Z</LastModified>
+<ETag>"a4709a4690616daa17c2013d6c1fcf63"</ETag>
+<Size>48615999</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-04-19 Learn From Your Mistakes.mp3</Key>
+<LastModified>2012-11-11T03:33:36.000Z</LastModified>
+<ETag>"7a89d65bbe1da6183ddab1df71256296"</ETag>
+<Size>44861748</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-04-26 The Choice is Yours.mp3</Key>
+<LastModified>2012-11-11T03:37:55.000Z</LastModified>
+<ETag>"6a5f910e446aed1442275eb98ae81fdf"</ETag>
+<Size>48002175</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-05-03 He Is Willing.mp3</Key>
+<LastModified>2012-11-11T03:42:30.000Z</LastModified>
+<ETag>"c7808abd2ab4a540ff755c891143fb15"</ETag>
+<Size>41861850</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-05-10 The Battle Is For The Mind.mp3</Key>
+<LastModified>2012-11-11T03:46:31.000Z</LastModified>
+<ETag>"d25543546dc357e9cb84cbade4e6c052"</ETag>
+<Size>39660036</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-05-17 They Pursued Them.mp3</Key>
+<LastModified>2012-11-11T03:50:20.000Z</LastModified>
+<ETag>"4443ab8e020082a3168c6773a0c1611b"</ETag>
+<Size>47461743</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>
+2009-05-24 Sharing The Truth in the Strength of the Lord.mp3
+</Key>
+<LastModified>2012-11-11T03:54:52.000Z</LastModified>
+<ETag>"cf768a34e622adfdae351268abf5de83"</ETag>
+<Size>50657631</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-05-31 Loving One Another.mp3</Key>
+<LastModified>2012-11-11T03:59:45.000Z</LastModified>
+<ETag>"b468517a2c35b739361f884eea12eda6"</ETag>
+<Size>38487903</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-06-07 That For Which We Eagerly Await.mp3</Key>
+<LastModified>2012-11-11T04:03:26.000Z</LastModified>
+<ETag>"f17272421c175ca60ad00c7ec158ca60"</ETag>
+<Size>50962458</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-06-14 How We are Saved.mp3</Key>
+<LastModified>2012-11-11T04:08:20.000Z</LastModified>
+<ETag>"c59cfb325b9cea2d3d7f3cfe1d68bdf7"</ETag>
+<Size>54180447</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-06-21 Sermon.mp3</Key>
+<LastModified>2012-11-11T04:13:32.000Z</LastModified>
+<ETag>"ce29cee6230ad5bf5436d94d31c045bd"</ETag>
+<Size>28039551</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-06-28 Two Women, Two Gospels.mp3</Key>
+<LastModified>2012-11-11T04:16:14.000Z</LastModified>
+<ETag>"1558a4db495b099ca4bfdf51d069375c"</ETag>
+<Size>57972228</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-07-05 Looking Unto Him Alone.mp3</Key>
+<LastModified>2012-11-11T04:21:48.000Z</LastModified>
+<ETag>"43d1b009efd2c0f8876535d580ed4bd9"</ETag>
+<Size>41009919</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-07-12 Do Yourself No Harm.mp3</Key>
+<LastModified>2012-11-11T04:25:44.000Z</LastModified>
+<ETag>"ab7f0425b83cd358df0a72da372df7ea"</ETag>
+<Size>47246154</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-07-19 Religion Is Not Enough.mp3</Key>
+<LastModified>2012-11-11T04:30:16.000Z</LastModified>
+<ETag>"4e261014e116b80ec8f20cc19b0b13cb"</ETag>
+<Size>61326159</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>
+2009-08-02 The Sovereign Election of a Loving God.mp3
+</Key>
+<LastModified>2012-11-11T04:36:13.000Z</LastModified>
+<ETag>"19a0af8abd3bb954168aac3c843a6299"</ETag>
+<Size>48687306</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-08-09 In Time of Need.mp3</Key>
+<LastModified>2012-11-11T04:40:54.000Z</LastModified>
+<ETag>"879bd9b0b2f4d1f6a6176ce046d48cf3"</ETag>
+<Size>52323546</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-08-16 The Value of Vows.mp3</Key>
+<LastModified>2012-11-11T04:45:56.000Z</LastModified>
+<ETag>"b93b17d1e6f1bd242831717368318ee4"</ETag>
+<Size>52814772</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-08-23 The Greatest Is Not Good Enough.mp3</Key>
+<LastModified>2012-11-11T04:51:01.000Z</LastModified>
+<ETag>"062dfe60de3f98eacf7f1988b81721a4"</ETag>
+<Size>47239482</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-08-30 No More Holding Back.mp3</Key>
+<LastModified>2012-11-11T04:55:33.000Z</LastModified>
+<ETag>"cb3032bda677a6921e60ef911da4b809"</ETag>
+<Size>44681604</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-09-06 Christians Arent Perfect, Just....mp3</Key>
+<LastModified>2012-11-11T04:59:51.000Z</LastModified>
+<ETag>"cb5c0a19b6e7b3ac72b63bfd09bd1c8c"</ETag>
+<Size>40901082</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-09-13 Powerful Evangelism.mp3</Key>
+<LastModified>2012-11-11T05:03:47.000Z</LastModified>
+<ETag>"ed44d5a07e77095f2709fb78d1088e05"</ETag>
+<Size>50835690</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-09-20 Baruch Maoz Part 2.mp3</Key>
+<LastModified>2012-11-11T05:15:37.000Z</LastModified>
+<ETag>"c1d08d207a766bc73e4ede7bb9a0a406"</ETag>
+<Size>47432970</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-09-20 Baruch Maoz.mp3</Key>
+<LastModified>2012-11-11T05:08:39.000Z</LastModified>
+<ETag>"c412594ccf3eb5fbd7b6f3d88c8543dc-2"</ETag>
+<Size>72650628</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-09-27 Henry Wiley.mp3</Key>
+<LastModified>2012-11-11T05:20:09.000Z</LastModified>
+<ETag>"4a496307bead9792b71c0843ad876170"</ETag>
+<Size>28858122</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-10-04 Statements_Penhale_Hardin.mp3</Key>
+<LastModified>2012-11-11T05:22:56.000Z</LastModified>
+<ETag>"fcc88ecd604bad28016283082a83101f"</ETag>
+<Size>34171482</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-10-11 A Never-ending Testimony.mp3</Key>
+<LastModified>2012-11-11T05:26:13.000Z</LastModified>
+<ETag>"cd4a03836b87504090d993f7154d6826"</ETag>
+<Size>51691791</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-10-18 A Realistic Assessment.mp3</Key>
+<LastModified>2012-11-11T05:31:11.000Z</LastModified>
+<ETag>"ef342add007139338ade8b0193a17593"</ETag>
+<Size>49452084</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-10-25 Things Helpful Things Necessary.mp3</Key>
+<LastModified>2012-11-11T05:35:56.000Z</LastModified>
+<ETag>"95c360412e40491713f14aaf6e2df850"</ETag>
+<Size>37776084</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2009-11-01 What You Can Bear.mp3</Key>
+<LastModified>2012-11-11T05:39:34.000Z</LastModified>
+<ETag>"da19bcd1ae4b720efcfa6a1c1b896962"</ETag>
+<Size>48497988</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-01-02 We See Jesus.mp3</Key>
+<LastModified>2012-09-08T17:08:23.000Z</LastModified>
+<ETag>"034039873deb4a85cf0da05abfce2bf7"</ETag>
+<Size>50251392</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-01-09 The Church as a Body.mp3</Key>
+<LastModified>2012-09-08T17:13:16.000Z</LastModified>
+<ETag>"50fd5e3628870b0ceacd40ce21861ed9"</ETag>
+<Size>48628992</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-01-16 The Name of the Lord.mp3</Key>
+<LastModified>2012-09-08T17:17:58.000Z</LastModified>
+<ETag>"d52a66c145fbc8f8f36aa90eea32020e"</ETag>
+<Size>45040896</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-01-23 The New Covenant is New.mp3</Key>
+<LastModified>2012-09-08T17:22:21.000Z</LastModified>
+<ETag>"2435bc03356568c40a8d5d5935896394"</ETag>
+<Size>57884928</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-01-30 No Other Gods.mp3</Key>
+<LastModified>2012-09-08T17:28:08.000Z</LastModified>
+<ETag>"fab6c8e8615cd821357b91cfe8b3e273"</ETag>
+<Size>41806080</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-02-06 The Preeminence of Christ.mp3</Key>
+<LastModified>2012-09-08T17:32:11.000Z</LastModified>
+<ETag>"728a83bff1e09a730c1135f9a3bcbd49"</ETag>
+<Size>47559552</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-02-13 He Cannot Be Manipulated.mp3</Key>
+<LastModified>2012-09-08T17:36:48.000Z</LastModified>
+<ETag>"fa0eed3834ad62650abac0b3ec49c63c"</ETag>
+<Size>42935040</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-02-20 Our True Rest.mp3</Key>
+<LastModified>2012-09-08T17:40:58.000Z</LastModified>
+<ETag>"6c3bb15a498ca636a62ad8ae613d968c"</ETag>
+<Size>52691712</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-02-27 Because It Matters.mp3</Key>
+<LastModified>2012-09-08T17:46:04.000Z</LastModified>
+<ETag>"2a5b63164de96298d8be1f49676b2031"</ETag>
+<Size>49365888</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-03-06 God's Wisdom Vindicated.mp3</Key>
+<LastModified>2012-09-08T17:50:48.000Z</LastModified>
+<ETag>"c6ebfe91cc4b5b1f08f414b3d27c446c"</ETag>
+<Size>43113600</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-03-13 Responding With Grace to Sin.mp3</Key>
+<LastModified>2012-09-08T17:55:04.000Z</LastModified>
+<ETag>"fe0e9a3892e2976e6fb429f308f7136a"</ETag>
+<Size>37756032</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-03-20 Our Struggle and Our Hope.mp3</Key>
+<LastModified>2012-09-08T17:58:45.000Z</LastModified>
+<ETag>"0c66d1e53779192fd30093de426a939c"</ETag>
+<Size>58207488</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-03-27 Everyone's Biggest Problem.mp3</Key>
+<LastModified>2012-09-08T18:04:25.000Z</LastModified>
+<ETag>"1c71f3442d1c1aa29233ea22664fc514"</ETag>
+<Size>59517696</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-04-03 The Beginning.mp3</Key>
+<LastModified>2012-09-08T18:10:13.000Z</LastModified>
+<ETag>"b400c5f0409ba9ab2654e6573cc9ac64"</ETag>
+<Size>46897536</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-04-10 Why John the Baptist.mp3</Key>
+<LastModified>2012-09-08T18:18:27.000Z</LastModified>
+<ETag>"9a7e26ee1029cd86766829e58e57fffe"</ETag>
+<Size>51093888</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-04-17 The Word Became Flesh.mp3</Key>
+<LastModified>2012-09-08T18:23:25.000Z</LastModified>
+<ETag>"482bfb8ac42625abe3caa03200eb0569"</ETag>
+<Size>46394496</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-04-24 Our Answer to God.mp3</Key>
+<LastModified>2012-09-08T18:27:56.000Z</LastModified>
+<ETag>"4e9a9aa679329ba75db06f716dd92f87"</ETag>
+<Size>45638784</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-05-01 The Thief on The Cross.mp3</Key>
+<LastModified>2012-09-08T18:32:24.000Z</LastModified>
+<ETag>"7a3640cfc3ff9c0f67144237b346d690"</ETag>
+<Size>50040960</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-05-08 Behold the Lamb.mp3</Key>
+<LastModified>2012-09-08T18:37:13.000Z</LastModified>
+<ETag>"591c6c39dec72c17192513cedd4d744c"</ETag>
+<Size>38488704</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-05-15 Three Testimonies About Jesus.mp3</Key>
+<LastModified>2012-09-08T18:40:57.000Z</LastModified>
+<ETag>"afe1ee448138e5d536f8c1b71b2c3da4"</ETag>
+<Size>51452160</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>
+2011-05-22 Everyone's Biggest Problem_Ignorance of the Righteousness of God, Part II.mp3
+</Key>
+<LastModified>2012-09-08T18:45:58.000Z</LastModified>
+<ETag>"e62644b8c198b46b479120873bacf730"</ETag>
+<Size>61608192</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-05-29 Treasures in Earthen Vessels.mp3</Key>
+<LastModified>2012-09-08T18:51:55.000Z</LastModified>
+<ETag>"5d1d9dc5c11565f8dc4f98874af7e23a"</ETag>
+<Size>57018240</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-06-05 The Gospel Changes Our Prayer Lives.mp3</Key>
+<LastModified>2012-09-08T18:57:26.000Z</LastModified>
+<ETag>"ecc3acf2fc19f62c88fb29fd7d34cea7"</ETag>
+<Size>54527616</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-06-12 Heaven Is Open.mp3</Key>
+<LastModified>2012-09-08T19:02:43.000Z</LastModified>
+<ETag>"b50f172ae3fb5fffe772fbc10b2283eb"</ETag>
+<Size>49501440</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-06-19 Finding Christ.mp3</Key>
+<LastModified>2012-09-08T19:07:30.000Z</LastModified>
+<ETag>"d72de4ba1b96de6580578ba26234f9f9"</ETag>
+<Size>50913024</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-07-03 Three Fickle Enthusiasts.mp3</Key>
+<LastModified>2012-09-08T19:19:51.000Z</LastModified>
+<ETag>"16ecea8794d3f72bd761cd7fb1baff2d"</ETag>
+<Size>42844800</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-07-17 Christ Our Prophet Priest and King.mp3</Key>
+<LastModified>2012-09-08T19:30:17.000Z</LastModified>
+<ETag>"fea6cfed33bf5029fa22cfe4446528a7"</ETag>
+<Size>37516416</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-07-24 What Jesus Believes.mp3</Key>
+<LastModified>2012-09-08T19:35:34.000Z</LastModified>
+<ETag>"7327eea525d3dbb15501b3dcb382c42c"</ETag>
+<Size>44729472</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-07-31 You Must Be Born Again.mp3</Key>
+<LastModified>2012-09-08T19:39:53.000Z</LastModified>
+<ETag>"afbd59017fcb72ef882eec2e2383028c"</ETag>
+<Size>40095360</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-08-07 The Work of the Spirit.mp3</Key>
+<LastModified>2012-09-08T19:43:46.000Z</LastModified>
+<ETag>"d0395d31a57b0958335407963e2fe815"</ETag>
+<Size>32561664</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-08-14 The Heavenly Meaning.mp3</Key>
+<LastModified>2012-09-08T19:46:54.000Z</LastModified>
+<ETag>"9d0cc176f55c325a352655b55db2fd50"</ETag>
+<Size>32267904</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-08-21 The Love of God.mp3</Key>
+<LastModified>2012-09-08T19:50:02.000Z</LastModified>
+<ETag>"ac5d935a8a59aefb84105443e9d04484"</ETag>
+<Size>37363968</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-08-28 Our Strength is in the Lord.mp3</Key>
+<LastModified>2012-09-08T19:53:38.000Z</LastModified>
+<ETag>"0d1b077da2f002291c0bf36fe36cb352"</ETag>
+<Size>26452608</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-09-11 A Privilege and a Peril.mp3</Key>
+<LastModified>2012-09-08T19:56:12.000Z</LastModified>
+<ETag>"4fac07cbaf8cfda904545b03a6b70df3"</ETag>
+<Size>38812224</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-09-18 Jesus is Better.mp3</Key>
+<LastModified>2012-09-08T19:59:56.000Z</LastModified>
+<ETag>"4da852101f6a6fba7a1afc8e241ed697"</ETag>
+<Size>30868062</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-09-25 He is Not Mocked.mp3</Key>
+<LastModified>2012-09-08T20:02:55.000Z</LastModified>
+<ETag>"22d873296f622b0804bfbe618ae32ea8"</ETag>
+<Size>38566299</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-10-02 Building and Defending.mp3</Key>
+<LastModified>2012-09-08T20:06:42.000Z</LastModified>
+<ETag>"1ffa0b31fe658026393b6aff5b477883"</ETag>
+<Size>36361620</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>
+2011-10-09 The Purpose of Miracles, Signs and Wonders.mp3
+</Key>
+<LastModified>2012-09-08T20:15:07.000Z</LastModified>
+<ETag>"6ea0d8acefd55b39f93d6e68453fdc7b"</ETag>
+<Size>34307478</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>
+2011-10-16 The Course and Climax of Divine Revelation.mp3
+</Key>
+<LastModified>2012-09-08T20:18:26.000Z</LastModified>
+<ETag>"20992cc57bff11e6ab4f9a0ab6abd8e0"</ETag>
+<Size>38622594</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-10-23 The Cool Church.mp3</Key>
+<LastModified>2012-09-08T20:22:09.000Z</LastModified>
+<ETag>"1762eb50487d586b5ebcc6afade28892"</ETag>
+<Size>46870854</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-10-30 True Worship Unveiled.mp3</Key>
+<LastModified>2012-09-08T20:26:41.000Z</LastModified>
+<ETag>"ef12402f359b12421aecbbdbbd52eb05"</ETag>
+<Size>49672260</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>
+2011-11-13 The Transforming Power of the Gospel.mp3
+</Key>
+<LastModified>2012-09-08T20:31:29.000Z</LastModified>
+<ETag>"4f496a60b5296696da3b440941465e48"</ETag>
+<Size>42257166</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-11-20 John 24_31-38.mp3</Key>
+<LastModified>2012-09-08T20:35:36.000Z</LastModified>
+<ETag>"7402204d53141b2a22b50dbf7a9bf20f"</ETag>
+<Size>37156422</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-11-27 A Tale of Two Faiths.mp3</Key>
+<LastModified>2012-09-08T20:39:11.000Z</LastModified>
+<ETag>"b0903773926fea3e3eba246bed90404d"</ETag>
+<Size>43045296</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-12-04 Restoring What Was Lost.mp3</Key>
+<LastModified>2012-09-08T20:43:22.000Z</LastModified>
+<ETag>"84b8a4a5c6c6f155a2a896ede9e628ed"</ETag>
+<Size>29685867</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-12-11 The Lord at the Pool.mp3</Key>
+<LastModified>2012-09-08T20:46:14.000Z</LastModified>
+<ETag>"d53daf3a76648d026ca0d67068fc1b51"</ETag>
+<Size>39667179</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-12-18 Honoring God.mp3</Key>
+<LastModified>2012-09-08T20:50:04.000Z</LastModified>
+<ETag>"2f127d95e8c12a10d2b94f6b170e23d0"</ETag>
+<Size>42749226</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2011-12-25 God Sent His Son.mp3</Key>
+<LastModified>2012-09-08T20:54:12.000Z</LastModified>
+<ETag>"25dec40e362c4f10a0a63ce34e814622"</ETag>
+<Size>26019186</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-01-01 Servants of Christ.mp3</Key>
+<LastModified>2012-08-16T04:04:04.000Z</LastModified>
+<ETag>"e7c4bb1a2231c1995aa7b716aa672772"</ETag>
+<Size>51303564</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-01-08 Our Part To Hear.mp3</Key>
+<LastModified>2012-08-16T04:11:55.000Z</LastModified>
+<ETag>"1f418d4cef23d671a459ffee17066897"</ETag>
+<Size>43363884</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-01-15 The Danger of Religion.mp3</Key>
+<LastModified>2012-08-16T04:31:08.000Z</LastModified>
+<ETag>"b64975cd0baf7614600bc99c926f048a"</ETag>
+<Size>37839468</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-01-22 The Lords Supply.mp3</Key>
+<LastModified>2012-08-16T04:38:36.000Z</LastModified>
+<ETag>"441c25313f8c9fa8ee6fdf9b8c189b0e"</ETag>
+<Size>43956858</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-01-29 Hard Hearts Miss The Point.mp3</Key>
+<LastModified>2012-08-16T04:46:43.000Z</LastModified>
+<ETag>"20a626d098cf8045db8d0441f941ddec"</ETag>
+<Size>39175119</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>
+2012-02-05 The Person and Purposeof the Revelation of Jesus Christ.mp3
+</Key>
+<LastModified>2012-08-16T04:54:04.000Z</LastModified>
+<ETag>"5eaa0a59e780f0fbc352000b19ad413a"</ETag>
+<Size>53465292</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-02-12 The Shadow of Christ in David.mp3</Key>
+<LastModified>2012-08-16T05:04:27.000Z</LastModified>
+<ETag>"8387ae1345717ec5f20639d81bd11cf4"</ETag>
+<Size>42037407</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-02-19 Count it All Joy.mp3</Key>
+<LastModified>2012-08-16T05:18:35.000Z</LastModified>
+<ETag>"8c11a967afb79c5cd4106c5bbc153a64"</ETag>
+<Size>30881823</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-02-26 A Place To Flee.mp3</Key>
+<LastModified>2012-08-16T05:28:28.000Z</LastModified>
+<ETag>"de11b0cb76c1367f79349781fc63a365"</ETag>
+<Size>46917558</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-03-04 The Bread of Life.mp3</Key>
+<LastModified>2012-08-16T02:55:06.000Z</LastModified>
+<ETag>"ca9e9f6ded78442f2358c2b306975a62"</ETag>
+<Size>39800202</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-03-11 The Crisis of Jesus Word.mp3</Key>
+<LastModified>2012-08-16T05:44:23.000Z</LastModified>
+<ETag>"fb2db5e3b1927d1355c37ec9e9e74ed3"</ETag>
+<Size>42041994</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-03-18 The Christian's Trials.mp3</Key>
+<LastModified>2012-08-16T05:53:54.000Z</LastModified>
+<ETag>"7778b166b1a3dcdea6f0473eebff38a7"</ETag>
+<Size>50173494</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-03-25 The Word of God.mp3</Key>
+<LastModified>2012-08-16T06:05:31.000Z</LastModified>
+<ETag>"e828a7eaea2a4fc4af47a48a77bf4b03"</ETag>
+<Size>33740775</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-04-01 Pray Without These.mp3</Key>
+<LastModified>2012-08-16T06:11:54.000Z</LastModified>
+<ETag>"a3f5c8c50ef45dd1414980db52599a95"</ETag>
+<Size>44533986</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-04-08 Lazarus Wasn't Enough.mp3</Key>
+<LastModified>2012-08-16T06:20:20.000Z</LastModified>
+<ETag>"0e8088997d1068eb4be104e631ae69f7"</ETag>
+<Size>40480746</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-04-15 The World Hated Him.mp3</Key>
+<LastModified>2012-08-16T06:28:01.000Z</LastModified>
+<ETag>"9fcde002aae01fffae6cddba0930dfe7"</ETag>
+<Size>31279224</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-04-22 Sermon.mp3</Key>
+<LastModified>2012-08-16T06:34:18.000Z</LastModified>
+<ETag>"73fbedfd735e501c8e642d4c73259ae0"</ETag>
+<Size>22133580</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>
+2012-04-29 The Power and the Promise of the Revelation of Jesus Christ.mp3
+</Key>
+<LastModified>2012-08-16T06:38:38.000Z</LastModified>
+<ETag>"1ad520dda3f7abf0b1ed8aa303d0dbce"</ETag>
+<Size>57131556</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-05-06 The Trouble with Worry.mp3</Key>
+<LastModified>2012-09-06T03:47:26.000Z</LastModified>
+<ETag>"655408274f17126688db1b0064564d55"</ETag>
+<Size>34782024</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-05-13 Knowing God's Will.mp3</Key>
+<LastModified>2012-09-06T03:50:50.000Z</LastModified>
+<ETag>"791bc58f2b8e70af25b074917bc5e1e9"</ETag>
+<Size>27594612</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-05-20 God Helps Not Tempts.mp3</Key>
+<LastModified>2012-09-06T03:53:31.000Z</LastModified>
+<ETag>"7db16bffe3592569a4cc9db9c7028c15"</ETag>
+<Size>26938671</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-05-27 Epitaph of a Faithful Man.mp3</Key>
+<LastModified>2012-09-06T03:56:07.000Z</LastModified>
+<ETag>"53fcc552b4fe2b8337eb5cb8f7f3798d"</ETag>
+<Size>48204420</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-06-03 The Danger of Judging.mp3</Key>
+<LastModified>2012-09-06T04:00:46.000Z</LastModified>
+<ETag>"14381e9d0a2ed0fe177b7efafa48d539"</ETag>
+<Size>40414443</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>
+2012-06-10 Understanding the True Nature of Trials.mp3
+</Key>
+<LastModified>2012-09-06T04:04:41.000Z</LastModified>
+<ETag>"6cc91afa714f8b592abfb8673c2b916e"</ETag>
+<Size>56990610</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-06-17 The Duty of Specks and Planks.mp3</Key>
+<LastModified>2012-09-06T04:10:13.000Z</LastModified>
+<ETag>"22122e41ae493770463afe5cf5e25824"</ETag>
+<Size>57226632</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-06-24 To Know God's Will.mp3</Key>
+<LastModified>2012-09-06T04:15:44.000Z</LastModified>
+<ETag>"10920eafcdf733e9d7072e1db7c9bdbc"</ETag>
+<Size>49112646</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-07-01 A Right View of God.mp3</Key>
+<LastModified>2012-09-06T04:20:29.000Z</LastModified>
+<ETag>"5596ac392cb3cd14fc426444f87dcc05"</ETag>
+<Size>28641282</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-07-15 He Defends the Guilty.mp3</Key>
+<LastModified>2012-09-06T04:23:16.000Z</LastModified>
+<ETag>"ac9ca8de8b0de46af325cde6bffd3426"</ETag>
+<Size>55790484</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-07-22 Grace and Peace from God, Part 1.mp3</Key>
+<LastModified>2012-09-06T04:28:41.000Z</LastModified>
+<ETag>"e0984538ba62fb84f7d18524026d5a96"</ETag>
+<Size>51124671</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-07-29 John 812.mp3</Key>
+<LastModified>2012-09-06T04:33:38.000Z</LastModified>
+<ETag>"9a14e27dc378d34392b5542525eb290e"</ETag>
+<Size>48309504</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-08-05 God's Unresonable Generosity.mp3</Key>
+<LastModified>2012-09-06T04:38:18.000Z</LastModified>
+<ETag>"0cd4f8057aea2f857debec6508b7b257"</ETag>
+<Size>43473138</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-08-12 Knowing and Knowing.mp3</Key>
+<LastModified>2012-09-06T04:42:40.000Z</LastModified>
+<ETag>"f24e746ca3129fd62d70e3edfb568916"</ETag>
+<Size>55531944</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-08-19 Glory Departs.wav</Key>
+<LastModified>2012-09-06T04:48:01.000Z</LastModified>
+<ETag>"4207922da9846e81ca8d41673c9dbc1d-8"</ETag>
+<Size>501753102</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-08-26 Your True Father.mp3</Key>
+<LastModified>2012-09-06T05:36:27.000Z</LastModified>
+<ETag>"35c9df0f84d118cf871e9cceb2a53fe1"</ETag>
+<Size>57789582</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-09-02 Truly Receiving The Word Of God.mp3</Key>
+<LastModified>2012-09-06T03:41:02.000Z</LastModified>
+<ETag>"7da65af677f12f0b6ed2f903318d649d"</ETag>
+<Size>65906487</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-09-09 Where Is My Honor.mp3</Key>
+<LastModified>2012-09-09T20:10:40.000Z</LastModified>
+<ETag>"64017bf57c850c84dff1d815e2ebabca"</ETag>
+<Size>52091694</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-09-16 Total Transformation.mp3</Key>
+<LastModified>2013-01-13T21:08:51.000Z</LastModified>
+<ETag>"d3c16d2d2807b5e670f546f300efec1d"</ETag>
+<Size>53706735</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-09-23 Total Transformation.mp3</Key>
+<LastModified>2013-01-13T21:14:01.000Z</LastModified>
+<ETag>"8e68643b9ec1df193ef4df671c035204"</ETag>
+<Size>53830584</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-09-30 Jesus, The Good Shepherd.mp3</Key>
+<LastModified>2013-01-13T21:19:12.000Z</LastModified>
+<ETag>"4ac658438961cc519f70f35bb105c452"</ETag>
+<Size>59047254</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-10-07 Grace and Peace from God Part2.mp3</Key>
+<LastModified>2013-01-13T21:24:52.000Z</LastModified>
+<ETag>"78f4a3bcd13ccddca4dfc0b077ebeaa1"</ETag>
+<Size>47818695</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-10-14 Deaths Power Will Be Removed.mp3</Key>
+<LastModified>2013-01-13T21:29:30.000Z</LastModified>
+<ETag>"c738c17b4c5fdedb5de204fd8e0e96c4"</ETag>
+<Size>50893236</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-10-21 God's Glory Working In Us.mp3</Key>
+<LastModified>2013-01-13T21:34:24.000Z</LastModified>
+<ETag>"bf0888cd66e3c9fc1ac4d1a428b7250f"</ETag>
+<Size>55835520</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-10-28 The Prodigal Son.mp3</Key>
+<LastModified>2013-01-13T21:39:46.000Z</LastModified>
+<ETag>"5003f26f88343e2e58a265cdad13f4a9"</ETag>
+<Size>53173392</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-11-11 For the Glory of God.mp3</Key>
+<LastModified>2013-01-13T21:44:54.000Z</LastModified>
+<ETag>"2763447f8143ba191953d21a99ad1871"</ETag>
+<Size>50932434</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-11-18 The Perils of Self-Justification.mp3</Key>
+<LastModified>2013-01-13T21:49:49.000Z</LastModified>
+<ETag>"75742cd3bcc988efc5183fd62dc2c9dc"</ETag>
+<Size>48473802</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-11-25 No Partiality And Why Not.mp3</Key>
+<LastModified>2013-01-13T21:54:30.000Z</LastModified>
+<ETag>"7f3a2ed5a3df09f00e767b6f9194b10b"</ETag>
+<Size>59359170</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-12-09 Denying Yourself.mp3</Key>
+<LastModified>2013-01-13T22:05:58.000Z</LastModified>
+<ETag>"59aa796fbcdd41cf95b0df989de9a97c"</ETag>
+<Size>60043884</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-12-16 The Promises of God.mp3</Key>
+<LastModified>2013-01-13T22:11:43.000Z</LastModified>
+<ETag>"1cbcf1d55df62cd88a43a86076be3713"</ETag>
+<Size>56149104</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-12-23 The Reason for the Advent.mp3</Key>
+<LastModified>2013-01-13T22:17:07.000Z</LastModified>
+<ETag>"d706e67e9ba235b328ceb48285ae0d07"</ETag>
+<Size>37719372</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2012-12-30 Fresh Starts.mp3</Key>
+<LastModified>2013-01-13T22:20:44.000Z</LastModified>
+<ETag>"20742e506f75c7fa49f28051b15419cc"</ETag>
+<Size>39842319</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>
+2013-01-06 Saved by Faith Alone_In God's Word Alone.mp3
+</Key>
+<LastModified>2013-01-13T22:24:33.000Z</LastModified>
+<ETag>"b0de4c392b4eb80f9e13a30a3f8a5470"</ETag>
+<Size>60932928</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+<Contents>
+<Key>2013-01-13 Mercy Unrestrained and Undeserved.mp3</Key>
+<LastModified>2013-01-13T22:30:25.000Z</LastModified>
+<ETag>"7b4b2e904501d77a2fbc174f7a901d93"</ETag>
+<Size>55159563</Size>
+<StorageClass>STANDARD</StorageClass>
+</Contents>
+</ListBucketResult>
