@@ -14,7 +14,7 @@
 \begin{resume}
 
 \section{Education}          
-    Stanford University, PhD, Electrical Engineering, June 2013 (in progress) \\
+    Stanford University, PhD, Electrical Engineering, June 2013 \\
     Stanford University, Masters of Science, Electrical Engineering, May 2012 \\
     University of California Los Angeles, Bachelor of Science, Electrical Engineering, June 2006
 
@@ -22,21 +22,26 @@
     Stanford Graduate Fellowship, Stanford University, 2007 \\
     Dean's Honors List, University of California Los Angeles, five quarters
 
-\section{PhD Research: Nanophotonic computational design}
-Developed software to 
-    design arbitrary linear nanophotonic devices which 
-    are fully three-dimensional and multi-modal,
-    exhibit novel functionality,
-    have very compact footprints,
-    exhibit high efficiency, 
-    are strongly robust to fluctuations in 
-    wavelength, temperature and fabrication error, and
-    are manufacturable.
-Critically, the developed software 
-    does not require the user to be a nanophotonic expert or 
-    to perform any manual tuning. 
-Instead, devices are designed
-    solely based on the user's desired performance specification for the device.
+\section{PhD Research: Nanophotonic Computational Design and Optimization}
+\begin{itemize}
+\item Nanophotonic design and optimization was 
+    a brute force, trial-and-error process
+    which took \emph{weeks to months} to improve a single structure---even with 
+    a good initial guess.
+\item I had to build a system to design structures within a day,
+    solely based on the performance specification of the desired device,
+    and without good initial guesses.
+\item I applied methods from the field of convex optimization 
+    to the physical problem of linear nanophotonic design. 
+    I sped up computation by implementing my method on GPUs,
+    and achieved scale by leveraging the cloud (Amazon EC2).
+\item This resulted in the design 
+    of nanophotonic devices that were either
+    more compact, more robust, or more efficient 
+    than all previous designs.
+    Critically, these designs only required a day (or two) of computation,
+    and a specification for the intended performance (no good initial guess).
+    \end{itemize}
 
 \section{Publications}          
     ``Objective-first design of high-efficiency, small-footprint couplers between arbitrary nanophotonic waveguide modes'' Jesse Lu, Jelena Vuckovic (Optics Express, 2012). \\
@@ -58,24 +63,24 @@ Instead, devices are designed
     {\bf Graduate Researcher} \>Jelena Vuckovic Group \>2007-Present\\
                              \>Stanford University
    \end{tabbing}\vspace{-20pt}      % suppress blank line after tabbing
-    Existing nanophotonic design process consisted of trial-and-error
-        where each simulation about 24 hours to complete.
-    Implemented FDTD and FDFD simulation software on hardware-accelerated platforms 
-    to bring simulation times down to 10 minutes.
-    Also developed a novel ``objective-first'' nanophotonic design algorithm
-        and demonstrated automated design of arbitrary linear nanophotonic 
-        devices.
+%   Existing nanophotonic design process consisted of trial-and-error
+%       where each simulation about 24 hours to complete.
+%   Implemented FDTD and FDFD simulation software on hardware-accelerated platforms 
+%   to bring simulation times down to 10 minutes.
+%   Also developed a novel ``objective-first'' nanophotonic design algorithm
+%       and demonstrated automated design of arbitrary linear nanophotonic 
+%       devices.
    \begin{tabbing}
    \hspace{2.3in}\= \hspace{2.6in}\= \kill % set up two tab positions
     {\bf Undergraduate Researcher} \>Eli Yablonovitch Group \> 2005-2006\\
                           \>University of California, Los Angeles
    \end{tabbing}\vspace{-20pt}
-    Surface plasmon focusing device required a grating coupler to inject energy
-        into the surface plasmon mode.
-    Wrote a Matlab program interfacing with a FEM package (COMSOL),
-        developed a hierarchal optimization routine as well as an extended 
-        transfer matrix model to produce first-ever thoroughly optimized 
-        grating coupler design.
+%   Surface plasmon focusing device required a grating coupler to inject energy
+%       into the surface plasmon mode.
+%   Wrote a Matlab program interfacing with a FEM package (COMSOL),
+%       developed a hierarchal optimization routine as well as an extended 
+%       transfer matrix model to produce first-ever thoroughly optimized 
+%       grating coupler design.
    
 \end{resume}
 \end{document}
