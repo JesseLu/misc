@@ -1,0 +1,169 @@
+\documentclass[landscape]{foils}
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+\raggedright
+\special{! TeXDict begin /landplus90{true}store end }
+
+\newcommand{\oursection}[1]{
+\foilhead[-1.0cm]{#1}
+}
+
+\newcommand{\myfig}[1]{
+    \begin{figure}[!h]
+    \centerline{\includegraphics[height=6.5cm]{fig/#1.jpg}}
+    \end{figure}
+}
+\newcommand{\widefig}[1]{
+    \begin{figure}[!h]
+    \centerline{\includegraphics[width=\textwidth]{fig/#1.jpg}}
+    \end{figure}
+}
+\newcommand{\tallfig}[1]{
+    \begin{figure}[!h]
+    \centerline{\includegraphics[height=0.8\textheight]{fig/#1.jpg}}
+    \end{figure}
+}
+\newcommand{\medfig}[1]{
+    \begin{figure}[!h]
+    \centerline{\includegraphics[height=10cm]{fig/#1.jpg}}
+    \end{figure}
+}
+\newcommand{\bigfig}[1]{
+    \begin{figure}[!h]
+    \centerline{\includegraphics[height=12cm]{fig/#1.jpg}}
+    \end{figure}
+}
+\newcommand{\BI}{\begin{itemize}\item}
+\newcommand{\I}{\item}
+\newcommand{\EI}{\end{itemize}}
+
+\title{FDTD on the GPU}
+\author{Jesse Lu}
+\MyLogo{Jesse Lu, Jelena Vuckovic group, Stanford University}
+\date{May 21, 2013}
+
+\begin{document}
+\setlength{\parskip}{0cm}
+\maketitle
+
+\begin{itemize} \itemsep -1pt
+\I  The GPU today
+\I  CPU vs GPU 
+\I  Programming the GPU
+\I  Implementing FDTD on the GPU
+\I  Optimizing FDTD on the GPU
+\EI
+
+\vfill
+\newpage
+   
+\oursection{The GPU today}
+\BI GPU (Graphical Processing Unit) once only for 3D gaming, now everywhere.
+\I  Present in virtually all computing form factors
+    \BI Raspberry Pi: 24 GFLOPS Broadcom GPU
+    \I  Titan Supercomputer: 20 PetaFLOPS, 18K+ Nvidia GPUs \EI
+\I  Plays key role in numerous applications
+    \BI graphics: games, video encoding/decoding, \ldots
+    \I  science: protein folding, FDTD simulations, \ldots
+    \I  misc.: bitcoin mining, password cracking, \ldots \EI
+\vfill
+
+\oursection{CPU vs. GPU}
+\widefig{comp}
+\newpage
+% \I  Each of the GPU's 15 scalar multiprocessors contains 196 cores 
+%     (almost 3000 total cores!)
+% \tallfig{smx-block}
+\begin{tabular}{r|c c}
+     & CPU (Intel Xeon E7) & GPU (Nvidia Kepler) \\ \hline
+    Number of cores & 10 & 2940 \\
+    Cache size & 30MB & $\sim$2MB \\
+    FLOPS (single-precision) & 0.67 TFLOPS & 3.7 TFLOPS \\
+    FLOPS (double-precision) & 0.33 TFLOPS & 1.2 TFLOPS \\
+    Memory bandwidth & 102 GB/s & 250 GB/s \\
+    Power draw & 130 W & 250 W
+\end{tabular}
+\I  Spec comparison needs to always be taken with a grain of salt
+    (e.g. ``theoretical maximums'')
+\I  Question: What kind of workloads are most suitable for the CPU? the GPU?
+
+\oursection{Programming the GPU}
+\I  Will focus on Nvidia GPUs and the CUDA programming language
+\I  CUDA uses the SIMD (Single Instruction Multiple Data) model for parallelization
+\I  Programming model mirrors GPU architecture 
+
+\begin{tabular}{c c c}
+Computational & Memory & Software \\ \hline\hline
+core & registers & thread \\ \hline
+multiprocessor & cache/shared memory & thread block \\ \hline
+GPU & global memory & block grid
+\end{tabular}
+\oursection{Implementing FDTD on the GPU}
+\I  We'll just look at a 1D $E$-field update:
+    \begin{equation}
+    E^i = c_0 E^i + c_1 (H^i - H^{i-1}) 
+    \end{equation}
+\I  This is how we would normally do it on the CPU
+    \begin{verbatim}
+    for (int i=0 ; i < N ; i++) {
+        E[i] = c0 * E[i] + c1 * (H[i] - H[i-1]); 
+    }
+    \end{verbatim}
+
+\newpage
+\I  The simplest CUDA version of the update would be:
+    \begin{verbatim}
+    E_update<<<1, N>>>();
+    ...
+    
+    __global__ update_E () {
+        i = threadId;
+        E[i] = c0 * E[i] + c1 * (H[i] - H[i-1]); 
+    }
+    \end{verbatim}
+\I  Each cell is updated by a single thread
+\I  All threads grouped in a single thread block
+
+\newpage
+\I  Launching multiple blocks will allow us to utilize
+        multiple multiprocessors
+    \begin{verbatim}
+    E_update<<<N/16, 16>>>();
+    ...
+
+    __global__ update_E () {
+        i = blockId * 16 + threadId;
+        E[i] = c0 * E[i] + c1 * (H[i] - H[i-1]); 
+    }
+    \end{verbatim}
+
+\oursection{Optimizing FDTD on the GPU}
+\I  Basic optimization question to answer:
+    Are we limited by the memory-bandwidth or by computational power?
+\I  Optimizing memory access patterns is often the key to faster GPU codes
+\I  \emph{Shared memory} resides at the multiprocessor level,
+        and quickly accessed by all cores within the multiprocessor
+\I  We can optimize memory access by eliminating redundant $H$-field loads
+
+\newpage
+\I  Shared memory version of the update function
+    \begin{verbatim}
+    E_update<<<N/16, 16>>>();
+    ...
+
+    __global__ update_E () {
+        i = blockId * 16 + threadId;
+        s_i = threadId;
+        __shared__ float s_H[17];
+        s_H[s_i+1] = H[i];
+        if (threadId == 0) { s_H[0] = H[i-1] };
+        __syncthreads();
+        E[i] = c0 * E[i] + c1 * (s_H[s_i+1] - H[s_i]); 
+    }
+    \end{verbatim}
+
+
+
+\EI
+\end{document}
