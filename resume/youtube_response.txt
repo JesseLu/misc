@@ -1,0 +1,139 @@
+1) Location preference:
+Mountain View: I'd love to be able to interact with the largest breadth of Google engineers. However, any location in the Bay Area is okay with me as well.
+
+2) Technical areas of expertise:
+GPU programming: accelerated codes by factors of 10x-30x using CUDA. 
+Optimization / Machine learning / Numerical linear algebra: with emphasis on convex optimization.
+Distributed systems: from building my own simulation-as-a-service in the cloud.
+Electromagnetic simulation and optimization: may not be relevant to Youtube, but was my Phd thesis.
+
+3) Areas of interest within Youtube:
+
+4) Programming languages:
+Matlab
+Python
+CUDA (for Nvidia GPUs)
+C
+Java
+
+5) Time constraints:
+I would like to start working before the end of the 2013 year at the latest.
+
+6) Availability to start:
+July 1st.
+
+7) References within Google:
+Conley Owens
+Addison Luh
+(I can probably think of others if needed)
+
+Hi Marlene!
+
+I would love and connect with you on the phone. I'm available Tue-Fri 10am-2pm next week. My number is 408 568 9356.
+
+Here are the answers to your questions:
+
+1) Location preference:
+Mountain View: I'd love to be able to interact with the largest breadth of Google engineers. However, any location in the Bay Area is okay with me as well.
+
+2) Technical areas of expertise:
+GPU programming: accelerated codes by factors of 10x-30x using CUDA.
+Optimization / Machine learning / Numerical linear algebra: with emphasis on convex optimization.
+Distributed systems: from building my own simulation-as-a-service in the cloud.
+Electromagnetic simulation and optimization: may not be relevant to Youtube, but was my Phd thesis.
+
+3) Areas of interest within Youtube:
+I'm interested in the "mathy" parts: Algorithms, and especially Machine Learning. Computers understanding videos and how users are interacting with them...
+
+4) Programming languages:
+Matlab
+Python
+CUDA (for Nvidia GPUs)
+C
+Java
+
+5) Time constraints:
+I would like to start working before the end of the 2013 year at the latest.
+
+6) Availability to start:
+July 1st.
+
+7) References within Google:
+Conley Owens
+Addison Luh
+(I can probably think of others if needed)
+
+
+
+On Thu, May 23, 2013 at 9:44 PM, Marlene Madell <mmadell@google.com> wrote:
+Hi Jesse,
+
+Hello from YouTube and hope this email finds you well!
+Thank you for your prior interest in Google and speaking with us before.
+You were referred to our staffing team by a fellow Googler and I'd
+love to connect with you regarding software engineering opportunities.
+I'm a Recruiter with YouTube/Google's engineering staffing team and
+focus on YouTube's search for exceptional talent.
+
+As an overview, YouTube develops the next-generation technologies
+which have changed how millions interact, making accessible and useful
+the world's information.
+Our ambitions reach far beyond just search to handle information at
+the the scale of the web requires ideas from every areas of computer
+science, including information retrieval, artificial intelligence,
+natural language processing, distributed computing, large-scale system
+design, networking, security, data compression and user interface
+design; the list goes on and is growing every day.
+
+Here are some great links about YouTube to check out:
+Working at YouTube: http://www.youtube.com/playlist?list=PLD50347A8DF403110
+
+YouTube Editorials:
+http://www.youtube.com/watch?v=ojqWclLQOxk&feature=player_embedded
+http://www.time.com/time/magazine/article/0,9171,1570808-1,00.html
+http://www.newyorker.com/reporting/2012/01/16/120116fa_fact_seabrook#ixzz1iyuxYIgx
+
+Let's set up a time to connect on the phone.  As I would love to get a
+better understanding of your background and career interests.  Please
+let me know some convenient times and dates over the next week or so,
+to reach you and we'll confirm a time.  You should plan on about 20-30
+minutes. **Please also provide me the best number for you to be
+reached at for our phone chat.
+
+Additionally, in order to streamline the process, it would be great if
+you could provide answers to the following questions. This way we'll
+have a great foundation for our conversation going forward.
+
+1) What is your location preference?
+
+2) What are your technical areas of expertise (eg. Distributed
+systems, Web applications & multi-tiered systems, Advanced Algorithms,
+Machine learning, etc...)?
+
+3) Which areas are you interested in working in at YouTube? Are you
+open to working in other new/interesting areas? (please be brief)
+
+4) What are your strongest programming languages (in order of strength)?
+
+5) Do you have any time constraints (offers expected, vacations planned, etc.)?
+
+6) When would you be available to start a new position?
+
+7) Are there people at Google who know you professionally or
+personally (such as from school) that might be able to provide a
+reference?
+
+I look forward to speaking with you soon Prerit!
+
+best regards, :Marlene
+
+ *YouTube/Google <https://www.google.com/about/jobs/locations/san-bruno/>*
+
+ --
+
+ ~~~~~~~~~~~~~~~~~~~~~~
+ Marlene Madell
+ YouTube / Google Staffing
+ People Operations
+ mmadell@google.com
+
